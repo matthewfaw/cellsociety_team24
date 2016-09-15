@@ -1,3 +1,3 @@
 # cellsociety 
 
-Duke CompSci 308 Cell Society Project
+GUHAN CompSci 308 Cell Society Project
