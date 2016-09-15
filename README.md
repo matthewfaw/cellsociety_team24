@@ -2,4 +2,4 @@
 
 Duke CompSci 308 Cell Society Project
 
-Change here.
+This branch is the master.
