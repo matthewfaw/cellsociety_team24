@@ -16,7 +16,7 @@ Class:
 * Main: Launches the program. Sets up the timeline.
 ##User Interface
 ***
-![UI Mockup a](/images/UISketch.png?raw=true “UI Mockup”)  
+![UI Mockup a](/images/UISketch.jpg?raw=true “UI Mockup”)  
 
 
 * The user interface will contain the 2D grid as well as several options to Start,Pause,Step forward, and Reset the grid. The user will first select the simulation they want from the file selector and press the “Set” button. The grid will then refresh with correct specifications depending on the file selected. The user can also change various features to how the simulation is run based on the sliding scales. To determine the ratios of each of the different states, there will be a special graphic tool to have the percentages inputted. These percentages will checked so they add up to 100. The tool will allow us the flexibility to add more states if need be. If necessary, the interface will also be able to display any statistics associated with the game as well.
