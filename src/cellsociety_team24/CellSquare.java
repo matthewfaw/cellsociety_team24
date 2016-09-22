@@ -21,9 +21,25 @@ public class CellSquare extends Cell {
 	}
 
 	@Override
-	public void remakePoly(Point p) {
-		// TODO Auto-generated method stub
+	public double[] vertices(Point p, double sides) {
+		int x0 = p.getX();
+		int y0 = p.getY();
 		
+		return new double[] {
+				x0 + sides/2, y0 + sides/2,
+				x0 + sides/2, y0 - sides/2,
+				x0 - sides/2, y0 - sides/2,
+				x0 - sides/2, y0 + sides/2
+		};
 	}
 
+	@Override
+	public double getWidth() {
+		return 1;
+	}
+
+	@Override
+	public double getHeight() {
+		return 1;
+	}
 }

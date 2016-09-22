@@ -1,8 +1,6 @@
 package cellsociety_team24;
 
-import javafx.scene.shape.Polygon;
-
-public abstract class Cell extends Polygon {
+public abstract class Cell {
 	private CellState myCurrState;
 	private CellState myNextState;
 	
@@ -19,21 +17,19 @@ public abstract class Cell extends Polygon {
 	abstract public Point[] getNeighbors();
 	
 	/**
-	 * Makes the Polygon with getSides() sides, centered (by area) on Point p
+	 * Gets the vertices of the polygon, if it were centered around p with sidelength sides.
 	 * @param p Point to center Polygon around
-	 */
-	abstract public void remakePoly(Point p);
+	 * @param sides Length of each side
+	 * @return an array of doubles (each pair representing an vertex) in clockwise order starting at 12 o'clock.
+ 	 */
+	abstract public double[] vertices(Point p, double sides);
 	
 	/**
-	 * Moves the cell to its next state. Next state must be precalculated.
+	 * Moves the cell to its next state. Next state must be precalculated (by the grid).
 	 */
 	public void tick(){
 		myCurrState = myNextState;
 		myNextState = null;
-		
-		//Update drawing based on new state
-		setFill(myCurrState.getColor());
-		remakePoly(myCurrState.getLocation());
 	}
 	
 	/**
@@ -44,8 +40,12 @@ public abstract class Cell extends Polygon {
 	}
 	
 	public CellState getState(){
-		return myCurrState;
+		return getState();
 	}
+	
+	abstract public double getWidth();
+
+	abstract public double getHeight();
 	
 	
 }
