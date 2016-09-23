@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StateConfig>
+	<state id="0">
+		<color>#FFFFFF</color>
+		<name>FIRE</name>
+		<rule>testRule1</rule>
+		<neighborhood>adjacent</neighborhood>
+		<properties>
+			<health>100</health>
+			<age>0</age></properties></state>
+	<state id="1">
+		<color>#000000</color>
+		<name>Tree</name>
+		<rule>testRule2</rule>
+		<neighborhood>incident</neighborhood>
+		<properties>
+			<time>90</time></properties>
+	</state></StateConfig>

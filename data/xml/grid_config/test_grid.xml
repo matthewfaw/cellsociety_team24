@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GridConfig>
+	<gridSize>
+		<width>50</width>
+		<height>50</height>
+	</gridSize>
+	<type>hexagonal</type>
+	<stateProportions>
+		<percent id="0" value="30"></percent>
+		<percent id="1" value="40"></percent>
+	</stateProportions>
+	<initalLayout>
+		<GridRow rep="10">0000123</GridRow>
+		<GridRow rep="5">1140123</GridRow>
+	</initalLayout>
+</GridConfig>
