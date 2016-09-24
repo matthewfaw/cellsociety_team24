@@ -7,7 +7,7 @@ public class CellState {
 		myState = state;
 	}
 
-	public int getStateElement(int i){
+	public int getState(int i){
 		if(i >= 0 && i < myState.length)
 			return myState[i];
 		else
@@ -18,11 +18,11 @@ public class CellState {
 		return myState;
 	}
 	
-	public boolean setStateElement(int i, int value){
-		if(i >= 0 && i < myState.length){
-			myState[i] = value;
-			return true;
-		} else
-			return false;
+	public void setState(int val, int i){
+		if (i >= 0 && i < myState.length)
+			myState[i] = val;
+		else
+			throw new IndexOutOfBoundsException();
 	}
+	
 }

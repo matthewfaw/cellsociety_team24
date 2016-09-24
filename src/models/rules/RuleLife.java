@@ -18,10 +18,10 @@ public class RuleLife extends Rule {
 				for (Point p: neighbors){
 					Cell neighbor = getCell(p, grid);
 					if (neighbor != null)
-						livingNeighbors += neighbor.getState().getStateElement(0);
+						livingNeighbors += neighbor.getState(0);
 				}
 				
-				if (grid[i][j].getState().getStateElement(0) == 1){
+				if (grid[i][j].getState(0) == 1){
 					if (livingNeighbors == 2 || livingNeighbors == 3){
 						result[i][j] = grid[i][j].getState();
 					} else {
