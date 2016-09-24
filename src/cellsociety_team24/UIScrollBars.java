@@ -9,33 +9,26 @@ public class UIScrollBars {
 	private ArrayList<ScrollBar> ScrollBarList=new ArrayList<>();
 	private ScrollBar SpeedScrollBar= new ScrollBar();
 	private ScrollBar ParameterScrollBar= new ScrollBar();
+	
 	public UIScrollBars(ArrayList<ScrollBar> myScrollBarList) {
 		//ScrollBarList=new ArrayList<>();
 	}
 
 	public ArrayList<ScrollBar> buildScrollBars(int scale) {
 		addParameter(scale);
-		//addSize(scale);
 		addSpeed(scale);
 		return ScrollBarList;
 	}
 
 	private void addSpeed(int scale) {
-		SpeedScrollBar.setLayoutX(scale*0.625);
-		SpeedScrollBar.setLayoutY(scale*0.875);	
+		SpeedScrollBar.setLayoutX(scale*SplashScreen.FIVE_EIGHTHS);
+		SpeedScrollBar.setLayoutY(scale*SplashScreen.SEVEN_EIGHTHS);	
 		ScrollBarList.add(SpeedScrollBar);
 	}
 
-	/*private void addSize(int scale) {
-		ScrollBar SizeScrollBar= new ScrollBar();
-		SizeScrollBar.setLayoutX(scale*0.625);
-		SizeScrollBar.setLayoutY(scale*0.75);	
-		ScrollBarList.add(SizeScrollBar);
-	}*/
-
 	private void addParameter(int scale) {
-		ParameterScrollBar.setLayoutX(scale*0.625);
-		ParameterScrollBar.setLayoutY(scale*0.625);	
+		ParameterScrollBar.setLayoutX(scale*SplashScreen.FIVE_EIGHTHS);
+		ParameterScrollBar.setLayoutY(scale*SplashScreen.FIVE_EIGHTHS);	
 		ScrollBarList.add(ParameterScrollBar);
 	}
 	

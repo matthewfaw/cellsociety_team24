@@ -1,4 +1,4 @@
-package cellsociety_team24;
+/*package cellsociety_team24;
 
 public class RuleSegregation extends Rule {
 
@@ -8,4 +8,4 @@ public class RuleSegregation extends Rule {
 		return null;
 	}
 
-}
+}*/

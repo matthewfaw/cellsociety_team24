@@ -12,12 +12,12 @@ public class GridViewUpdateSquare extends GridViewUpdate {
 
 	@Override
 	public void AddCell(int width, int height,int size,Cell currcell,Group root) {
-		double cellwidth=(width*0.5)/xmlwidth;
+		/*double cellwidth=(width*0.5)/xmlwidth;
 		double cellheight=(height*0.5)/xmlheight;
 		int cellx=currcell.getXval();
 		int celly=currcell.getYval();
 		int currcellstate =currcell.getState();
-		cellrect = new Rectangle(cellwidth,cellheight, offset+(cellwidth*cellx), offset+(cellheight*celly));
+		cellrect = new Rectangle(cellwidth,cellheight, width*(SplashScreen.OFFSET)+(cellwidth*cellx), width*(SplashScreen.OFFSET)+(cellheight*celly));
         switch(currcellstate){
         	case 0: cellrect.setFill(Color.WHITE); ///HEXADECIMAL??
         			break;
@@ -28,6 +28,6 @@ public class GridViewUpdateSquare extends GridViewUpdate {
         }
         root.getChildren().add(cellrect);
         myShapeCollection.add(cellrect);
-	}
+	*/}
 
 }

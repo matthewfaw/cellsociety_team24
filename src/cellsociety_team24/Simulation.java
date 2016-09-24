@@ -11,8 +11,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
-//import javafx.scene.control.ComboBox;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 
@@ -24,8 +22,7 @@ public class Simulation {
 	private ResourceBundle mytext=ResourceBundle.getBundle("game.Resources/textfiles");
 	private Group myRoot = new Group();
 	private GridViewUpdate myGrid;
-	public static final double HALF=0.5;
-	public static final double QUARTER=0.25;
+	private int mySize=20; //temporary
 	
 
 	public String getTitle() {
@@ -46,23 +43,18 @@ public class Simulation {
 		return mySimScene;
 	}
 	private void setGrid(Group root,int width,int height) {
-		myGrid=new GridViewUpdateSquare(width,height,size,myRoot);
-		myGrid.makeGrid(myRoot,width,height,size);
-		//GridController.myGrid
-		//root.getChildren().add();
-		//Rectangle tempGrid=new Rectangle(width/16, width/16, width/2, width/2);
-		//tempGrid.setFill(Color.GRAY);
-		//root.getChildren().add(tempGrid);
+		myGrid=new GridViewUpdateSquare(width,height,mySize,myRoot);
+		//myGrid.makeGrid(myRoot,width,height,mySize);
 	}
 
 	private void setLabels(Group root,int scale) {
 		Label parameterLabel= new Label(mytext.getString("ParameterText"));
-        parameterLabel.setLayoutX(scale*HALF);
-        parameterLabel.setLayoutY(scale*0.625);
+        parameterLabel.setLayoutX(scale*SplashScreen.HALF);
+        parameterLabel.setLayoutY(scale*SplashScreen.FIVE_EIGHTHS);
         root.getChildren().add(parameterLabel);
         Label speedLabel= new Label(mytext.getString("SpeedText"));
-        speedLabel.setLayoutX(scale*HALF);
-        speedLabel.setLayoutY(scale*0.875);
+        speedLabel.setLayoutX(scale*SplashScreen.HALF);
+        speedLabel.setLayoutY(scale*SplashScreen.SEVEN_EIGHTHS);
         root.getChildren().add(speedLabel);
 		
 	}
@@ -83,6 +75,8 @@ public class Simulation {
 		myButtonList=PutButtons.buildButtons(scale,animation,s);
 		Button stepButton=new Button();
 		stepButton=PutButtons.makeButton("StepCommand", e->step(SplashScreen.SECOND_DELAY,scale,scale));
+		stepButton.setLayoutX(scale*SplashScreen.QUARTER);
+		stepButton.setLayoutY(scale*SplashScreen.ELEVEN_SIXTEENTHS);
 		myButtonList.add(stepButton);
 		Iterator<Button> ButtonIterator= myButtonList.iterator();
         while(ButtonIterator.hasNext()){
@@ -93,7 +87,7 @@ public class Simulation {
 	}
 
 	public void step(double secondDelay, int width, int height) {
-		myGrid.StepGrid(myRoot);
+		//myGrid.StepGrid(myRoot);
 	}
 	
 }

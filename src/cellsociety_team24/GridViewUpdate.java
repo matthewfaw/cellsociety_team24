@@ -2,6 +2,7 @@ package cellsociety_team24;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.ArrayList;
 
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
@@ -26,18 +27,18 @@ public abstract class GridViewUpdate {
 
 	
 	
-	public void makeGrid(Group root,int width,int height,int size){
+	/*public void makeGrid(Group root,int width,int height,int size,Array[] gridarray){
 		//get grid type from XML parser
 		//get gridSize(i.e. 20x20,30x30) from XML Parser	
 			//if(Parse.getType(Square)){}
 		//get array of cells from Controller
-			for(int i=0;i<gridarray.size();i++){
+			for(int i=0;i<gridarray.length;i++){
 				Cell currcell=new Cell();
-				currcell=gridarray(i);
+				currcell=gridarray[i];
 				AddCell(width,height,size,currcell,root);
 			}
-		}
-	public void StepGrid(Group root){
+		}*/
+	/*public void StepGrid(Group root){
 		Iterator<Shape> shapeIterator= myShapeCollection.iterator();
 		for(int i=0;i<gridarray.size();i++){
 			Shape myShape=shapeIterator.next();
@@ -56,7 +57,7 @@ public abstract class GridViewUpdate {
 			root.getChildren().add(myShape);
 		}
 			
-	}
+	}*/
 	public abstract void AddCell(int width, int height, int size, Cell currcell,Group root); 
 	
 }

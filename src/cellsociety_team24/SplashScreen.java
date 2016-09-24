@@ -16,6 +16,13 @@ public class SplashScreen {
 	public static final int FRAMES_PER_SECOND = 60;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+    public static final double HALF=0.5;
+	public static final double QUARTER=0.25;
+	public static final double FIVE_EIGHTHS=0.625;
+	public static final double SEVEN_EIGHTHS=0.875;
+	public static final double THREE_QUARTERS=0.75;
+	public static final double OFFSET=0.0625;
+	public static final double ELEVEN_SIXTEENTHS=0.6875;
 	private int SIZE=800; ///TEMPORARY. SIZE WILL ACTUALLY BE TAKEN FROM XML PARSER
 	private Scene splashScreen;
     private Group splashroot= new Group();
@@ -29,8 +36,8 @@ public class SplashScreen {
     public Scene makeSplashScreen(int width, int height, Stage s) {
 		splashScreen= new Scene(splashroot,width, height, Color.BLACK);
 		Button fileButton= new Button("Select File");
-		fileButton.setLayoutX(width*0.5);
-		fileButton.setLayoutY(height*0.5);
+		fileButton.setLayoutX(width*HALF);
+		fileButton.setLayoutY(height*HALF);
 		splashroot.getChildren().add(fileButton);
 		fileButton.setOnAction(e->fileButtonHandler(s));
 		return splashScreen;

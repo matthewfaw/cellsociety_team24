@@ -28,8 +28,8 @@ public class UIButtons {
 
 	private void addSetSimulation(int scale,Stage s) {
 		Button SetSimulationButton= makeButton("SetSimulationCommand",e->SetSimulationButtonHandler(scale,s));
-		SetSimulationButton.setLayoutX(scale*(Simulation.QUARTER));
-		SetSimulationButton.setLayoutY(scale*0.875);
+		SetSimulationButton.setLayoutX(scale*(SplashScreen.QUARTER));
+		SetSimulationButton.setLayoutY(scale*SplashScreen.SEVEN_EIGHTHS);
 		ButtonList.add(SetSimulationButton);
 	}
 
@@ -42,14 +42,15 @@ public class UIButtons {
 
 	private void addReset(int scale) {
 		Button ResetButton= new Button(mytext.getString("ResetCommand"));
-		ResetButton.setLayoutX(scale*(Simulation.QUARTER));
-		ResetButton.setLayoutY(scale*0.625);
+		ResetButton.setLayoutX(scale*(SplashScreen.QUARTER));
+		ResetButton.setLayoutY(scale*SplashScreen.FIVE_EIGHTHS);
 		ResetButton.setOnAction(e->ResetButtonHandler());
 		ButtonList.add(ResetButton);
 	}
 
 	private void ResetButtonHandler() {
 		//Reset Simulation
+		//Make a step grid call except the grid array is the initial grid array from the start.
 	}
 
 	/*(private void addStep(int scale) {
@@ -73,8 +74,8 @@ public class UIButtons {
 
 	private void addPause(int scale,Timeline animation) {
 		Button PauseButton= makeButton("PauseCommand",e->PauseButtonHandler(animation));
-		PauseButton.setLayoutX(scale*(Simulation.QUARTER));
-		PauseButton.setLayoutY(scale*0.75);
+		PauseButton.setLayoutX(scale*(SplashScreen.QUARTER));
+		PauseButton.setLayoutY(scale*SplashScreen.THREE_QUARTERS);
 		ButtonList.add(PauseButton);
 	}
 
@@ -84,7 +85,7 @@ public class UIButtons {
 
 	private void addStart(int scale,Timeline animation) {
 		Button StartButton= makeButton("StartCommand",e->StartButtonHandler(animation));
-		StartButton.setLayoutX(scale*(Simulation.QUARTER));
+		StartButton.setLayoutX(scale*(SplashScreen.QUARTER));
 		StartButton.setLayoutY(scale*0.8125);
 		ButtonList.add(StartButton);
 	}
