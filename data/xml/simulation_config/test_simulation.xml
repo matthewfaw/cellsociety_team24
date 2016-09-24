@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GameConfig>
+<SimulationConfig>
 	<name>Game of Life</name>
 	<title>The Game of Life Simulation</title>
 	<author>Conway</author>
@@ -8,4 +8,5 @@
 		<height>100</height>
 		<width>100</width></screenSize>
 	<gridFile>test_grid.xml</gridFile>
-	<statesFile>test_states.xml</statesFile></GameConfig>
+	<statesFile>test_states.xml</statesFile>
+</SimulationConfig>
