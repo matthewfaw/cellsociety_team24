@@ -1,4 +1,8 @@
-package cellsociety_team24;
+package models.rules;
+
+import models.Point;
+import models.grid.Cell;
+import models.grid.CellState;
 
 public class RuleLife extends Rule {
 

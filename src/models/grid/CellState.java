@@ -1,4 +1,4 @@
-package cellsociety_team24;
+package models.grid;
 
 public class CellState {
 	private int[] myState;

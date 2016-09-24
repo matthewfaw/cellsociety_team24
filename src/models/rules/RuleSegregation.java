@@ -1,4 +1,7 @@
+package models.rules;
+/*
 package cellsociety_team24;
+
 
 public class RuleSegregation extends Rule {
 
@@ -9,3 +12,4 @@ public class RuleSegregation extends Rule {
 	}
 
 }
+*/

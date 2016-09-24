@@ -1,4 +1,6 @@
-package cellsociety_team24;
+package models.grid;
+
+import models.Point;
 
 public class Cell {
 	private Point myLocation;

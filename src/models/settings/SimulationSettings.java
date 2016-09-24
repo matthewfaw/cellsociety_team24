@@ -1,4 +1,4 @@
-package models;
+package models.settings;
 
 /**
  * A class to manage all of the parameters of the 

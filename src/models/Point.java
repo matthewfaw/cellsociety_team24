@@ -1,4 +1,4 @@
-package cellsociety_team24;
+package models;
 
 /**
  * A class to represent points in I^2 (an ordered pair of integers)

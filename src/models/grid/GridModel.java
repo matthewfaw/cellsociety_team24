@@ -1,4 +1,6 @@
-package cellsociety_team24;
+package models.grid;
+
+import models.rules.Rule;
 
 public class GridModel {
 	private Cell[][] myGrid;
@@ -46,6 +48,7 @@ public class GridModel {
 				result[i][j] = myGrid[i][j].getState();
 			}
 		}
+        return result;
     }
 	
 		
