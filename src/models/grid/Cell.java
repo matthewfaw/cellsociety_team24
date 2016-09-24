@@ -26,6 +26,13 @@ public class Cell {
 		return myCurrState;
 	}
 	
+	public int getState(int i){
+		return myCurrState.getState(i);
+	}
+	public void setState(int val, int i){
+		myCurrState.setState(val, i);;
+	}
+	
 	public Point getLocation(){
 		return myLocation;
 	}

@@ -35,19 +35,31 @@ public class RuleFire extends Rule {
 		
 		for (Point p: neighbors){
 			Cell neighbor = getCell(p, myGrid);
-			if (neighbor.getState().getState()[0] == 2)
+			if (neighbor.getState(0) == 2)
 				burningNeighbors++;
 		}
 		
 
-		if (cell.getState().getState()[0] == 1){
+		if (cell.getState(0) == 1){
 			if(burningNeighbors > 0 && myRandom.nextDouble() < myProbCatch)
-				return new CellState(new int[] {2});
+				return newBurning();
 			else
-				return new CellState(new int[] {1});
+				return newTree();
 		} else {
-			return new CellState(new int[] {0});
+			return newEmpty();
 		}
+	}
+	
+	private CellState newBurning(){
+		return new CellState(new int[] {2});
+	}
+	
+	private CellState newTree(){
+		return new CellState(new int[] {1});
+	}
+	
+	private CellState newEmpty(){
+		return new CellState(new int[] {0});
 	}
 
 }
