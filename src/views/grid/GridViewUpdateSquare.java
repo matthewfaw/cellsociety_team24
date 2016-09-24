@@ -1,11 +1,11 @@
-package cellsociety_team24;
+package views.grid;
 
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import models.grid.Cell;
 
-public class GridViewUpdateSquare extends GridViewUpdate {
+class GridViewUpdateSquare extends GridViewUpdate {
 
 	public GridViewUpdateSquare(int width,int height,int size,Group root) {
 		super(width,height,size,root);
