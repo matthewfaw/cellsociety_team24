@@ -1,4 +1,4 @@
-package game;
+package cellsociety_team24;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -22,21 +22,10 @@ public class Main extends Application {
 	@Override
 	public void start(Stage s) throws Exception {
 		// create your own game here
-        mySimulation = new Simulation();
-        s.setTitle(mySimulation.getTitle());
-
-        // attach game to the stage and display it
-        Scene scene = mySimulation.init(SIZE, SIZE);
-        s.setScene(scene);
+        SplashScreen mysplashscreen = new SplashScreen();
+        Scene myScene=mysplashscreen.makeSplashScreen(SIZE,SIZE, s);
+        s.setScene(myScene);
         s.show();
-
-        // sets the game's loop
-        KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
-                                      e -> mySimulation.step(SECOND_DELAY));
-        Timeline animation = new Timeline();
-        animation.setCycleCount(Timeline.INDEFINITE);
-        animation.getKeyFrames().add(frame);
-        animation.play();
 		
 	}
 

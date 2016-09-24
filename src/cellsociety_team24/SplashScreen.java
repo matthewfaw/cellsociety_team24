@@ -1,4 +1,4 @@
-package game;
+package cellsociety_team24;
 
 import java.io.File;
 
@@ -15,7 +15,7 @@ import javafx.util.Duration;
 public class SplashScreen {
 	public static final int FRAMES_PER_SECOND = 60;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
-    private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+    public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 	private int SIZE=800; ///TEMPORARY. SIZE WILL ACTUALLY BE TAKEN FROM XML PARSER
 	private Scene splashScreen;
     private Group splashroot= new Group();
@@ -29,8 +29,8 @@ public class SplashScreen {
     public Scene makeSplashScreen(int width, int height, Stage s) {
 		splashScreen= new Scene(splashroot,width, height, Color.BLACK);
 		Button fileButton= new Button("Select File");
-		fileButton.setLayoutX(200);
-		fileButton.setLayoutY(700);
+		fileButton.setLayoutX(width*0.5);
+		fileButton.setLayoutY(height*0.5);
 		splashroot.getChildren().add(fileButton);
 		fileButton.setOnAction(e->fileButtonHandler(s));
 		return splashScreen;
@@ -55,13 +55,13 @@ public class SplashScreen {
 
         // sets the game's loop
         KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
-                                      e -> mySimulation.step(SECOND_DELAY));
+                                      e -> mySimulation.step(SECOND_DELAY,SIZE,SIZE));
         Timeline animation = new Timeline();
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.getKeyFrames().add(frame);
         
         // attach game to the stage and display it
-        Scene scene = mySimulation.init(SIZE, SIZE,animation);// init(XMLParse.getSize(),XMLParse.getSize()) 
+        Scene scene = mySimulation.init(SIZE, SIZE,animation,s);// init(XMLParse.getSize(),XMLParse.getSize()) 
         s.setScene(scene);
         s.show();
 
