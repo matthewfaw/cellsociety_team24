@@ -35,7 +35,7 @@ public class RuleFire extends Rule {
 		
 		for (Point p: neighbors){
 			Cell neighbor = getCell(p, myGrid);
-			if (neighbor.getState(0) == 2)
+			if (neighbor != null && neighbor.getState(0) == 2)
 				burningNeighbors++;
 		}
 		

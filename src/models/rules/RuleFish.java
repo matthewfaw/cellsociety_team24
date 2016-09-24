@@ -129,6 +129,12 @@ public class RuleFish extends Rule {
 		
 	}
 	
+	@Override
+	protected Cell getCell(Point p, Cell[][] grid){
+		return grid	[(p.getX() 	+ 	grid.length) 		% grid.length]
+					[(p.getY() 	+ 	grid[0].length) 	% grid[0].length];
+	}
+	
 	private boolean occupied(Point p){
 		Cell c = getCell(p, myGrid);
 		return occupied(c);
