@@ -20,7 +20,7 @@ public class GridModel {
 		calculateAllNextStates();
 		
 		for (int i = 0; i < myGrid.length; i++){
-			for (int j = 0; j < myGrid.length; j++){
+			for (int j = 0; j < myGrid[0].length; j++){
 				myGrid[i][j].tick();
 			}
 		}
@@ -38,7 +38,15 @@ public class GridModel {
 				myGrid[i][j].setState(nextStates[i][j]);
 	}
 	
-
+    public CellState[][] getCellStates(){
+        CellState[][] result = new CellState[myGrid.length][myGrid[0].length];
+        
+        for (int i = 0; i < myGrid.length; i++){
+			for (int j = 0; j < myGrid[0].length; j++){
+				result[i][j] = myGrid[i][j].getState();
+			}
+		}
+    }
 	
 		
 
