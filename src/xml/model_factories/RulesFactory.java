@@ -1,4 +1,4 @@
-package models.factories;
+package xml.model_factories;
 
 /**
  * Creates the proper rules object specified in the XML

@@ -29,7 +29,7 @@ public class CellStyleGuide {
 	 * @param aStateIndex
 	 * @param aHexValue
 	 */
-	void setColor(int aStateIndex, String aHexValue)
+	public void setColor(int aStateIndex, String aHexValue)
 	{
 		fColors.put(aStateIndex, aHexValue);
 	}
@@ -48,7 +48,7 @@ public class CellStyleGuide {
 	 * @param aStateIndex
 	 * @param aName
 	 */
-	void setName(int aStateIndex, String aName)
+	public void setName(int aStateIndex, String aName)
 	{
 		fNames.put(aStateIndex, aName);
 	}

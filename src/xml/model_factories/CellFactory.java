@@ -1,4 +1,8 @@
-package models.factories;
+package xml.model_factories;
+
+import org.w3c.dom.NodeList;
+
+import xml.XMLReader;
 
 /**
  * A class to handle setting up all the proper info for a given cell
@@ -7,5 +11,6 @@ package models.factories;
  *
  */
 public class CellFactory {
+
 
 }
