@@ -5,7 +5,6 @@ import java.util.Collections;
 
 import models.Point;
 import models.grid.Cell;
-import models.grid.CellState;
 
 public class RuleSegregation extends Rule {
 	ArrayList<Cell> myDissenters;
@@ -23,7 +22,7 @@ public class RuleSegregation extends Rule {
 	}
 
 	@Override
-	public CellState[][] calculateNextStates(Cell[][] grid, int gridShape) {
+	public void calculateAndSetNextStates(Cell[][] grid, int gridShape) {
 		myGrid = grid;
 		myGridShape = gridShape;
 		myEmpties = new ArrayList<Cell>();
@@ -38,14 +37,7 @@ public class RuleSegregation extends Rule {
 			}
 		}
 		relocateDissenters();
-		
-		CellState[][] result = new CellState[myGrid.length][myGrid[0].length];
-		for (int i = 0; i < myGrid.length; i++){
-			for (int j = 0; j < myGrid[0].length; j++){
-				result[i][j] = myGrid[i][j].getState();
-			}
-		}
-		return result;
+
 	}
 	
 	private boolean empty(Cell c){
@@ -76,12 +68,10 @@ public class RuleSegregation extends Rule {
 		Collections.shuffle(myDissenters);
 		
 		int i = 0;
-		CellState temp = null;
 		
 		while (i < myEmpties.size() && i < myDissenters.size()){
-			temp = myEmpties.get(i).getState();
-			myEmpties.get(i).setState(myDissenters.get(i).getState());
-			myEmpties.get(i).setState(temp);
+			myEmpties.get(i).setNextState(myDissenters.get(i).getState());
+			myDissenters.get(i).setNextState(myEmpties.get(i).getState());
 		}
 	}
 }

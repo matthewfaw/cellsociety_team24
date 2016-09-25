@@ -1,5 +1,7 @@
 package models.grid;
 
+import java.util.Arrays;
+
 public class CellState {
 	private int[] myState;
 	
@@ -23,6 +25,10 @@ public class CellState {
 			myState[i] = val;
 		else
 			throw new IndexOutOfBoundsException();
+	}
+
+	public CellState copy() {
+		return new CellState(Arrays.copyOf(myState, myState.length));
 	}
 	
 }

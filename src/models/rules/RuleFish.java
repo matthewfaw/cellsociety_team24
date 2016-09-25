@@ -27,28 +27,20 @@ public class RuleFish extends Rule {
 	}
 
 	@Override
-	public CellState[][] calculateNextStates(Cell[][] grid, int gridShape) {
+	public void calculateAndSetNextStates(Cell[][] grid, int gridShape) {
 		myGrid = grid;
 		myShape = gridShape;
 		int prevChron = myGrid[0][0].getState(1);
 		
 		for (int i = 0; i < grid.length; i++){
 			for (int j = 0; j < grid[0].length; j++){
-				if (myGrid[i][j].getState(1) <= prevChron){
-					myGrid[i][j].setState(prevChron + 1, 1);
-					move(myGrid[i][j]);
+				Cell c = myGrid[i][j];
+				
+				if (c.getState(1) <= prevChron){
+					move(c);
 				}
 			}
 		}
-		
-		CellState[][] result = new CellState[grid.length][grid[0].length];
-		for (int i = 0; i < grid.length; i++){
-			for (int j = 0; j < grid[0].length; j++){
-				result[i][j] = myGrid[i][j].getState();
-			}
-		}
-
-		return result;
 	}
 	
 	private void move(Cell c){
@@ -69,26 +61,30 @@ public class RuleFish extends Rule {
 				}
 
 			} else if ( c.getState(0) == 2){
+				if (c.getState(3) <= 0){
+					c.setNextState(newEmpty(c.getState(2) + 1));
+				} else {
 				Point[] options = getNeighbors(c.getLocation(), myShape);
-				
-				ArrayList<Point> optionsWithFish = new ArrayList<Point>();
-				ArrayList<Point> optionsWithoutFish = new ArrayList<Point>();
-				
-				for (Point p: options){
-					if (p != null && !occupied(p))
-						optionsWithoutFish.add(p);
-					if (p != null && occupied(p) && getCell(p, myGrid).getState(0) == 1)
-						optionsWithFish.add(p);
-				}
-				
-				
-				if (!optionsWithFish.isEmpty()){
-					Collections.shuffle(optionsWithFish);
-					moveShark(c, optionsWithFish.get(0));
 					
-				} else if (!optionsWithoutFish.isEmpty()){
-					Collections.shuffle(optionsWithoutFish);
-					moveShark(c, optionsWithoutFish.get(0));
+					ArrayList<Point> optionsWithFish = new ArrayList<Point>();
+					ArrayList<Point> optionsWithoutFish = new ArrayList<Point>();
+					
+					for (Point p: options){
+						if (p != null && !occupied(p))
+							optionsWithoutFish.add(p);
+						if (p != null && occupied(p) && getCell(p, myGrid).getState(0) == 1)
+							optionsWithFish.add(p);
+					}
+					
+					
+					if (!optionsWithFish.isEmpty()){
+						Collections.shuffle(optionsWithFish);
+						moveShark(c, optionsWithFish.get(0));
+						
+					} else if (!optionsWithoutFish.isEmpty()){
+						Collections.shuffle(optionsWithoutFish);
+						moveShark(c, optionsWithoutFish.get(0));
+					}
 				}
 			}
 		}
@@ -97,26 +93,27 @@ public class RuleFish extends Rule {
 	
 	private void moveFish(Cell c, Point p){
 		CellState fish = c.getState();
-		fish.setState(2, fish.getState(2) + 1);
+		fish.setState(fish.getState(1) + 1, 1);
+		fish.setState(fish.getState(2) + 1, 2);
 		
-		if (fish.getState(3) < myFishReproTime)
-			c.setState(new CellState(new int[] {0, fish.getState(1), 0, 0}));
+		if (fish.getState(2) < myFishReproTime)
+			c.setNextState(new CellState(new int[] {0, fish.getState(1), 0, 0}));
 		else {
-			c.setState(new CellState(new int[] {1, fish.getState(1), 0, 0}));
+			c.setNextState(new CellState(new int[] {1, fish.getState(1), 0, 0}));
 			fish.setState(0, 2);
 		}
 		
-		getCell(p, myGrid).setState(fish);
+		getCell(p, myGrid).setNextState(fish);
 	}
 	
 	private void moveShark(Cell c, Point p){
 		CellState shark = c.getState();
 		shark.setState(2, shark.getState(2) + 1);
 		
-		if (shark.getState(3) < mySharkReproTime)
-			c.setState(new CellState(new int[] {0, shark.getState(1), 0, 0}));
+		if (shark.getState(2) < mySharkReproTime)
+			c.setNextState(new CellState(new int[] {0, shark.getState(1), 0, 0}));
 		else {
-			c.setState(new CellState(new int[] {1, shark.getState(1), 0, shark.getState(3)}));
+			c.setNextState(new CellState(new int[] {1, shark.getState(1), 0, shark.getState(3)}));
 			shark.setState(0, 2);
 		}
 		
@@ -125,8 +122,12 @@ public class RuleFish extends Rule {
 		if (destination.getState(0) == 1)
 			shark.setState(3, shark.getState(3) + myFishEnergy);
 		
-		destination.setState(shark);
+		destination.setNextState(shark);
 		
+	}
+	
+	private CellState newEmpty(int chronon){
+		return new CellState(new int[] {0, chronon, 0, 0});
 	}
 	
 	@Override

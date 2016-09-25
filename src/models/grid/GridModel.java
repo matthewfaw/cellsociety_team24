@@ -33,11 +33,7 @@ public class GridModel {
 	 * Calculate a next state for each cell using the given rules
 	 */
 	private void calculateAllNextStates() {
-		CellState[][] nextStates = myRules.calculateNextStates(myGrid, myCellSides);
-		
-		for (int i = 0; i < myGrid.length; i++)
-			for (int j = 0; j < myGrid.length; j++)
-				myGrid[i][j].setState(nextStates[i][j]);
+		myRules.calculateAndSetNextStates(myGrid, myCellSides);
 	}
 	
     public CellState[][] getCellStates(){

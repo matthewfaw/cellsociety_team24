@@ -11,14 +11,16 @@ public class Cell {
 	 * Moves the cell to its next state. Next state must be precalculated (by the grid).
 	 */
 	public void tick(){
-		myCurrState = myNextState;
-		myNextState = null;
+		if (myNextState != null){
+			myCurrState = myNextState;
+			myNextState = null;
+		}
 	}
 	
 	/**
 	 * @param nextState the state that the cell will switch to on the next call of tick
 	 */
-	public void setState(CellState nextState){
+	public void setNextState(CellState nextState){
 		myNextState = nextState;
 	}
 	
@@ -29,8 +31,11 @@ public class Cell {
 	public int getState(int i){
 		return myCurrState.getState(i);
 	}
-	public void setState(int val, int i){
-		myCurrState.setState(val, i);;
+	public void setNextState(int val, int i){
+		if (myNextState == null)
+			myNextState = myCurrState.copy();
+		myNextState.setState(val, i);
+
 	}
 	
 	public Point getLocation(){
