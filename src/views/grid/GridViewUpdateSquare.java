@@ -16,7 +16,7 @@ class GridViewUpdateSquare extends GridViewUpdate {
 	public void AddCell(int width, int height,int size,Cell currcell,Group root) {
 		double cellwidth=(width*0.5)/size;
 		double cellheight=(height*0.5)/size;
-		int cellx=currcell.getXval();
+		/*int cellx=currcell.getXval();
 		int celly=currcell.getYval();
 		int currcellstate =currcell.getState();
 		Rectangle cellrect = new Rectangle(width*(AppResources.OFFSET)+(cellwidth*cellx),height*(AppResources.OFFSET)+(cellheight*celly),cellwidth,cellheight);
@@ -29,7 +29,8 @@ class GridViewUpdateSquare extends GridViewUpdate {
         			break;
         }
         root.getChildren().add(cellrect);
-        myShapeCollection.add(cellrect);
+        myShapeCollection.add(cellrect); 
+        */
 	}
 
 }

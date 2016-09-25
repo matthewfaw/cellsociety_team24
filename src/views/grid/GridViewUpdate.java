@@ -31,9 +31,9 @@ abstract class GridViewUpdate {
 	
 	public void makeGrid(Group root,int width,int height,Collection<Cell> cells){
 		//get gridSize(i.e. 20x20,30x30) from XML Parser
-		int gridsize=Parse.getgridSize();
+		//int gridsize=Parse.getgridSize();
 			for(Cell c: cells){
-				AddCell(width,height,gridsize,c,root);
+			//	AddCell(width,height,gridsize,c,root);
 			}
 		}
 	public void StepGrid(Group root,Collection<Cell> cells){
@@ -41,7 +41,7 @@ abstract class GridViewUpdate {
 		for(Cell c: cells){
 			Shape myShape=shapeIterator.next();
 			root.getChildren().remove(myShape);
-			int currcellstate =c.getState();
+			/*int currcellstate =c.getState();
 			switch(currcellstate){
         	case 0: myShape.setFill(Color.WHITE); ///HEXADECIMAL??
         			break;
@@ -49,7 +49,7 @@ abstract class GridViewUpdate {
         			break;
         	case 2 :myShape.setFill(Color.RED); 
         			break;
-			}
+			}*/
 			root.getChildren().add(myShape);
 		}
 			
