@@ -29,20 +29,18 @@ abstract class GridViewUpdate {
 
 	
 	
-	public void makeGrid(Group root,int width,int height,int size,Collection<Cell> cells){
-		//get grid type from XML parser
-		//get gridSize(i.e. 20x20,30x30) from XML Parser	
-			//if(Parse.getType(Square)){}
-		//get array of cells from Controller
+	public void makeGrid(Group root,int width,int height,Collection<Cell> cells){
+		//get gridSize(i.e. 20x20,30x30) from XML Parser
+		int gridsize=Parse.getgridSize();
 			for(Cell c: cells){
-				AddCell(width,height,size,c,root);
+				AddCell(width,height,gridsize,c,root);
 			}
 		}
 	public void StepGrid(Group root,Collection<Cell> cells){
-		//Iterator<Shape> shapeIterator= myShapeCollection.iterator();
+		Iterator<Shape> shapeIterator= myShapeCollection.iterator();
 		for(Cell c: cells){
-			//Shape myShape=shapeIterator.next();
-			//root.getChildren().remove(myShape);
+			Shape myShape=shapeIterator.next();
+			root.getChildren().remove(myShape);
 			int currcellstate =c.getState();
 			switch(currcellstate){
         	case 0: myShape.setFill(Color.WHITE); ///HEXADECIMAL??

@@ -21,11 +21,11 @@ class GridViewUpdateSquare extends GridViewUpdate {
 		int currcellstate =currcell.getState();
 		Rectangle cellrect = new Rectangle(width*(AppResources.OFFSET)+(cellwidth*cellx),height*(AppResources.OFFSET)+(cellheight*celly),cellwidth,cellheight);
         switch(currcellstate){
-        	case 0: cellrect.setFill(Color.WHITE); ///HEXADECIMAL??
+        	case 0: cellrect.setFill(Color.WHITE); ///Parse.color(0)
         			break;
-        	case 1: cellrect.setFill(Color.BLUE);
+        	case 1: cellrect.setFill(Color.BLUE);//Parse.color(1)
         			break;
-        	case 2 :cellrect.setFill(Color.RED); 
+        	case 2 :cellrect.setFill(Color.RED); //Parse.color(2);
         			break;
         }
         root.getChildren().add(cellrect);
