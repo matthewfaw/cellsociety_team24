@@ -70,7 +70,7 @@ public class Cell {
 		return myCurrState;
 	}
 	
-	public int getNextState(String key){
+	public double getNextState(String key){
 		if (myNextState != null)
 			return myNextState.getStateAttrib(key);
 		return myCurrState.getStateAttrib(key);
