@@ -44,7 +44,7 @@ public class RuleLife extends Rule {
 	}
 	
 	private CellState newDead(){
-		return new CellState(1, null);
+		return new CellState(0, null);
 	}
 
 }

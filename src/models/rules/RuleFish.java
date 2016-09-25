@@ -21,7 +21,11 @@ public class RuleFish extends Rule {
 	private int mySharkReproTime;
 	private int myFishEnergy;
 	
-
+	/**
+	 * @param fishReproTime time for fish to reproduce
+	 * @param sharkReproTime time for sharks to reproduce
+	 * @param fishEnergy energy sharks gain by eating a fish
+	 */
 	public RuleFish(int fishReproTime, int sharkReproTime, int fishEnergy) {
 		myFishReproTime = fishReproTime;
 		mySharkReproTime = sharkReproTime;
@@ -38,17 +42,21 @@ public class RuleFish extends Rule {
 			for (int j = 0; j < grid[0].length; j++){
 				Cell c = myGrid[i][j];
 				
-				if (c.getState("Chronon") <= prevChron){
+				if (c.getNextState("Chronon") <= prevChron){
 					move(c);
 				}
 			}
 		}
 	}
 	
+	/**
+	 * Calculates the next move for the occupant of Cell c
+	 * @param c starting cell
+	 */
 	private void move(Cell c){
 		if (occupied(c)){
 			
-			if (c.getStateID() == 1){
+			if (c.getNextStateID() == 1){
 				Point nextMove = pickFishMove(c);
 				if (nextMove != null)
 					moveFish(c, nextMove);
@@ -57,9 +65,9 @@ public class RuleFish extends Rule {
 					c.incrementState("Age");
 				}
 				
-			} else if ( c.getStateID() == 2){
-				if (c.getState("Energy") <= 0){
-					c.setNextState(newEmpty(c.getState("Chronon") + 1));
+			} else if ( c.getNextStateID() == 2){
+				if (c.getNextState("Energy") <= 0){
+					c.setNextState(newEmpty(c.getNextState("Chronon") + 1));
 				} else {
 					Point nextMove = pickSharkMove(c);
 					
@@ -80,7 +88,7 @@ public class RuleFish extends Rule {
 	 * @param p destination
 	 */
 	private void moveFish(Cell c, Point p){
-		CellState fish = c.getState();
+		CellState fish = c.getNextState();
 		fish.increment("Chronon");
 		fish.increment("Age");
 		
@@ -100,7 +108,7 @@ public class RuleFish extends Rule {
 	 * @param p destination
 	 */
 	private void moveShark(Cell c, Point p){
-		CellState shark = c.getState();
+		CellState shark = c.getNextState();
 		shark.increment("Chronon");
 		shark.increment("Age");
 		
@@ -113,7 +121,7 @@ public class RuleFish extends Rule {
 		
 		Cell destination = getCell(p, myGrid);
 		
-		if (destination.getStateID() == 1)
+		if (destination.getNextStateID() == 1)
 			shark.setStateAtttrib(shark.getStateAttrib("Energy") + myFishEnergy, "Energy");
 		
 		destination.setNextState(shark);
@@ -150,7 +158,7 @@ public class RuleFish extends Rule {
 		Point[] options = getNeighbors(c.getLocation(), myShape);
 		
 		for (int i = 0; i < options.length; i++){
-			if (options[i] != null && !(getCell(options[i], myGrid).getStateID() == 1))
+			if (options[i] != null && !(getCell(options[i], myGrid).getNextStateID() == 1))
 				options[i] = null;
 		}
 		ArrayList<Point> nonNullOptions = new ArrayList<Point>(Arrays.asList(options));
@@ -203,7 +211,7 @@ public class RuleFish extends Rule {
 	}
 	
 	private boolean occupied(Cell c){
-		return (c != null && !(c.getStateID() == 0));
+		return (c != null && !(c.getNextStateID() == 0));
 	}
 
 }
