@@ -21,7 +21,7 @@ public class GridSettingsFactory extends XMLFactory {
 		fGridSettingsRB = ResourceBundle.getBundle(RESOURCE_PATH);
 	}
 	
-	private GridSettings createGridSettings()
+	public GridSettings createGridSettings()
 	{
 		Element gridWidthElement = fXmlReader.findFirstChildElement(getResource("GridWidth"));
 		Element gridHeightElement = fXmlReader.findFirstChildElement(getResource("GridHeight"));
