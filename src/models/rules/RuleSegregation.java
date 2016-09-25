@@ -41,12 +41,12 @@ public class RuleSegregation extends Rule {
 	}
 	
 	private boolean empty(Cell c){
-		return c.getState(0) == 0;
+		return c.getStateID() == 0;
 	}
 	
 	private double likeNeighborsPercent(Cell c){
 		Point[] neighbors = getNeighbors(c.getLocation(), myGridShape);
-		int cType = c.getState(0);
+		int cType = c.getStateID();
 		
 		double neighborCount = 0;
 		double sameNeighbors = 0;
@@ -56,7 +56,7 @@ public class RuleSegregation extends Rule {
 			
 			if (neighbor != null){
 				neighborCount++;
-				if (neighbor.getState(0) == cType)
+				if (neighbor.getStateID() == cType)
 					sameNeighbors++;
 			}
 		}

@@ -19,6 +19,9 @@ public class CellState {
 	public int getStateAttrib(String key){
 		return myAttribs.get(key);
 	}
+	public void setStateID(int val){
+		myState = val;
+	}
 	
 	public void setStateAtttrib(int val, String key){
 		if (myAttribs.containsKey(key))

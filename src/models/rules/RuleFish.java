@@ -3,6 +3,8 @@ package models.rules;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Map;
+import java.util.TreeMap;
 
 import models.Point;
 import models.grid.Cell;
@@ -30,13 +32,13 @@ public class RuleFish extends Rule {
 	public void calculateAndSetNextStates(Cell[][] grid, int gridShape) {
 		myGrid = grid;
 		myShape = gridShape;
-		int prevChron = myGrid[0][0].getState(1);
+		int prevChron = myGrid[0][0].getState("Chronon");
 		
 		for (int i = 0; i < grid.length; i++){
 			for (int j = 0; j < grid[0].length; j++){
 				Cell c = myGrid[i][j];
 				
-				if (c.getState(1) <= prevChron){
+				if (c.getState("Chronon") <= prevChron){
 					move(c);
 				}
 			}
@@ -45,28 +47,27 @@ public class RuleFish extends Rule {
 	
 	private void move(Cell c){
 		if (occupied(c)){
-			//c contains fish
-			if (c.getState(0) == 1){
+			
+			if (c.getStateID() == 1){
 				Point nextMove = pickFishMove(c);
 				if (nextMove != null)
 					moveFish(c, nextMove);
 				else {
-					c.incrementState(1);
-					c.incrementState(2);
+					c.incrementState("Chronon");
+					c.incrementState("Age");
 				}
-			//c contains shark
-			} else if ( c.getState(0) == 2){
-				if (c.getState(3) <= 0){
-					//Shark is ded. Leik so ded.
-					c.setNextState(newEmpty(c.getState(2) + 1));
+				
+			} else if ( c.getStateID() == 2){
+				if (c.getState("Energy") <= 0){
+					c.setNextState(newEmpty(c.getState("Chronon") + 1));
 				} else {
 					Point nextMove = pickSharkMove(c);
 					
 					if (nextMove != null)
 						moveShark(c, nextMove);
 					else {
-						c.incrementState(1);
-						c.incrementState(2);
+						c.incrementState("Chronon");
+						c.incrementState("Age");
 					}
 				}
 			}
@@ -80,14 +81,14 @@ public class RuleFish extends Rule {
 	 */
 	private void moveFish(Cell c, Point p){
 		CellState fish = c.getState();
-		fish.setState(fish.getState(1) + 1, 1);
-		fish.setState(fish.getState(2) + 1, 2);
+		fish.increment("Chronon");
+		fish.increment("Age");
 		
-		if (fish.getState(2) < myFishReproTime)
-			c.setNextState(new CellState(new int[] {0, fish.getState(1), 0, 0}));
+		if (fish.getStateAttrib("Age") < myFishReproTime)
+			c.setNextState(newEmpty(fish.getStateAttrib("Age")));
 		else {
-			c.setNextState(new CellState(new int[] {1, fish.getState(1), 0, 0}));
-			fish.setState(0, 2);
+			c.setNextState(newFish(fish.getStateAttrib("Chronon")));
+			fish.setStateAtttrib(0, "Age");
 		}
 		
 		getCell(p, myGrid).setNextState(fish);
@@ -100,19 +101,20 @@ public class RuleFish extends Rule {
 	 */
 	private void moveShark(Cell c, Point p){
 		CellState shark = c.getState();
-		shark.setState(2, shark.getState(2) + 1);
+		shark.increment("Chronon");
+		shark.increment("Age");
 		
-		if (shark.getState(2) < mySharkReproTime)
-			c.setNextState(new CellState(new int[] {0, shark.getState(1), 0, 0}));
+		if (shark.getStateAttrib("Age") < mySharkReproTime)
+			c.setNextState(newEmpty(shark.getStateAttrib("Age")));
 		else {
-			c.setNextState(new CellState(new int[] {1, shark.getState(1), 0, shark.getState(3)}));
-			shark.setState(0, 2);
+			c.setNextState(newShark(shark.getStateAttrib("Chronon"), shark.getStateAttrib("Energy")));
+			shark.setStateAtttrib(0, "Age");
 		}
 		
 		Cell destination = getCell(p, myGrid);
 		
-		if (destination.getState(0) == 1)
-			shark.setState(3, shark.getState(3) + myFishEnergy);
+		if (destination.getStateID() == 1)
+			shark.setStateAtttrib(shark.getStateAttrib("Energy") + myFishEnergy, "Energy");
 		
 		destination.setNextState(shark);
 		
@@ -148,7 +150,7 @@ public class RuleFish extends Rule {
 		Point[] options = getNeighbors(c.getLocation(), myShape);
 		
 		for (int i = 0; i < options.length; i++){
-			if (options[i] != null && !(getCell(options[i], myGrid).getState(0) == 1))
+			if (options[i] != null && !(getCell(options[i], myGrid).getStateID() == 1))
 				options[i] = null;
 		}
 		ArrayList<Point> nonNullOptions = new ArrayList<Point>(Arrays.asList(options));
@@ -163,7 +165,30 @@ public class RuleFish extends Rule {
 	}
 
 	private CellState newEmpty(int chronon){
-		return new CellState(new int[] {0, chronon, 0, 0});
+		Map<String, Integer> map = new TreeMap<String, Integer>();
+		map.put("Chronon", chronon);
+		map.put("Age", 0);
+		map.put("Energy", 0);
+		
+		return new CellState(0, map);
+	}
+	
+	private CellState newFish(int chronon){
+		Map<String, Integer> map = new TreeMap<String, Integer>();
+		map.put("Chronon", chronon);
+		map.put("Age", 0);
+		map.put("Energy", 0);
+		
+		return new CellState(1, map);
+	}
+	
+	private CellState newShark(int chronon, int energy){
+		Map<String, Integer> map = new TreeMap<String, Integer>();
+		map.put("Chronon", chronon);
+		map.put("Age", 0);
+		map.put("Energy", energy);
+		
+		return new CellState(2, map);
 	}
 	
 	@Override
@@ -178,7 +203,7 @@ public class RuleFish extends Rule {
 	}
 	
 	private boolean occupied(Cell c){
-		return (c != null && !(c.getState(0) == 0));
+		return (c != null && !(c.getStateID() == 0));
 	}
 
 }
