@@ -5,32 +5,24 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import models.grid.Cell;
 import resources.AppResources;
+import views.styles.CellStyleGuide;
 
 class GridViewUpdateSquare extends GridViewUpdate {
 
-	public GridViewUpdateSquare(int width,int height,int size,Group root) {
-		super(width,height,size,root);
+	public GridViewUpdateSquare(int width,int height,int size,Group root,CellStyleGuide csg) {
+		super(width,height,size,root,csg);
 	}
 
 	@Override
-	public void AddCell(int width, int height,int size,Cell currcell,Group root) {
-		double cellwidth=(width*0.5)/size;
-		double cellheight=(height*0.5)/size;
-		/*int cellx=currcell.getXval();
-		int celly=currcell.getYval();
-		int currcellstate =currcell.getState();
+	public void AddCell(int width, int height,int dimensions,Cell currcell,Group root,CellStyleGuide csg) {
+		double cellwidth=(width*0.5)/dimensions;
+		double cellheight=(height*0.5)/dimensions;
+		int cellx=currcell.getLocation().getX();
+		int celly=currcell.getLocation().getY();
 		Rectangle cellrect = new Rectangle(width*(AppResources.OFFSET)+(cellwidth*cellx),height*(AppResources.OFFSET)+(cellheight*celly),cellwidth,cellheight);
-        switch(currcellstate){
-        	case 0: cellrect.setFill(Color.WHITE); ///Parse.color(0)
-        			break;
-        	case 1: cellrect.setFill(Color.BLUE);//Parse.color(1)
-        			break;
-        	case 2 :cellrect.setFill(Color.RED); //Parse.color(2);
-        			break;
-        }
+		ColorCell(currcell,cellrect,csg);
         root.getChildren().add(cellrect);
         myShapeCollection.add(cellrect); 
-        */
 	}
 
 }
