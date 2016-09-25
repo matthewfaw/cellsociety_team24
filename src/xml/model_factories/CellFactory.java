@@ -9,10 +9,10 @@ import models.settings.CellSettings;
  * @author matthewfaw
  *
  */
-public class CellFactory {
+class CellFactory {
 	private CellSettings fCellSettings;
 	
-	public CellFactory(CellSettings aCellSettings)
+	CellFactory(CellSettings aCellSettings)
 	{
 		fCellSettings = aCellSettings;
 	}
@@ -22,7 +22,7 @@ public class CellFactory {
 	 * cell state
 	 * @return
 	 */
-	public Cell constructCell(int aStateIndex)
+	Cell constructCell(int aStateIndex)
 	{
 		return null;
 	}

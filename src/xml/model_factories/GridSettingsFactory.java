@@ -1,5 +1,6 @@
 package xml.model_factories;
 
+import java.awt.Dimension;
 import java.util.ResourceBundle;
 
 import org.w3c.dom.Element;
@@ -32,7 +33,7 @@ public class GridSettingsFactory extends XMLFactory {
 		String gridType = gridTypeElement.getTextContent();
 		String gridRules = gridRulesElement.getTextContent();
 
-		GridSettings gridSettings = new GridSettings(gridWidth, gridHeight, gridType, gridRules);
+		GridSettings gridSettings = new GridSettings(new Dimension(gridWidth, gridHeight), gridType, gridRules);
 		
 		Element stateProportionsElement = fXmlReader.findFirstChildElement(getResource("StateProportions"));
 		NodeList stateProportions = stateProportionsElement.getChildNodes();
