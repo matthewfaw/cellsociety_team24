@@ -120,7 +120,7 @@ public class AppScene {
 	
 	private void setGrid(int width, int height){
 		Rectangle basicGrid=new Rectangle(width*AppResources.ONE_SIXTEENTH,height*AppResources.ONE_SIXTEENTH,
-				width*AppResources.HALF,height*AppResources.ONE_SIXTEENTH);
+				width*AppResources.HALF,height*AppResources.HALF);
 		basicGrid.setFill(Color.GRAY);
 		fAppRoot.getChildren().add(basicGrid);
 		

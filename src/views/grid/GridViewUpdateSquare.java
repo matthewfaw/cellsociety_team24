@@ -4,6 +4,7 @@ import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import models.grid.Cell;
+import resources.AppResources;
 
 class GridViewUpdateSquare extends GridViewUpdate {
 
@@ -13,12 +14,12 @@ class GridViewUpdateSquare extends GridViewUpdate {
 
 	@Override
 	public void AddCell(int width, int height,int size,Cell currcell,Group root) {
-		/*double cellwidth=(width*0.5)/xmlwidth;
-		double cellheight=(height*0.5)/xmlheight;
+		double cellwidth=(width*0.5)/size;
+		double cellheight=(height*0.5)/size;
 		int cellx=currcell.getXval();
 		int celly=currcell.getYval();
 		int currcellstate =currcell.getState();
-		cellrect = new Rectangle(cellwidth,cellheight, width*(SplashScreen.OFFSET)+(cellwidth*cellx), width*(SplashScreen.OFFSET)+(cellheight*celly));
+		Rectangle cellrect = new Rectangle(width*(AppResources.OFFSET)+(cellwidth*cellx),height*(AppResources.OFFSET)+(cellheight*celly),cellwidth,cellheight);
         switch(currcellstate){
         	case 0: cellrect.setFill(Color.WHITE); ///HEXADECIMAL??
         			break;
@@ -29,6 +30,6 @@ class GridViewUpdateSquare extends GridViewUpdate {
         }
         root.getChildren().add(cellrect);
         myShapeCollection.add(cellrect);
-	*/}
+	}
 
 }
