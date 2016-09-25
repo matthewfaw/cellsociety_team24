@@ -1,6 +1,8 @@
 package views;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
@@ -14,8 +16,10 @@ import javafx.scene.control.ScrollBar;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import models.grid.Cell;
 import resources.AppResources;
 import views.styles.CellStyleGuide;
+import views.grid.GridViewUpdateSquare;
 
 public class AppScene {
 
@@ -52,8 +56,7 @@ public class AppScene {
 		Rectangle rectangle = new Rectangle();
 		rectangle.setWidth(fWidth);
 		rectangle.setHeight(fHeight);
-		//XXX: change this  so it's not hard coded... perhaps resource  file
-		rectangle.setFill(Color.WHITE);
+		rectangle.setFill(Color.web(mytext.getString("BACKGROUNDCOLOR")));
 		
 		fAppRoot.getChildren().add(rectangle);
 	}
@@ -144,6 +147,11 @@ public class AppScene {
 		basicGrid.setFill(Color.GRAY);
 		fAppRoot.getChildren().add(basicGrid);
 		
+	}
+	
+	private void intializeGrid(Collection<Cell> cells,CellStyleGuide csg, Dimension dimensions){
+		GridViewUpdateSquare myGrid= new GridViewUpdateSquare(fWidth,fHeight,dimensions,fAppRoot,csg,cells);
+		myGrid.makeGrid(fAppRoot,fWidth,fHeight,cells,csg,dimensions);
 	}
 	/**
 	 * This method is intended to notify the Scene of 
