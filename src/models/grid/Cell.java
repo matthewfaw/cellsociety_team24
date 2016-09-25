@@ -64,5 +64,22 @@ public class Cell {
 		return myLocation;
 	}
 	
+	public CellState getNextState(){
+		if (myNextState != null)
+			return myNextState;
+		return myCurrState;
+	}
+	
+	public int getNextState(String key){
+		if (myNextState != null)
+			return myNextState.getStateAttrib(key);
+		return myCurrState.getStateAttrib(key);
+	}
+	public int getNextStateID(){
+		if (myNextState != null)
+			return myNextState.getStateID();
+		return myCurrState.getStateID();
+	}
+	
 }
 	

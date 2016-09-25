@@ -3,14 +3,11 @@ package views.grid;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.ArrayList;
 
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import models.grid.Cell;
-import models.grid.CellState;
 import views.styles.CellStyleGuide;
 
 abstract class GridViewUpdate {
@@ -49,7 +46,7 @@ abstract class GridViewUpdate {
 			
 	}
 	protected void ColorCell(Cell cell, Shape shape,CellStyleGuide csg) {
-		int currcellstate =cell.getState(0);
+		int currcellstate =cell.getStateID();
 		shape.setFill(Color.web(csg.getColor(currcellstate)));
 	}
 
