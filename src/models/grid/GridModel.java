@@ -129,7 +129,7 @@ public class GridModel {
 		myRules.calculateAndSetNextStates(myGrid, myCellSides);
 	}
 	
-    public Collection<Cell> getCell(){
+    public Collection<Cell> getAllCells(){
         ArrayList<Cell> result = new ArrayList<Cell>(); 
         
         for (int i = 0; i < myGrid.length; i++){

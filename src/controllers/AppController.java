@@ -88,7 +88,7 @@ public class AppController {
 
 		CellDataFactory cellDataFactory = new CellDataFactory(filePaths.getStateFile());
 		CellSettings cellSettings = cellDataFactory.createCellSettings();
-		CellStyleGuide cellStyleGuid = cellDataFactory.createStyleGuide();
+		CellStyleGuide cellStyleGuide = cellDataFactory.createStyleGuide();
 		
 		GridSettingsFactory gridSettingsFactory = new GridSettingsFactory(filePaths.getGridFile());
 		GridSettings gridSettings = gridSettingsFactory.createGridSettings();
@@ -99,7 +99,7 @@ public class AppController {
 		// build the grid model
 		GridModel gridModel = new GridModel(gridSettings, cellSettings);
 		// add the grid to the display
-//		fAppScene.initializeGrid(gridModel.get)
+		fAppScene.initializeGrid(gridModel.getAllCells(), cellStyleGuide, gridSettings.getDimensions());
 	}
 	public void onParameterDrag() {
 		
