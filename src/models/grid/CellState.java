@@ -1,34 +1,46 @@
 package models.grid;
 
-import java.util.Arrays;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class CellState {
-	private int[] myState;
+	private int myState;
+	private Map<String, Integer> myAttribs;
 	
-	public CellState(int[] state) {
+	public CellState(int state, Map<String, Integer> attribs) {
 		myState = state;
+		myAttribs = attribs;
 	}
-
-	public int getState(int i){
-		if(i >= 0 && i < myState.length)
-			return myState[i];
-		else
-			throw new IndexOutOfBoundsException();
-	}
-
-	public int[] getState(){
+	
+	public int getStateID(){
 		return myState;
 	}
+
+	public int getStateAttrib(String key){
+		return myAttribs.get(key);
+	}
+	public void setStateID(int val){
+		myState = val;
+	}
 	
-	public void setState(int val, int i){
-		if (i >= 0 && i < myState.length)
-			myState[i] = val;
-		else
-			throw new IndexOutOfBoundsException();
+	public void setStateAtttrib(int val, String key){
+		if (myAttribs.containsKey(key))
+			addStateAttrib(val, key);
+	}
+	
+	public void addStateAttrib(int val, String key){
+			myAttribs.put(key, val);
+	}
+	
+	public void increment(String key){
+		if (myAttribs.containsKey(key)){
+			myAttribs.put(key, myAttribs.get(key) + 1);
+		} else
+			throw new IllegalArgumentException("No such key in attribute map.");
 	}
 
-	public CellState copy() {
-		return new CellState(Arrays.copyOf(myState, myState.length));
+	public CellState clone() {
+		return new CellState(myState, new TreeMap<String, Integer>(myAttribs));
 	}
 	
 }

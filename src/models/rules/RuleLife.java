@@ -19,10 +19,10 @@ public class RuleLife extends Rule {
 				for (Point p: neighbors){
 					Cell neighbor = getCell(p, grid);
 					if (neighbor != null)
-						livingNeighbors += neighbor.getState(0);
+						livingNeighbors += neighbor.getStateID();
 				}
 				
-				if (c.getState(0) == 1){
+				if (c.getStateID() == 1){
 					if (livingNeighbors == 2 || livingNeighbors == 3){
 						c.setNextState(c.getState());
 					} else {
@@ -40,11 +40,11 @@ public class RuleLife extends Rule {
 	}
 	
 	private CellState newLive(){
-		return new CellState(new int[] {1});
+		return new CellState(1, null);
 	}
 	
 	private CellState newDead(){
-		return new CellState(new int[] {0});
+		return new CellState(1, null);
 	}
 
 }

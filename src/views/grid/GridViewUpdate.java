@@ -10,6 +10,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import models.grid.Cell;
+import models.grid.CellState;
+import views.styles.CellStyleGuide;
 
 abstract class GridViewUpdate {
 	
@@ -18,42 +20,41 @@ abstract class GridViewUpdate {
 	protected int mySize;
 	protected Group myRoot;
 	protected int offset=50;
+	protected CellStyleGuide myGuide;
 	protected ArrayList<Shape> myShapeCollection=new ArrayList<Shape>();
 	
-	public GridViewUpdate(double width,double height,int size,Group root){
+	public GridViewUpdate(int width,int height,int size,Group root,CellStyleGuide csg){
 		myWidth=width;
 		myHeight=height;
 		mySize=size;
 		myRoot=root;
+		myGuide=csg;
 	}
 
 	
 	
-	public void makeGrid(Group root,int width,int height,Collection<Cell> cells){
-		//get gridSize(i.e. 20x20,30x30) from XML Parser
-		//int gridsize=Parse.getgridSize();
+	public void makeGrid(Group root,int width,int height,Collection<Cell> cells,CellStyleGuide csg, int dimensions){
 			for(Cell c: cells){
-			//	AddCell(width,height,gridsize,c,root);
+				AddCell(width,height,dimensions,c,root,csg);
 			}
 		}
-	public void StepGrid(Group root,Collection<Cell> cells){
+	public void StepGrid(Group root,Collection<Cell> cells,CellStyleGuide csg){
 		Iterator<Shape> shapeIterator= myShapeCollection.iterator();
 		for(Cell c: cells){
 			Shape myShape=shapeIterator.next();
 			root.getChildren().remove(myShape);
-			/*int currcellstate =c.getState();
-			switch(currcellstate){
-        	case 0: myShape.setFill(Color.WHITE); ///HEXADECIMAL??
-        			break;
-        	case 1: myShape.setFill(Color.BLUE);
-        			break;
-        	case 2 :myShape.setFill(Color.RED); 
-        			break;
-			}*/
+			ColorCell(c,myShape,csg);
 			root.getChildren().add(myShape);
 		}
 			
 	}
-	public abstract void AddCell(int width, int height, int size, Cell currcell,Group root); 
+	protected void ColorCell(Cell cell, Shape shape,CellStyleGuide csg) {
+		int currcellstate =cell.getState(0);
+		shape.setFill(Color.web(csg.getColor(currcellstate)));
+	}
+
+
+
+	public abstract void AddCell(int width, int height, int size, Cell currcell,Group root,CellStyleGuide csg); 
 	
 }

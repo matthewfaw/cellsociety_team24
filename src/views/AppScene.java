@@ -23,7 +23,7 @@ public class AppScene {
 	private int fHeight;
 	
 	private AppController fAppController;
-	private ResourceBundle mytext=ResourceBundle.getBundle("game.Resources/textfiles");
+	private ResourceBundle mytext=ResourceBundle.getBundle("Resources/textfiles");
 	
 	public AppScene(int aHeight, int aWidth, AppController aAppController)
 	{
@@ -48,52 +48,51 @@ public class AppScene {
 
 	private void setBackground()
 	{
+		Rectangle rectangle = new Rectangle();
+		rectangle.setWidth(fWidth);
+		rectangle.setHeight(fHeight);
+		//XXX: change this  so it's not hard coded... perhaps resource  file
+		rectangle.setFill(Color.WHITE);
+		
+		fAppRoot.getChildren().add(rectangle);
 	}
 	
 	private void setButtons(int width)
 	{
-		Button startButton= makeButton("StartCommand",AppResources.QUARTER,AppResources.THIRTEEN_SIXTEENTHS,width);
+		Button startButton= makeButton("StartCommand",AppResources.OFFSET,AppResources.THIRTEEN_SIXTEENTHS,width);
 		startButton.setOnAction(e->fAppController.onStartButtonPressed());
 		fAppRoot.getChildren().add(startButton);
-		Button pauseButton= makeButton("PauseCommand",AppResources.QUARTER,AppResources.THREE_QUARTERS, width);
+		Button pauseButton= makeButton("PauseCommand",AppResources.OFFSET,AppResources.THREE_QUARTERS, width);
 		pauseButton.setOnAction(e->fAppController.onPauseButtonPressed());
 		fAppRoot.getChildren().add(pauseButton);
-		Button resetButton= makeButton("ResetCommand",AppResources.QUARTER,AppResources.FIVE_EIGHTHS, width);
+		Button resetButton= makeButton("ResetCommand",AppResources.OFFSET,AppResources.FIVE_EIGHTHS, width);
 		resetButton.setOnAction(e->fAppController.onResetButtonPressed());
 		fAppRoot.getChildren().add(resetButton);
-		Button stepButton= makeButton("StepCommand",AppResources.QUARTER,AppResources.ELEVEN_SIXTEENTHS, width);
+		Button stepButton= makeButton("StepCommand",AppResources.OFFSET,AppResources.ELEVEN_SIXTEENTHS, width);
 		stepButton.setOnAction(e->fAppController.onStepButtonPressed());
 		fAppRoot.getChildren().add(stepButton);
-		Button setSimulationButton= makeButton("SetSimulationCommand",AppResources.QUARTER,AppResources.SEVEN_EIGHTHS, width);
-		setSimulationButton.setOnAction(e->fAppController.onSetSimulationButtonPressed());
+		Button setSimulationButton= makeButton("SetSimulationCommand",AppResources.OFFSET,AppResources.SEVEN_EIGHTHS, width);
+		setSimulationButton.setOnAction(e->
+		fAppController.onSetSimulationButtonPressed());
 		fAppRoot.getChildren().add(setSimulationButton);
-		/*
-		 * just an example 
-		 * 
-		 * Button fileExplorerButton = new Button();
-		 * fileButton.setOnAction(e -> fAppController.fileButtonHandler());
-		
-		 * Button playButton = new Button();
-		 * playButton.setOnAction(e -> fAppController.onPlayButtonPressed());
-		 */
 	}
 	
 	private Button makeButton(String name, double xlayout, double ylayout,int width) {
 		Button b = new Button(mytext.getString(name));
 		b.setLayoutX(width*xlayout);
 		b.setLayoutY(width*ylayout);
+		b.setPrefSize(200, 20);
 		return b;
 	}
 
 	private void setScrollBars(int width)
 	{
-		ScrollBar speedScrollBar=makeScrollBar(AppResources.FIVE_EIGHTHS,AppResources.SEVEN_EIGHTHS,width);
-		//setonAction??
-		fAppRoot.getChildren().add(speedScrollBar);
 		ScrollBar parameterScrollBar=makeScrollBar(AppResources.FIVE_EIGHTHS,AppResources.FIVE_EIGHTHS,width);
 		//setonAction??
 		fAppRoot.getChildren().add(parameterScrollBar);
-		
+		ScrollBar speedScrollBar=makeScrollBar(AppResources.FIVE_EIGHTHS,AppResources.ELEVEN_SIXTEENTHS,width);
+		//setonAction??
+		fAppRoot.getChildren().add(speedScrollBar);
 	}
 	
 	private ScrollBar makeScrollBar(double xlayout, double ylayout,int width) {
@@ -107,7 +106,7 @@ public class AppScene {
 	{
 		Label parameterLabel= makeLabel("ParameterText",AppResources.HALF,AppResources.FIVE_EIGHTHS,width);
 		fAppRoot.getChildren().add(parameterLabel);
-		Label speedLabel= makeLabel("SpeedText",AppResources.HALF,AppResources.SEVEN_EIGHTHS,width);
+		Label speedLabel= makeLabel("SpeedText",AppResources.HALF,AppResources.ELEVEN_SIXTEENTHS,width);
 		fAppRoot.getChildren().add(speedLabel);
 	}
 	
