@@ -60,4 +60,19 @@ public class AppController {
 //	{
 //		
 //	}
+	public void onStartButtonPressed() {
+		///
+	}
+	public void onPauseButtonPressed() {
+		
+	}
+	public void onResetButtonPressed() {
+	
+	}
+	public void onStepButtonPressed() {
+	
+	}
+	public void onSetSimulationButtonPressed() {
+		
+	}
 }
