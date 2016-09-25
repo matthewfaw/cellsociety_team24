@@ -34,8 +34,6 @@ public class AppScene {
 		fHeight = aHeight;
 		fWidth = aWidth;
 		fAppController = aAppController;
-		// Add scene setup here
-		//...
 
 		setBackground();
         setButtons(fWidth);
