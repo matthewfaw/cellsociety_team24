@@ -11,20 +11,43 @@ import org.w3c.dom.NodeList;
  */
 public class XMLReader {
 	private Element fDocumentRoot;
+
 	public XMLReader(String aXmlFilename)
 	{
 		XMLParser parser = new XMLParser();
 		fDocumentRoot = parser.getRootElement(aXmlFilename);
 	}
 	
+	/**
+	 * Finds all elements under the document root with a matching tag name
+	 * @param aTagName
+	 * @return
+	 */
 	public NodeList findElements(String aTagName)
 	{
 		return fDocumentRoot.getElementsByTagName(aTagName);
 	}
 
+	/**
+	 * Finds all elements under aNode with a matching tag name
+	 * @param aNode
+	 * @param aTagName
+	 * @return
+	 */
 	public NodeList findElements(Element aNode, String aTagName)
 	{
 		return aNode.getElementsByTagName(aTagName);
+	}
+	
+	/**
+	 * A method that finds a the first child element beneath aSourceNode matching the tag name 
+	 * @param aSourceNode
+	 * @param aTagNameToFind
+	 * @return
+	 */
+	public Element findFirstChildElement(Element aSourceNode, String aTagNameToFind)
+	{
+		return (Element) aSourceNode.getElementsByTagName(aTagNameToFind).item(0);
 	}
 	
 	public String getAttribute(String aAttributeName)

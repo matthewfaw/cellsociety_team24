@@ -1,4 +1,4 @@
-package cellsociety_team24;
+package views.grid;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -10,7 +10,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import models.grid.Cell;
 
-public abstract class GridViewUpdate {
+abstract class GridViewUpdate {
 	
 	protected double myWidth;
 	protected double myHeight;
