@@ -79,8 +79,8 @@ abstract public class Rule {
 		return (
 				p.getX() >= 0 &&
 				p.getY() >= 0 &&
-				p.getY() < grid[0].length &&
-				p.getY() < grid.length
+				p.getX() < grid.length &&
+				p.getY() < grid[0].length
 				);			
 	}
 	protected Cell getCell(Point p, Cell[][] grid){
