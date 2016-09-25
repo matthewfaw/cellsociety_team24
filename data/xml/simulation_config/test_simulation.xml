@@ -4,9 +4,6 @@
 	<title>The Game of Life Simulation</title>
 	<author>Conway</author>
 	<speed>50</speed>
-	<screenSize>
-		<height>100</height>
-		<width>100</width></screenSize>
 	<gridFile>test_grid.xml</gridFile>
 	<statesFile>test_states.xml</statesFile>
 </SimulationConfig>

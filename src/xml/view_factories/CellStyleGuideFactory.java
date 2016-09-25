@@ -7,26 +7,28 @@ import org.w3c.dom.NodeList;
 
 import views.styles.CellStyleGuide;
 import xml.XMLReader;
+import xml.XMLFactory;
 
 /**
  * A factory to pull cell styling info from XML
  * @author matthewfaw
  *
  */
-public class CellStyleGuideFactory {
+public class CellStyleGuideFactory extends XMLFactory {
 	private static final String RESOURCE_PATH = "resources/CellStyleguide";
-	private XMLReader fXmlReader;
-	private NodeList fStateXMLNodes;
+
 	private CellStyleGuide fCellStyleGuide;
+
+	private NodeList fStateXMLNodes;
 	private ResourceBundle fCellStyleGuideRB;
 	
-	public CellStyleGuideFactory(String fXmlFilename)
+	public CellStyleGuideFactory(String fXmlFileName)
 	{
+		super(fXmlFileName);
 		fCellStyleGuideRB = ResourceBundle.getBundle(RESOURCE_PATH);
 
-		fXmlReader = new XMLReader(fXmlFilename);
+		fXmlReader = new XMLReader(fXmlFileName);
 		fStateXMLNodes = fXmlReader.findElements(getResource("StateElement"));
-		fCellStyleGuide = new CellStyleGuide();
 	}
 	
 	/**
@@ -35,6 +37,7 @@ public class CellStyleGuideFactory {
 	 */
 	public CellStyleGuide createStyleGuide()
 	{
+		fCellStyleGuide = new CellStyleGuide();
 		for (int i=0; i<fStateXMLNodes.getLength(); ++i) {
 			Element stateNode = getStateElement(i);
 			
@@ -61,7 +64,8 @@ public class CellStyleGuideFactory {
 		fCellStyleGuide.setName(stateIndex, name);
 	}
 	
-	private String getResource(String aResourceToRetrieve)
+	@Override
+	protected String getResource(String aResourceToRetrieve)
 	{
 		return fCellStyleGuideRB.getString(aResourceToRetrieve);
 	}

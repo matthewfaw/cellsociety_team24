@@ -1,5 +1,7 @@
 package models.settings;
 
+import java.awt.Dimension;
+
 /**
  * A class to manage all of the parameters of the 
  * currently running simulation
@@ -7,5 +9,20 @@ package models.settings;
  *
  */
 public class SimulationSettings {
-
+	
+	private String fName;
+	private String fTitle;
+	private String fAuthor;
+	private double fSimulationSpeed;
+	
+	public SimulationSettings(String aName, 
+							String aTitle,
+							String aAuthor,
+							double aSimulationSpeed)
+	{
+		fName = aName;
+		fTitle = aTitle;
+		fAuthor = aAuthor;
+		fSimulationSpeed = aSimulationSpeed;
+	}
 }

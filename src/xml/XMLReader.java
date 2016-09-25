@@ -18,6 +18,11 @@ public class XMLReader {
 		fDocumentRoot = parser.getRootElement(aXmlFilename);
 	}
 	
+	public Element getRoot()
+	{
+		return fDocumentRoot;
+	}
+	
 	/**
 	 * Finds all elements under the document root with a matching tag name
 	 * @param aTagName
@@ -25,7 +30,7 @@ public class XMLReader {
 	 */
 	public NodeList findElements(String aTagName)
 	{
-		return fDocumentRoot.getElementsByTagName(aTagName);
+		return findElements(fDocumentRoot, aTagName);
 	}
 
 	/**
@@ -49,6 +54,10 @@ public class XMLReader {
 	{
 		return (Element) aSourceNode.getElementsByTagName(aTagNameToFind).item(0);
 	}
+	public Element findFirstChildElement(String aTagNameToFind)
+	{
+		return findFirstChildElement(fDocumentRoot, aTagNameToFind);
+	}
 	
 	public String getAttribute(String aAttributeName)
 	{
@@ -64,6 +73,10 @@ public class XMLReader {
 			//XXX: should this be an error?
 			return "";
 		}
+	}
+	public String getTextValue(String aTagName) 
+	{
+		return getTextValue(fDocumentRoot, aTagName);
 	}
 
 }
