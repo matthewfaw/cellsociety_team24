@@ -45,6 +45,7 @@ public class RuleFish extends Rule {
 	
 	private void move(Cell c){
 		if (occupied(c)){
+			//c contains fish
 			if (c.getState(0) == 1){
 				Point nextMove = pickFishMove(c);
 				if (nextMove != null)
@@ -53,7 +54,7 @@ public class RuleFish extends Rule {
 					c.incrementState(1);
 					c.incrementState(2);
 				}
-
+			//c contains shark
 			} else if ( c.getState(0) == 2){
 				if (c.getState(3) <= 0){
 					//Shark is ded. Leik so ded.
@@ -72,7 +73,11 @@ public class RuleFish extends Rule {
 		}
 	}
 	
-	
+	/**
+	 * Move the fish in cell c to the cell at point p
+	 * @param c starting cell
+	 * @param p destination
+	 */
 	private void moveFish(Cell c, Point p){
 		CellState fish = c.getState();
 		fish.setState(fish.getState(1) + 1, 1);
@@ -88,6 +93,11 @@ public class RuleFish extends Rule {
 		getCell(p, myGrid).setNextState(fish);
 	}
 	
+	/**
+	 * Move the shark i cell c to the cell at point p
+	 * @param c starting cell
+	 * @param p destination
+	 */
 	private void moveShark(Cell c, Point p){
 		CellState shark = c.getState();
 		shark.setState(2, shark.getState(2) + 1);
@@ -108,6 +118,10 @@ public class RuleFish extends Rule {
 		
 	}
 	
+	/**
+	 * @param c starting cell
+	 * @return a random empty cell that is adj to c, or null if there is none
+	 */
 	private Point pickFishMove(Cell c){
 		Point[] options = getNeighbors(c.getLocation(), myShape);
 		
@@ -126,6 +140,10 @@ public class RuleFish extends Rule {
 			return null;
 	}
 	
+	/**
+	 * @param c starting cell
+	 * @return a random adj cell with a fish in it, or if none, a random adj empty cell, or if none, null
+	 */
 	private Point pickSharkMove(Cell c){
 		Point[] options = getNeighbors(c.getLocation(), myShape);
 		
@@ -143,12 +161,7 @@ public class RuleFish extends Rule {
 			return pickFishMove(c);
 		
 	}
-	
-	
-	
-	
-	
-	
+
 	private CellState newEmpty(int chronon){
 		return new CellState(new int[] {0, chronon, 0, 0});
 	}
