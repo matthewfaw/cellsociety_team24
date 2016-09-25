@@ -35,7 +35,12 @@ public class Cell {
 		if (myNextState == null)
 			myNextState = myCurrState.copy();
 		myNextState.setState(val, i);
-
+	}
+	
+	public void incrementState(int i){
+		if (myNextState == null)
+			myNextState = myCurrState.copy();
+		myNextState.increment(i);
 	}
 	
 	public Point getLocation(){

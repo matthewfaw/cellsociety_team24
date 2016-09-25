@@ -46,44 +46,26 @@ public class RuleFish extends Rule {
 	private void move(Cell c){
 		if (occupied(c)){
 			if (c.getState(0) == 1){
-				Point[] options = getNeighbors(c.getLocation(), myShape);
-				for (int i = 0; i < options.length; i++){
-					if (options[i] != null && occupied(options[i]))
-						options[i] = null;
-				}
-				
-				ArrayList<Point> nonNullOptions = new ArrayList<Point>(Arrays.asList(options));
-				nonNullOptions.removeAll(Collections.singleton(null));
-				
-				if (!nonNullOptions.isEmpty()){
-					Collections.shuffle(nonNullOptions);
-					moveFish(c, nonNullOptions.get(0));
+				Point nextMove = pickFishMove(c);
+				if (nextMove != null)
+					moveFish(c, nextMove);
+				else {
+					c.incrementState(1);
+					c.incrementState(2);
 				}
 
 			} else if ( c.getState(0) == 2){
 				if (c.getState(3) <= 0){
+					//Shark is ded. Leik so ded.
 					c.setNextState(newEmpty(c.getState(2) + 1));
 				} else {
-				Point[] options = getNeighbors(c.getLocation(), myShape);
+					Point nextMove = pickSharkMove(c);
 					
-					ArrayList<Point> optionsWithFish = new ArrayList<Point>();
-					ArrayList<Point> optionsWithoutFish = new ArrayList<Point>();
-					
-					for (Point p: options){
-						if (p != null && !occupied(p))
-							optionsWithoutFish.add(p);
-						if (p != null && occupied(p) && getCell(p, myGrid).getState(0) == 1)
-							optionsWithFish.add(p);
-					}
-					
-					
-					if (!optionsWithFish.isEmpty()){
-						Collections.shuffle(optionsWithFish);
-						moveShark(c, optionsWithFish.get(0));
-						
-					} else if (!optionsWithoutFish.isEmpty()){
-						Collections.shuffle(optionsWithoutFish);
-						moveShark(c, optionsWithoutFish.get(0));
+					if (nextMove != null)
+						moveShark(c, nextMove);
+					else {
+						c.incrementState(1);
+						c.incrementState(2);
 					}
 				}
 			}
@@ -125,6 +107,47 @@ public class RuleFish extends Rule {
 		destination.setNextState(shark);
 		
 	}
+	
+	private Point pickFishMove(Cell c){
+		Point[] options = getNeighbors(c.getLocation(), myShape);
+		
+		for (int i = 0; i < options.length; i++){
+			if (options[i] != null && occupied(options[i]))
+				options[i] = null;
+		}
+		
+		ArrayList<Point> nonNullOptions = new ArrayList<Point>(Arrays.asList(options));
+		nonNullOptions.removeAll(Collections.singleton(null));
+		
+		if (!nonNullOptions.isEmpty()){
+			 Collections.shuffle(nonNullOptions);
+			return nonNullOptions.get(0);
+		} else
+			return null;
+	}
+	
+	private Point pickSharkMove(Cell c){
+		Point[] options = getNeighbors(c.getLocation(), myShape);
+		
+		for (int i = 0; i < options.length; i++){
+			if (options[i] != null && !(getCell(options[i], myGrid).getState(0) == 1))
+				options[i] = null;
+		}
+		ArrayList<Point> nonNullOptions = new ArrayList<Point>(Arrays.asList(options));
+		nonNullOptions.removeAll(Collections.singleton(null));
+		
+		if (!nonNullOptions.isEmpty()){
+			 Collections.shuffle(nonNullOptions);
+			return nonNullOptions.get(0);
+		} else
+			return pickFishMove(c);
+		
+	}
+	
+	
+	
+	
+	
 	
 	private CellState newEmpty(int chronon){
 		return new CellState(new int[] {0, chronon, 0, 0});

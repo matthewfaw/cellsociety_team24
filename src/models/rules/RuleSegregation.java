@@ -72,6 +72,7 @@ public class RuleSegregation extends Rule {
 		while (i < myEmpties.size() && i < myDissenters.size()){
 			myEmpties.get(i).setNextState(myDissenters.get(i).getState());
 			myDissenters.get(i).setNextState(myEmpties.get(i).getState());
+			i++;
 		}
 	}
 }

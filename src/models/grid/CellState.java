@@ -26,6 +26,13 @@ public class CellState {
 		else
 			throw new IndexOutOfBoundsException();
 	}
+	
+	public void increment(int i){
+		if (i >= 0 && i < myState.length)
+			myState[i] = myState[i] + 1;
+		else
+			throw new IndexOutOfBoundsException();
+	}
 
 	public CellState copy() {
 		return new CellState(Arrays.copyOf(myState, myState.length));
