@@ -1,5 +1,7 @@
 package views;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.ResourceBundle;
 
 import controllers.AppController;
@@ -21,7 +23,8 @@ public class AppScene {
 	private Group fAppRoot;
 	private int fWidth;
 	private int fHeight;
-	
+	private ArrayList<Button> buttonList= new ArrayList<Button>();
+	private ArrayList<ScrollBar> scrollbarList= new ArrayList<ScrollBar>();
 	private AppController fAppController;
 	private ResourceBundle mytext=ResourceBundle.getBundle("Resources/textfiles");
 	
@@ -59,46 +62,66 @@ public class AppScene {
 	
 	private void setButtons(int width)
 	{
-		Button startButton= makeButton("StartCommand",AppResources.OFFSET,AppResources.THIRTEEN_SIXTEENTHS,width);
+		Button startButton= makeButton("StartCommand",AppResources.OFFSET,AppResources.THIRTEEN_SIXTEENTHS,width,true);
 		startButton.setOnAction(e->fAppController.onStartButtonPressed());
-		fAppRoot.getChildren().add(startButton);
-		Button pauseButton= makeButton("PauseCommand",AppResources.OFFSET,AppResources.THREE_QUARTERS, width);
+		//fAppRoot.getChildren().add(startButton); ////NOT SURE IF THIS IS NEEDED HER OR I CAN PUT IN THE METHOD
+		Button pauseButton= makeButton("PauseCommand",AppResources.OFFSET,AppResources.THREE_QUARTERS, width,true);
 		pauseButton.setOnAction(e->fAppController.onPauseButtonPressed());
-		fAppRoot.getChildren().add(pauseButton);
-		Button resetButton= makeButton("ResetCommand",AppResources.OFFSET,AppResources.FIVE_EIGHTHS, width);
+		//fAppRoot.getChildren().add(pauseButton);
+		Button resetButton= makeButton("ResetCommand",AppResources.OFFSET,AppResources.FIVE_EIGHTHS, width,true);
 		resetButton.setOnAction(e->fAppController.onResetButtonPressed());
-		fAppRoot.getChildren().add(resetButton);
-		Button stepButton= makeButton("StepCommand",AppResources.OFFSET,AppResources.ELEVEN_SIXTEENTHS, width);
+		//fAppRoot.getChildren().add(resetButton);
+		Button stepButton= makeButton("StepCommand",AppResources.OFFSET,AppResources.ELEVEN_SIXTEENTHS, width,true);
 		stepButton.setOnAction(e->fAppController.onStepButtonPressed());
-		fAppRoot.getChildren().add(stepButton);
-		Button setSimulationButton= makeButton("SetSimulationCommand",AppResources.OFFSET,AppResources.SEVEN_EIGHTHS, width);
+		//fAppRoot.getChildren().add(stepButton);
+		Button setSimulationButton= makeButton("SetSimulationCommand",AppResources.OFFSET,AppResources.SEVEN_EIGHTHS, width,false);
 		setSimulationButton.setOnAction(e->
 		fAppController.onSetSimulationButtonPressed());
-		fAppRoot.getChildren().add(setSimulationButton);
+		//fAppRoot.getChildren().add(setSimulationButton);
 	}
 	
-	private Button makeButton(String name, double xlayout, double ylayout,int width) {
+	private Button makeButton(String name, double xlayout, double ylayout,int width,Boolean disable) {
 		Button b = new Button(mytext.getString(name));
 		b.setLayoutX(width*xlayout);
 		b.setLayoutY(width*ylayout);
 		b.setPrefSize(200, 20);
+		if(disable){ 
+			b.setDisable(true);
+		}
+		fAppRoot.getChildren().add(b);
+		buttonList.add(b);
 		return b;
 	}
+	public void  Display(){
+		Iterator<Button> buttonIter= buttonList.iterator();
+		while(buttonIter.hasNext()){
+			Button b=buttonIter.next();
+			b.setDisable(false);
+		}
+		Iterator<ScrollBar> scrollbarIter= scrollbarList.iterator();
+		while(scrollbarIter.hasNext()){
+			ScrollBar s=scrollbarIter.next();
+			s.setDisable(false);
+		}
+	} 
 
 	private void setScrollBars(int width)
 	{
-		ScrollBar parameterScrollBar=makeScrollBar(AppResources.FIVE_EIGHTHS,AppResources.FIVE_EIGHTHS,width);
-		//setonAction??
-		fAppRoot.getChildren().add(parameterScrollBar);
-		ScrollBar speedScrollBar=makeScrollBar(AppResources.FIVE_EIGHTHS,AppResources.ELEVEN_SIXTEENTHS,width);
-		//setonAction??
-		fAppRoot.getChildren().add(speedScrollBar);
+		ScrollBar parameterScrollBar=makeScrollBar(AppResources.FIVE_EIGHTHS,AppResources.FIVE_EIGHTHS,width,true);
+		parameterScrollBar.setOnDragDone(e->fAppController.onParameterDrag());
+		ScrollBar speedScrollBar=makeScrollBar(AppResources.FIVE_EIGHTHS,AppResources.ELEVEN_SIXTEENTHS,width,true);
+		speedScrollBar.setOnDragDone(e->fAppController.onSpeedDrag());
 	}
 	
-	private ScrollBar makeScrollBar(double xlayout, double ylayout,int width) {
+	private ScrollBar makeScrollBar(double xlayout, double ylayout,int width,Boolean disable) {
 		ScrollBar s=new ScrollBar();
 		s.setLayoutX(width*xlayout);
 		s.setLayoutY(width*ylayout);
+		if(disable){ 
+			s.setDisable(true);
+		}
+		scrollbarList.add(s);
+		fAppRoot.getChildren().add(s);
 		return s;
 	}
 	

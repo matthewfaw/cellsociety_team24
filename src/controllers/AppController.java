@@ -70,8 +70,14 @@ public class AppController {
 		//filexmlChooser.setTitle(value);
 		File file =filexmlChooser.showOpenDialog(fStage);
 		if (file!=null){
-			
+			fAppScene.Display();
 //			initializeGrid(file.getPath()); // a private method inside AppController
 		}
+	}
+	public void onParameterDrag() {
+		
+	}
+	public void onSpeedDrag() {
+
 	}
 }
