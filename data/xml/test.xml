@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Simulation>
+	<grid>test_grid.xml</grid>
+	<simulation_info>test_simulation.xml</simulation_info>
+	<state_info>test_states.xml</state_info></Simulation>
