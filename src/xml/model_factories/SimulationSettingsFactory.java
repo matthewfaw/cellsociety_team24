@@ -2,8 +2,6 @@ package xml.model_factories;
 
 import java.util.ResourceBundle;
 
-import org.w3c.dom.NodeList;
-
 import models.settings.SimulationSettings;
 import xml.XMLFactory;
 
