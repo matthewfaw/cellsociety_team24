@@ -1,5 +1,6 @@
 package views.grid;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -10,27 +11,29 @@ import javafx.scene.shape.Shape;
 import models.grid.Cell;
 import views.styles.CellStyleGuide;
 
-abstract class GridViewUpdate {
+public abstract class GridViewUpdate {
 	
 	protected double myWidth;
 	protected double myHeight;
-	protected int mySize;
+	protected Dimension mySize;
 	protected Group myRoot;
 	protected int offset=50;
 	protected CellStyleGuide myGuide;
+	protected Collection<Cell> myCells;
 	protected ArrayList<Shape> myShapeCollection=new ArrayList<Shape>();
 	
-	public GridViewUpdate(int width,int height,int size,Group root,CellStyleGuide csg){
+	public GridViewUpdate(int width,int height,Dimension size,Group root,CellStyleGuide csg,Collection<Cell> cells){
 		myWidth=width;
 		myHeight=height;
 		mySize=size;
 		myRoot=root;
 		myGuide=csg;
+		myCells=cells;
 	}
 
 	
 	
-	public void makeGrid(Group root,int width,int height,Collection<Cell> cells,CellStyleGuide csg, int dimensions){
+	public void makeGrid(Group root,int width,int height,Collection<Cell> cells,CellStyleGuide csg, Dimension dimensions){
 			for(Cell c: cells){
 				AddCell(width,height,dimensions,c,root,csg);
 			}
@@ -52,6 +55,6 @@ abstract class GridViewUpdate {
 
 
 
-	public abstract void AddCell(int width, int height, int size, Cell currcell,Group root,CellStyleGuide csg); 
+	public abstract void AddCell(int width, int height, Dimension size, Cell currcell,Group root,CellStyleGuide csg); 
 	
 }
