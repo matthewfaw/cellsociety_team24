@@ -7,12 +7,13 @@ import models.grid.CellState;
 public class RuleLife extends Rule {
 
 	@Override
-	public CellState[][] calculateNextStates(Cell[][] grid, int gridShape) {
-		CellState[][] result = new CellState[grid.length][grid[0].length];
+	public void calculateAndSetNextStates(Cell[][] grid, int gridShape) {
 		
 		for (int i = 0; i < grid.length; i++){
 			for (int j = 0; j < grid[0].length; j++){
-				Point[] neighbors = getNeighbors(grid[i][j].getLocation(), gridShape);
+				Cell c = grid[i][j];
+				
+				Point[] neighbors = getNeighbors(c.getLocation(), gridShape);
 				int livingNeighbors = 0;
 				
 				for (Point p: neighbors){
@@ -21,24 +22,21 @@ public class RuleLife extends Rule {
 						livingNeighbors += neighbor.getState(0);
 				}
 				
-				if (grid[i][j].getState(0) == 1){
+				if (c.getState(0) == 1){
 					if (livingNeighbors == 2 || livingNeighbors == 3){
-						result[i][j] = grid[i][j].getState();
+						c.setNextState(c.getState());
 					} else {
-						result[i][j] = newDead();
+						c.setNextState(newDead());
 					}
 				} else {
 					if (livingNeighbors == 3){
-						result[i][j] = newLive();
+						c.setNextState(newLive());
 					} else {
-						result[i][j] = grid[i][j].getState();
+						c.setNextState(c.getState());
 					}
 				}
-				
 			}
 		}
-
-		return result;
 	}
 	
 	private CellState newLive(){

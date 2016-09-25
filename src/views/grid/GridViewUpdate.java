@@ -1,6 +1,7 @@
 package views.grid;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.ArrayList;
 
@@ -28,25 +29,19 @@ abstract class GridViewUpdate {
 
 	
 	
-	/*public void makeGrid(Group root,int width,int height,int size,Array[] gridarray){
-		//get grid type from XML parser
-		//get gridSize(i.e. 20x20,30x30) from XML Parser	
-			//if(Parse.getType(Square)){}
-		//get array of cells from Controller
-			for(int i=0;i<gridarray.length;i++){
-				Cell currcell=new Cell();
-				currcell=gridarray[i];
-				AddCell(width,height,size,currcell,root);
+	public void makeGrid(Group root,int width,int height,Collection<Cell> cells){
+		//get gridSize(i.e. 20x20,30x30) from XML Parser
+		//int gridsize=Parse.getgridSize();
+			for(Cell c: cells){
+			//	AddCell(width,height,gridsize,c,root);
 			}
-		}*/
-	/*public void StepGrid(Group root){
+		}
+	public void StepGrid(Group root,Collection<Cell> cells){
 		Iterator<Shape> shapeIterator= myShapeCollection.iterator();
-		for(int i=0;i<gridarray.size();i++){
+		for(Cell c: cells){
 			Shape myShape=shapeIterator.next();
-			//root.getChildren().remove(myShape);
-			Cell currcell=new Cell();
-			currcell=gridarray(i);
-			int currcellstate =currcell.getState();
+			root.getChildren().remove(myShape);
+			/*int currcellstate =c.getState();
 			switch(currcellstate){
         	case 0: myShape.setFill(Color.WHITE); ///HEXADECIMAL??
         			break;
@@ -54,11 +49,11 @@ abstract class GridViewUpdate {
         			break;
         	case 2 :myShape.setFill(Color.RED); 
         			break;
-			}
+			}*/
 			root.getChildren().add(myShape);
 		}
 			
-	}*/
+	}
 	public abstract void AddCell(int width, int height, int size, Cell currcell,Group root); 
 	
 }

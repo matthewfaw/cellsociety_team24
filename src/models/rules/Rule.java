@@ -2,7 +2,6 @@ package models.rules;
 
 import models.Point;
 import models.grid.Cell;
-import models.grid.CellState;
 
 abstract public class Rule {
 	
@@ -11,7 +10,7 @@ abstract public class Rule {
 	 * @param c The cell to find the next state for.
 	 * @return The cell's intended next state.
 	 */
-	abstract public CellState[][] calculateNextStates(Cell[][] grid, int gridShape);
+	abstract public void calculateAndSetNextStates(Cell[][] grid, int gridShape);
 	
 	protected Point[] getNeighbors(Point p, int gridShape){
 		switch (gridShape){

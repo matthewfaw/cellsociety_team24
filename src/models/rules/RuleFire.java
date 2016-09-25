@@ -17,16 +17,14 @@ public class RuleFire extends Rule {
 	}
 
 	@Override
-	public CellState[][] calculateNextStates(Cell[][] grid, int gridShape) {
+	public void calculateAndSetNextStates(Cell[][] grid, int gridShape) {
 		myGrid = grid;
-		CellState[][] result = new CellState[myGrid.length][myGrid[0].length];
 		
 		for (int i = 0; i < myGrid.length; i++){
 			for (int j = 0; j < myGrid[0].length; j++){
-				result[i][j] = nextState(myGrid[i][j], gridShape);
+				grid[i][j].setNextState(nextState(myGrid[i][j], gridShape));
 			}
 		}
-		return result;
 	}
 
 	private CellState nextState(Cell cell, int gridShape) {
