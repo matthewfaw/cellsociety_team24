@@ -4,10 +4,12 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
 import models.rules.Rule;
+import models.rules.RuleFactory;
 import models.settings.CellSettings;
 import models.settings.GridSettings;
 
@@ -22,6 +24,13 @@ public class GridModel {
 	private CellSettings fCellSettings;
 	private HashMap<Integer, Integer> fCurrentStateProportions;
 	private ArrayList<Integer> fStateIds;
+	private RuleFactory fRuleFactory;
+	
+//	public GridModel(int cellSides, Rule rules, Cell[][] grid){
+//		myGrid = grid;
+//		myRules = rules;
+//		myCellSides = cellSides;
+//	}
 	
 	public GridModel(GridSettings aGridSettings, CellSettings aCellSettings)
 	{
@@ -29,11 +38,20 @@ public class GridModel {
 		fCellSettings = aCellSettings;
 		fStateIds = new ArrayList<Integer>(fGridSettings.getStatePercentages().keySet());
 		fCurrentStateProportions = new HashMap<Integer, Integer>();
+		fRuleFactory = new RuleFactory();
+
+		myCellSides = fGridSettings.getNumberOfCellSides();
+		myRules = fRuleFactory.createRule(fGridSettings.getRuleType(), fGridSettings.getSimulationProperties());
+
+		initializeGridStateProportions();
+		buildGrid();
+	}
+	
+	private void initializeGridStateProportions()
+	{
 		for (int stateId: fStateIds) {
 			fCurrentStateProportions.put(stateId, 0);
 		}
-
-		buildGrid();
 	}
 	
 	private void buildGrid()
@@ -42,12 +60,10 @@ public class GridModel {
 		myGrid = new Cell[(int)gridDimensions.getWidth()][(int)gridDimensions.getHeight()];
 		for (int row=0; row<myGrid.length; ++row) {
 			for (int col=0; col<myGrid[row].length; ++col) {
-				Cell cell = new Cell();
 				int stateIndex = selectStateIndex();
-				//XXX: waiting for Weston's changes
-				cell.setState(stateIndex);
-				cell.setProperties(fCellSettings.getProperties(stateIndex));
-//				cell.setNeighborhood();
+				Map<String, Double> stateProperties = fCellSettings.getProperties(stateIndex);
+				Cell cell = new Cell(row, col, stateIndex, stateProperties);
+				myGrid[row][col] = cell;
 			}
 		}
 	}
@@ -89,12 +105,6 @@ public class GridModel {
 		return fStateIds.get(randomIndex);
 	}
 	
-//	public GridModel(int cellSides, Rule rules, Cell[][] grid){
-//		myGrid = grid;
-//		myRules = rules;
-//		myCellSides = cellSides;
-//	}
-	
 	
 	/**
 	 * Calculate the next state of each cell in the grid, then update all their states.
@@ -129,9 +139,6 @@ public class GridModel {
         return result;
     }
 	
-		
-
-
 	public int getCellSides(){
 		return myCellSides;
 	}

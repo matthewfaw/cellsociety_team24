@@ -32,7 +32,7 @@ public class RuleFish extends Rule {
 	public void calculateAndSetNextStates(Cell[][] grid, int gridShape) {
 		myGrid = grid;
 		myShape = gridShape;
-		int prevChron = myGrid[0][0].getState("Chronon");
+		double prevChron = myGrid[0][0].getState("Chronon");
 		
 		for (int i = 0; i < grid.length; i++){
 			for (int j = 0; j < grid[0].length; j++){
@@ -164,28 +164,28 @@ public class RuleFish extends Rule {
 		
 	}
 
-	private CellState newEmpty(int chronon){
-		Map<String, Integer> map = new TreeMap<String, Integer>();
+	private CellState newEmpty(double chronon){
+		Map<String, Double> map = new TreeMap<String, Double>();
 		map.put("Chronon", chronon);
-		map.put("Age", 0);
-		map.put("Energy", 0);
+		map.put("Age", 0.0);
+		map.put("Energy", 0.0);
 		
 		return new CellState(0, map);
 	}
 	
-	private CellState newFish(int chronon){
-		Map<String, Integer> map = new TreeMap<String, Integer>();
+	private CellState newFish(double chronon){
+		Map<String, Double> map = new TreeMap<String, Double>();
 		map.put("Chronon", chronon);
-		map.put("Age", 0);
-		map.put("Energy", 0);
+		map.put("Age", 0.0);
+		map.put("Energy", 0.0);
 		
 		return new CellState(1, map);
 	}
 	
-	private CellState newShark(int chronon, int energy){
-		Map<String, Integer> map = new TreeMap<String, Integer>();
+	private CellState newShark(double chronon, double energy){
+		Map<String, Double> map = new TreeMap<String, Double>();
 		map.put("Chronon", chronon);
-		map.put("Age", 0);
+		map.put("Age", 0.0);
 		map.put("Energy", energy);
 		
 		return new CellState(2, map);

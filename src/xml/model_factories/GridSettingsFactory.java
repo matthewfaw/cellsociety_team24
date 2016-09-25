@@ -41,9 +41,20 @@ public class GridSettingsFactory extends XMLFactory {
 			if (stateProportions.item(i).getNodeType() == Node.ELEMENT_NODE) {
 				Element percentage = (Element) stateProportions.item(i);
 				int id = Integer.parseInt(percentage.getAttribute(getResource("StateId")));
-				double value = Double.parseDouble(percentage.getAttribute(getResource("PercentageValue")));
+				int value = Integer.parseInt(percentage.getAttribute(getResource("PercentageValue")));
 				
 				gridSettings.addPercentage(id, value);
+			}
+		}
+		Element simulationPropertiesElement = fXmlReader.findFirstChildElement(getResource("SimulationProperties"));
+		NodeList properties = simulationPropertiesElement.getChildNodes();
+		for (int i=0; i<properties.getLength(); ++i) {
+			if (properties.item(i).getNodeType() == Node.ELEMENT_NODE) {
+				Element propertyElement = (Element) properties.item(i);
+				String propertyName = propertyElement.getTagName();
+				double propertyVal = Double.parseDouble(propertyElement.getTextContent());
+				
+				gridSettings.addProperty(propertyName, propertyVal);
 			}
 		}
 		

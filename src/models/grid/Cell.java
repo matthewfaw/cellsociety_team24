@@ -1,11 +1,19 @@
 package models.grid;
 
+import java.util.Map;
+
 import models.Point;
 
 public class Cell {
 	private Point myLocation;
 	private CellState myCurrState;
 	private CellState myNextState;
+	
+	public Cell(int aX, int aY, int aStateId, Map<String, Double> aPropertyMap)
+	{
+		myLocation = new Point(aX, aY);
+		myCurrState = new CellState(aStateId, aPropertyMap);
+	}
 
 	/**
 	 * Moves the cell to its next state. Next state must be precalculated (by the grid).
@@ -28,7 +36,7 @@ public class Cell {
 		return myCurrState;
 	}
 	
-	public int getState(String key){
+	public double getState(String key){
 		return myCurrState.getStateAttrib(key);
 	}
 	public int getStateID(){

@@ -13,4 +13,7 @@
 		<GridRow rep="10">0000123</GridRow>
 		<GridRow rep="5">1140123</GridRow>
 	</initalLayout>
-	<gridRules>rule1</gridRules></GridConfig>
+	<gridRules>rule1</gridRules>
+	<stateProperties>
+		<pCatchingFire>0.5</pCatchingFire>
+		<sharkReproductionTime>100</sharkReproductionTime></stateProperties></GridConfig>

@@ -5,9 +5,9 @@ import java.util.TreeMap;
 
 public class CellState {
 	private int myState;
-	private Map<String, Integer> myAttribs;
+	private Map<String, Double> myAttribs;
 	
-	public CellState(int state, Map<String, Integer> attribs) {
+	public CellState(int state, Map<String, Double> attribs) {
 		myState = state;
 		myAttribs = attribs;
 	}
@@ -16,19 +16,19 @@ public class CellState {
 		return myState;
 	}
 
-	public int getStateAttrib(String key){
+	public double getStateAttrib(String key){
 		return myAttribs.get(key);
 	}
 	public void setStateID(int val){
 		myState = val;
 	}
 	
-	public void setStateAtttrib(int val, String key){
+	public void setStateAtttrib(double val, String key){
 		if (myAttribs.containsKey(key))
 			addStateAttrib(val, key);
 	}
 	
-	public void addStateAttrib(int val, String key){
+	public void addStateAttrib(double val, String key){
 			myAttribs.put(key, val);
 	}
 	
@@ -40,7 +40,7 @@ public class CellState {
 	}
 
 	public CellState clone() {
-		return new CellState(myState, new TreeMap<String, Integer>(myAttribs));
+		return new CellState(myState, new TreeMap<String, Double>(myAttribs));
 	}
 	
 }
