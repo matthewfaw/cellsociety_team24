@@ -13,4 +13,4 @@
 		<GridRow rep="10">0000123</GridRow>
 		<GridRow rep="5">1140123</GridRow>
 	</initalLayout>
-</GridConfig>
+	<gridRules>rule1</gridRules></GridConfig>
