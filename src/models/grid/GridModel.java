@@ -2,6 +2,7 @@ package models.grid;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -128,12 +129,12 @@ public class GridModel {
 		myRules.calculateAndSetNextStates(myGrid, myCellSides);
 	}
 	
-    public CellState[][] getCellStates(){
-        CellState[][] result = new CellState[myGrid.length][myGrid[0].length];
+    public Collection<Cell> getCell(){
+        ArrayList<Cell> result = new ArrayList<Cell>(); 
         
         for (int i = 0; i < myGrid.length; i++){
 			for (int j = 0; j < myGrid[0].length; j++){
-				result[i][j] = myGrid[i][j].getState();
+				result.add(myGrid[i][j]);
 			}
 		}
         return result;
