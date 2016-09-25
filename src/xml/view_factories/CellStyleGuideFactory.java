@@ -17,7 +17,7 @@ public class CellStyleGuideFactory {
 	public CellStyleGuideFactory(String fXmlFilename)
 	{
 		fXmlReader = new XMLReader(fXmlFilename);
-		fStateXMLNodes = fXmlReader.findElements("State");
+		fStateXMLNodes = fXmlReader.findElements("state");
 		fCellStyleGuide = new CellStyleGuide();
 	}
 	
@@ -27,12 +27,11 @@ public class CellStyleGuideFactory {
 	 */
 	public CellStyleGuide createStyleGuide()
 	{
-		// find all style info contained in the xml, and make the hashmap
 		for (int i=0; i<fStateXMLNodes.getLength(); ++i) {
 			Element stateNode = (Element) fStateXMLNodes.item(i);
 			int stateIndex = Integer.parseInt(stateNode.getAttribute("id"));
 			
-			Element viewElement = (Element) fXmlReader.findElements(stateNode, "view").item(0);
+			Element viewElement = (Element) fXmlReader.findElements(stateNode, "viewInfo").item(0);
 			String color = fXmlReader.getTextValue(viewElement, "color");
 			String name = fXmlReader.getTextValue(viewElement, "name");
 			

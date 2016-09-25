@@ -12,6 +12,12 @@ import java.util.HashMap;
 public class CellStyleGuide {
 	private HashMap<Integer, String> fColors;
 	private HashMap<Integer, String> fNames;
+	
+	public CellStyleGuide()
+	{
+		fColors = new HashMap<Integer, String>();
+		fNames = new HashMap<Integer, String>();
+	}
 
 	/**
 	 * Gets the hex value corresponding to a given
