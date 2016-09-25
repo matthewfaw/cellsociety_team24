@@ -7,7 +7,9 @@ import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
+import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.Duration;
 import resources.AppResources;
 import views.AppScene;
@@ -47,15 +49,6 @@ public class AppController {
 		// play the simulation
 		// fSimulationController.play();
 	}
-
-	public void fileButtonHandler(Stage s) 
-	{
-		FileChooser filexmlChooser=new FileChooser();
-		File file =filexmlChooser.showOpenDialog(s);
-		if (file!=null){
-//			initializeGrid(file.getPath()); // a private method inside AppController
-		}
-	}
 //	private void initializeGrid()
 //	{
 //		
@@ -73,6 +66,12 @@ public class AppController {
 	
 	}
 	public void onSetSimulationButtonPressed() {
-		
+		FileChooser filexmlChooser=new FileChooser();
+		//filexmlChooser.setTitle(value);
+		File file =filexmlChooser.showOpenDialog(fStage);
+		if (file!=null){
+			
+//			initializeGrid(file.getPath()); // a private method inside AppController
+		}
 	}
 }
