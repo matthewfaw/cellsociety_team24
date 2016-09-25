@@ -61,9 +61,6 @@
 //		ButtonList.add(StepButton);
 //	}
 //
-//	private void StepButtonHandler() {
-//	//Simulation.step(SplashScreen.SECOND_DELAY);
-//	}*/
 //	
 //	public Button makeButton(String name,EventHandler action)
 //	{
@@ -79,9 +76,7 @@
 //		ButtonList.add(PauseButton);
 //	}
 //
-//	private void PauseButtonHandler(Timeline animation) {
-//		animation.stop();
-//	}
+
 //
 //	private void addStart(int scale,Timeline animation) {
 //		Button StartButton= makeButton("StartCommand",e->StartButtonHandler(animation));
@@ -90,7 +85,4 @@
 //		ButtonList.add(StartButton);
 //	}
 //
-//	private void StartButtonHandler(Timeline animation) {
-//		animation.play();
-//	}
-//}
+
