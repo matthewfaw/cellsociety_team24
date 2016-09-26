@@ -32,6 +32,7 @@ public class AppScene {
 	private AppController fAppController;
 	private ResourceBundle mytext=ResourceBundle.getBundle("Resources/textfiles");
 	private GridViewUpdateSquare myGrid;
+	private ScrollBar fSpeedScrollBar;
 	
 	public AppScene(int aHeight, int aWidth, AppController aAppController)
 	{
@@ -111,8 +112,13 @@ public class AppScene {
 	{
 		ScrollBar parameterScrollBar=makeScrollBar(AppResources.FIVE_EIGHTHS,AppResources.FIVE_EIGHTHS,width,true);
 		parameterScrollBar.setOnDragDone(e->fAppController.onParameterDrag());
-		ScrollBar speedScrollBar=makeScrollBar(AppResources.FIVE_EIGHTHS,AppResources.ELEVEN_SIXTEENTHS,width,true);
-		speedScrollBar.setOnDragDone(e->fAppController.onSpeedDrag());
+		fSpeedScrollBar=makeScrollBar(AppResources.FIVE_EIGHTHS,AppResources.ELEVEN_SIXTEENTHS,width,true);
+		fSpeedScrollBar.valueProperty().addListener(e -> fAppController.onSpeedDrag(fSpeedScrollBar.getValue()));
+	}
+	
+	public void setSpeedScrollBarValue(double aValue)
+	{
+		fSpeedScrollBar.setValue(aValue);
 	}
 	
 	private ScrollBar makeScrollBar(double xlayout, double ylayout,int width,Boolean disable) {
