@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StateConfig>
+	<state id="0">
+		
+		
+		
+		
+		
+		<viewInfo><color>#FFFF00</color><name>EMPTY</name></viewInfo>
+		<modelInfo><properties>
+			<health>100</health>
+			<age>0</age></properties></modelInfo></state>
+	<state id="1">
+		
+		
+		
+		
+		
+		<viewInfo><color>#00FF00</color><name>TREE</name></viewInfo>
+		<modelInfo><properties>
+			<time>90</time></properties></modelInfo></state>
+			<state id="2">
+		
+		
+		
+		
+		
+		<viewInfo><color>#FF0000</color><name>FIRE</name></viewInfo>
+		<modelInfo><properties>
+			<time>90</time></properties></modelInfo></state></StateConfig>

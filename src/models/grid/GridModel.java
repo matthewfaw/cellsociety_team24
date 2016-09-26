@@ -113,8 +113,10 @@ public class GridModel {
 		double randomNum = fRandomNumberGenerator.nextDouble();
 		if (randomNum < 0.2) {
 			return 1;
-		} else {
+		} else if (randomNum <0.9){
 			return 0;
+		} else {
+			return 2;
 		}
 //		int randomIndex = fRandomNumberGenerator.nextInt(fStateIds.size());
 //		return fStateIds.get(randomIndex);

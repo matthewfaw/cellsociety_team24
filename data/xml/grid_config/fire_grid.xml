@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GridConfig>
+	<gridSize>
+		<width>8</width>
+		<height>8</height>
+	</gridSize>
+	<type>square</type>
+	<stateProportions>
+		<percent id="0" value="60"></percent>
+		<percent id="1" value="40"></percent>
+	</stateProportions>
+	<gridRules>fire</gridRules>
+	<stateProperties>
+		<pCatchingFire>1</pCatchingFire></stateProperties></GridConfig>

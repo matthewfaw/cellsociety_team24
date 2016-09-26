@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SimulationConfig>
+	<name>WaTor</name>
+	<title>Fish-Shark Simulation</title>
+	<author>WaTorAuthor</author>
+	<speed>50</speed>
+</SimulationConfig>

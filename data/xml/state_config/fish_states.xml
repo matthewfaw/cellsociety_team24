@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StateConfig>
+	<state id="0">
+		
+		
+		
+		
+		
+		<viewInfo><color>#FFFFFF</color><name>EMPTY</name></viewInfo>
+		<modelInfo><properties>
+	<Chronon>0</Chronon>
+	<Age>0</Age>
+	<Energy>0</Energy></properties></modelInfo></state>
+	<state id="1">
+		
+		
+		
+		
+		
+		<viewInfo><color>#40E0D0</color><name>FISH</name></viewInfo>
+		<modelInfo><properties>
+	<Chronon>10</Chronon>
+	<Age>1</Age>
+	<Energy>50</Energy></properties></modelInfo></state>
+			<state id="2">
+		
+		
+		
+		
+		
+		<viewInfo><color>#0000FF</color><name>SHARK</name></viewInfo>
+		<modelInfo><properties>
+	<Chronon>10</Chronon>
+	<Age>6</Age>
+	<Energy>100</Energy></properties></modelInfo></state></StateConfig>

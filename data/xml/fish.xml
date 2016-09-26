@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Simulation>
+	<grid>fish_grid.xml</grid>
+	<simulation_info>fish_simulation.xml</simulation_info>
+	<state_info>fish_states.xml</state_info></Simulation>

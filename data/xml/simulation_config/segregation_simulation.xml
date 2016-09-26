@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SimulationConfig>
+	<name>Segregation</name>
+	<title>Segregation Simulation</title>
+	<author>SegregationAuthor</author>
+	<speed>50</speed>
+</SimulationConfig>
