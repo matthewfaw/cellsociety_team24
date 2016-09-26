@@ -25,6 +25,19 @@ abstract public class Rule {
 		}
 	}
 	
+	protected Point[] getAdjAndDiagNeighbors(Point p, int gridShape){
+		switch (gridShape){
+			case 3:
+				return triangleAllNeighbors(p);
+			case 4:
+				return squareAllNeighbors(p);
+			case 6:
+				return hexagonalNeighbors(p);
+			default:
+				return squareAllNeighbors(p);
+		}
+	}
+	
 	private Point[] hexagonalNeighbors(Point p) {
 		int x = p.getX();
 		int y = p.getY();
@@ -61,9 +74,9 @@ abstract public class Rule {
 		if (x % 2 == 0){
 			//Triangle pointing up
 			return new Point[] {
-					new Point(x + 1, y + 1),
-					new Point(x - 1, y),
-					new Point(x + 1, y)
+					new Point(x, y + 1),
+					new Point(x, y - 1),
+					new Point(x + 1, y + 1)
 			};
 		} else {
 			//Triangle pointing down
@@ -71,6 +84,50 @@ abstract public class Rule {
 					new Point(x , y + 1),
 					new Point(x + 1, y - 1),
 					new Point(x , y - 1)
+			};
+		}
+	}
+	
+	private Point[] squareAllNeighbors(Point p) {
+		int x = p.getX();
+		int y = p.getY();
+
+		return new Point[] {
+				new Point(x, y + 1),
+				new Point(x + 1, y + 1),
+				new Point(x + 1, y),
+				new Point(x + 1, y -1),
+				new Point(x, y - 1),
+				new Point(x - 1, y - 1),
+				new Point(x - 1, y),
+				new Point(x - 1, y + 1),
+		};
+	}
+	
+	private Point[] triangleAllNeighbors(Point p) {
+		int x = p.getX();
+		int y = p.getY();
+
+		if (x % 2 == 0){
+			//Triangle pointing up
+			return new Point[] {
+					new Point(x, y + 3),
+					new Point(x, y + 1),
+					new Point(x + 1, y),
+					new Point(x, y - 1),
+					new Point(x - 1, y),
+					new Point(x - 1, y + 1),
+
+			};
+		} else {
+			//Triangle pointing down
+			return new Point[] {
+					new Point(x, y + 1),
+					new Point(x + 1, y + 1),
+					new Point(x + 1, y - 1),
+					new Point(x, y - 3),
+					new Point(x - 1, y - 1),
+					new Point(x - 1, y),
 			};
 		}
 	}

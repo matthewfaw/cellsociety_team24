@@ -30,7 +30,7 @@ public class RuleSegregation extends Rule {
 		
 		for (int i = 0; i < myGrid.length; i++){
 			for (int j = 0; j < myGrid[i].length; j++){
-				if (likeNeighborsPercent(myGrid[i][j]) < satisfiedPercent)
+				if (myGrid[i][j].getNextStateID() != 0 && likeNeighborsPercent(myGrid[i][j]) < satisfiedPercent)
 					myDissenters.add(myGrid[i][j]);
 				if (empty(myGrid[i][j]))
 					myEmpties.add(myGrid[i][j]);
@@ -44,8 +44,9 @@ public class RuleSegregation extends Rule {
 		return c.getStateID() == 0;
 	}
 	
-	private double likeNeighborsPercent(Cell c){
-		Point[] neighbors = getNeighbors(c.getLocation(), myGridShape);
+	private double likeNeighborsPercent(Cell c){		
+		Point[] neighbors = getAdjAndDiagNeighbors(c.getLocation(), myGridShape);
+		
 		int cType = c.getStateID();
 		
 		double neighborCount = 0;

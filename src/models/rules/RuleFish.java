@@ -21,6 +21,9 @@ public class RuleFish extends Rule {
 	private int mySharkReproTime;
 	private int myFishEnergy;
 	
+	private int empty;
+	private int moved;
+	
 	/**
 	 * @param fishReproTime time for fish to reproduce
 	 * @param sharkReproTime time for sharks to reproduce
@@ -36,17 +39,25 @@ public class RuleFish extends Rule {
 	public void calculateAndSetNextStates(Cell[][] grid, int gridShape) {
 		myGrid = grid;
 		myShape = gridShape;
+		empty = 0;
+		moved = 0;
 		double prevChron = myGrid[0][0].getState("Chronon");
+		System.out.println(prevChron);
 		
 		for (int i = 0; i < grid.length; i++){
+			System.out.print("[");
 			for (int j = 0; j < grid[0].length; j++){
 				Cell c = myGrid[i][j];
+				System.out.printf("(%d, %d), ", c.getStateID(), (int) c.getState("Chronon"));
 				
-				if (c.getNextState("Chronon") <= prevChron){
+				//0.5 to correct for double percision errors
+				if (c.getNextState("Chronon") <= prevChron + 0.5){
 					move(c);
 				}
 			}
+			System.out.print("]\n");
 		}
+		System.out.printf("Empty: %d\tMoved: %d\n", empty, moved);
 	}
 	
 	/**
@@ -54,8 +65,11 @@ public class RuleFish extends Rule {
 	 * @param c starting cell
 	 */
 	private void move(Cell c){
-		if (occupied(c)){
-			
+		if (!occupied(c)){
+			empty++;
+			c.incrementState("Chronon");
+		} else {
+			moved++;
 			if (c.getNextStateID() == 1){
 				Point nextMove = pickFishMove(c);
 				if (nextMove != null)
