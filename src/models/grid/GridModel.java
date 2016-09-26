@@ -95,29 +95,40 @@ public class GridModel {
 //		}
 	}
 	
-	private boolean allProportionsAreAtMaximum()
-	{
-		for (int stateId: fStateIds) {
-			int currentProportion = fCurrentStateCount.get(stateId);
-			int maxProportion = fGridSettings.getStatePercentages().get(stateId);
-
-			if (currentProportion < maxProportion) {
-				return false;
-			}
-		}
-		return true;
-	}
+//	private boolean allProportionsAreAtMaximum()
+//	{
+//		for (int stateId: fStateIds) {
+//			int currentProportion = fCurrentStateCount.get(stateId);
+//			int maxProportion = fGridSettings.getStatePercentages().get(stateId);
+//
+//			if (currentProportion < maxProportion) {
+//				return false;
+//			}
+//		}
+//		return true;
+//	}
 	
 	private int getRandomStateId() 
 	{
-		double randomNum = fRandomNumberGenerator.nextDouble();
-		if (randomNum < 0.2) {
-			return 1;
-		} else if (randomNum <0.9){
-			return 0;
-		} else {
-			return 2;
+		double randomPercentage = fRandomNumberGenerator.nextDouble() * 100.0;
+		double previousProportion = 0;
+		for (int stateId: fStateIds) {
+			double newProportion = fGridSettings.getStatePercentages().get(stateId) + previousProportion;
+			
+			if (newProportion >= randomPercentage) {
+				return stateId;
+			}
+			
+			previousProportion = newProportion;
 		}
+		return fStateIds.get(fStateIds.size() - 1);
+//		if (randomNum < 0.2) {
+//			return 1;
+//		} else if (randomNum <0.9){
+//			return 0;
+//		} else {
+//			return 2;
+//		}
 //		int randomIndex = fRandomNumberGenerator.nextInt(fStateIds.size());
 //		return fStateIds.get(randomIndex);
 	}
