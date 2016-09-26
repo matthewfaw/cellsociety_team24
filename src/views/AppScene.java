@@ -1,6 +1,8 @@
 package views;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
@@ -14,8 +16,10 @@ import javafx.scene.control.ScrollBar;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import models.grid.Cell;
 import resources.AppResources;
 import views.styles.CellStyleGuide;
+import views.grid.GridViewUpdateSquare;
 
 public class AppScene {
 
@@ -27,6 +31,7 @@ public class AppScene {
 	private ArrayList<ScrollBar> scrollbarList= new ArrayList<ScrollBar>();
 	private AppController fAppController;
 	private ResourceBundle mytext=ResourceBundle.getBundle("Resources/textfiles");
+	private GridViewUpdateSquare myGrid;
 	
 	public AppScene(int aHeight, int aWidth, AppController aAppController)
 	{
@@ -52,8 +57,7 @@ public class AppScene {
 		Rectangle rectangle = new Rectangle();
 		rectangle.setWidth(fWidth);
 		rectangle.setHeight(fHeight);
-		//XXX: change this  so it's not hard coded... perhaps resource  file
-		rectangle.setFill(Color.WHITE);
+		rectangle.setFill(Color.web(mytext.getString("BACKGROUNDCOLOR")));
 		
 		fAppRoot.getChildren().add(rectangle);
 	}
@@ -145,15 +149,15 @@ public class AppScene {
 		fAppRoot.getChildren().add(basicGrid);
 		
 	}
-	/**
-	 * This method is intended to notify the Scene of 
-	 * information about the cells in the grid that comes
-	 * from the XML
-	 * This method should be used during grid setup
-	 * @param aStyleGuide
-	 */
-	public void setCellStyleGuide(CellStyleGuide aStyleGuide)
+	
+	public void intializeGrid(Collection<Cell> cells,CellStyleGuide csg, Dimension dimensions){
+		myGrid= new GridViewUpdateSquare(fWidth,fHeight,dimensions,fAppRoot,csg,cells);
+		myGrid.makeGrid(fAppRoot,fWidth,fHeight,cells,csg,dimensions);
+	}
+	
+	public void updateGrid(Collection<Cell> cells)
 	{
+		myGrid.StepGrid(cells);
 	}
 
 }

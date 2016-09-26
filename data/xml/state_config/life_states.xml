@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StateConfig>
+	<state id="0">
+		
+		
+		
+		
+		
+		<viewInfo><color>#FFFFFF</color><name>Dead</name></viewInfo>
+		<modelInfo><properties>
+			<health>100</health>
+			<age>0</age></properties></modelInfo></state>
+	<state id="1">
+		
+		
+		
+		
+		
+		<viewInfo><color>#000000</color><name>Alive</name></viewInfo>
+		<modelInfo><properties>
+			<time>90</time></properties></modelInfo></state></StateConfig>

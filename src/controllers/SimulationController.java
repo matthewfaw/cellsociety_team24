@@ -2,6 +2,7 @@ package controllers;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.animation.Animation.Status;
 import javafx.util.Duration;
 
 public class SimulationController {
@@ -14,7 +15,9 @@ public class SimulationController {
 	
 	public void start()
 	{
-		// Simulation begins
+		if (fSimulationTimeline.getStatus() != Status.RUNNING) {
+			fSimulationTimeline.play();
+		}
 	}
 	public void pause()
 	{

@@ -27,6 +27,7 @@ import xml.model_factories.SimulationSettingsFactory;
 public class AppController {
 	private AppScene fAppScene;
 	private Stage fStage;
+	private GridModel fGridModel;
 	private SimulationController fSimulationController;
 
 	public void init(Stage aStage)
@@ -48,7 +49,10 @@ public class AppController {
 	}
 	public void step(double aElapsedTime)
 	{
-		
+		if (aElapsedTime > 0) {
+			fGridModel.nextTick();
+			fAppScene.updateGrid(fGridModel.getAllCells());
+		}
 	}
 	
 	public void onPlayButtonPressed()
@@ -60,7 +64,7 @@ public class AppController {
 		// fSimulationController.play();
 	}
 	public void onStartButtonPressed() {
-		///
+		fSimulationController.start();
 	}
 	public void onPauseButtonPressed() {
 		
@@ -69,7 +73,7 @@ public class AppController {
 	
 	}
 	public void onStepButtonPressed() {
-	
+		step(1);
 	}
 	public void onSetSimulationButtonPressed() {
 		FileChooser filexmlChooser=new FileChooser();
@@ -77,13 +81,14 @@ public class AppController {
 		File file =filexmlChooser.showOpenDialog(fStage);
 		if (file!=null){
 			fAppScene.Display();
-			initializeGrid(file.getPath()); // a private method inside AppController
+			String xmlDirectoryPath = file.getParent() + "/";
+			initializeGrid(xmlDirectoryPath, file.getName()); // a private method inside AppController
 		}
 	}
-	private void initializeGrid(String filePath)
+	private void initializeGrid(String aDirectoryPath, String aFileName)
 	{
 		// pull data from XML
-		SimulationFileSettingsFactory simulationFileSettingsFactory = new SimulationFileSettingsFactory(filePath);
+		SimulationFileSettingsFactory simulationFileSettingsFactory = new SimulationFileSettingsFactory(aDirectoryPath, aFileName);
 		SimulationFileSettings filePaths = simulationFileSettingsFactory.createFileSettings();
 
 		CellDataFactory cellDataFactory = new CellDataFactory(filePaths.getStateFile());
@@ -97,10 +102,11 @@ public class AppController {
 		SimulationSettings simulationSettings = simulationSettingsFactory.createSimulationSettings();
 
 		// build the grid model
-		GridModel gridModel = new GridModel(gridSettings, cellSettings);
+		fGridModel = new GridModel(gridSettings, cellSettings);
 		// add the grid to the display
-		fAppScene.initializeGrid(gridModel.getAllCells(), cellStyleGuide, gridSettings.getDimensions());
+		fAppScene.intializeGrid(fGridModel.getAllCells(), cellStyleGuide, gridSettings.getDimensions());
 	}
+	
 	public void onParameterDrag() {
 		
 	}

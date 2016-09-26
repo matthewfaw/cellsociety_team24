@@ -31,17 +31,17 @@ public class GridSettings {
 		return fGridRule;
 	}
 	
-	//TODO: Perhaps refactor this
+	//TODO: Refactor this
 	private RuleType setGridRules(String aGridRule)
 	{
 		switch(aGridRule) {
-		case "Fire":
+		case "fire":
 			return RuleType.Fire;
-		case "Fish":
+		case "wator":
 			return RuleType.Fish;
-		case "Life":
+		case "life":
 			return RuleType.Life;
-		case "Segregation":
+		case "segregation":
 			return RuleType.Segregation;
 		default:
 			return null;
@@ -52,6 +52,12 @@ public class GridSettings {
 	{
 		return fDimension;
 	}
+	
+	public int getTotalNumberOfCells()
+	{
+		return (int)(fDimension.getHeight() * fDimension.getWidth());
+	}
+	
 	//TODO: Change this to an abstract method which
 	// subclasses define
 	public int getNumberOfCellSides()

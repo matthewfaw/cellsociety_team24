@@ -13,9 +13,12 @@ import xml.XMLFactory;
 public class SimulationFileSettingsFactory extends XMLFactory {
 	private static final String RESOURCE_PATH = "resources/Filepaths";
 
+	private String fXmlFolderPath; 
+
 	private ResourceBundle fFilePathsRB;
-	public SimulationFileSettingsFactory(String aXmlFileName) {
-		super(aXmlFileName);
+	public SimulationFileSettingsFactory(String aXmlFolderPath, String aXmlFileName) {
+		super(aXmlFolderPath + aXmlFileName);
+		fXmlFolderPath = aXmlFolderPath;
 		fFilePathsRB = ResourceBundle.getBundle(RESOURCE_PATH);
 	}
 	
@@ -26,9 +29,9 @@ public class SimulationFileSettingsFactory extends XMLFactory {
 		Element stateElement = fXmlReader.findFirstChildElement("state_info");
 		
 		SimulationFileSettings simulationFileSettings = new SimulationFileSettings();
-		simulationFileSettings.setGridFile(gridElement.getTextContent());
-		simulationFileSettings.setSimulationFile(simulationElement.getTextContent());
-		simulationFileSettings.setStateFile(stateElement.getTextContent());
+		simulationFileSettings.setGridFile(fXmlFolderPath + getResource("GridFiles") + gridElement.getTextContent());
+		simulationFileSettings.setSimulationFile(fXmlFolderPath + getResource("SimulationInfoFiles") + simulationElement.getTextContent());
+		simulationFileSettings.setStateFile(fXmlFolderPath + getResource("StateFiles") + stateElement.getTextContent());
 		
 		return simulationFileSettings;
 	}

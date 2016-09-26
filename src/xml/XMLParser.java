@@ -23,7 +23,6 @@ import org.xml.sax.SAXException;
  */
 class XMLParser {
 	private static final DocumentBuilder DOCUMENT_BUILDER = getDocumentBuilder();
-	private static final String DEFAULT_XML_PATH = "data/xml/";
 	
 	XMLParser()
 	{
@@ -34,12 +33,12 @@ class XMLParser {
 	 * @param aXmlFilename
 	 * @return
 	 */
-	public Element getRootElement(String aXmlFilename)
+	public Element getRootElement(String aXmlFilePath)
 	{
 		DOCUMENT_BUILDER.reset();
 		Document xmlDocument;
 		try {
-			xmlDocument = DOCUMENT_BUILDER.parse(DEFAULT_XML_PATH+aXmlFilename);
+			xmlDocument = DOCUMENT_BUILDER.parse(aXmlFilePath);
 			return xmlDocument.getDocumentElement();
 		} catch (SAXException | IOException e) {
 			e.printStackTrace();

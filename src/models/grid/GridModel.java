@@ -23,7 +23,7 @@ public class GridModel {
 	
 	private GridSettings fGridSettings;
 	private CellSettings fCellSettings;
-	private HashMap<Integer, Integer> fCurrentStateProportions;
+	private HashMap<Integer, Integer> fCurrentStateCount;
 	private ArrayList<Integer> fStateIds;
 	private RuleFactory fRuleFactory;
 	
@@ -33,12 +33,13 @@ public class GridModel {
 //		myCellSides = cellSides;
 //	}
 	
+	//TODO: Bring the RuleFactory outside of the GridModel
 	public GridModel(GridSettings aGridSettings, CellSettings aCellSettings)
 	{
 		fGridSettings = aGridSettings;
 		fCellSettings = aCellSettings;
 		fStateIds = new ArrayList<Integer>(fGridSettings.getStatePercentages().keySet());
-		fCurrentStateProportions = new HashMap<Integer, Integer>();
+		fCurrentStateCount = new HashMap<Integer, Integer>();
 		fRuleFactory = new RuleFactory();
 
 		myCellSides = fGridSettings.getNumberOfCellSides();
@@ -51,7 +52,7 @@ public class GridModel {
 	private void initializeGridStateProportions()
 	{
 		for (int stateId: fStateIds) {
-			fCurrentStateProportions.put(stateId, 0);
+			fCurrentStateCount.put(stateId, 0);
 		}
 	}
 	
@@ -71,29 +72,36 @@ public class GridModel {
 	
 	private int selectStateIndex()
 	{
+		
 		int randomStateId = getRandomStateId();
-		
-		int currentProportion = fCurrentStateProportions.get(randomStateId);
-		int maxProportion = fGridSettings.getStatePercentages().get(randomStateId);
-		
-		if (!allProportionsAreAtMaximum()) {
-			System.out.println("ERROR: No states can be created!");
-			return -1;
-		} else if (currentProportion < maxProportion) {
-			fCurrentStateProportions.put(randomStateId, ++currentProportion);
-			return randomStateId;
-		} else { // try again
-			return selectStateIndex();
-		}
+		return randomStateId;
+//		
+//		int currentCount = fCurrentStateCount.get(randomStateId);
+//		double currentProportion = currentCount * fGridSettings.getTotalNumberOfCells() / 100.0;
+//		int maxProportion = fGridSettings.getStatePercentages().get(randomStateId);
+//		
+//		if (allProportionsAreAtMaximum()) {
+//			System.out.println("ERROR: No states can be created!");
+//			return -1;
+//		} else if (currentProportion < maxProportion) {
+//			fCurrentStateCount.remove(randomStateId);
+//			fCurrentStateCount.put(randomStateId, ++currentCount);
+//			return randomStateId;
+//		} else { // try again
+//			System.out.println(currentCount); 
+//			System.out.println(currentProportion); 
+//			System.out.println(maxProportion);
+//			return selectStateIndex();
+//		}
 	}
 	
 	private boolean allProportionsAreAtMaximum()
 	{
 		for (int stateId: fStateIds) {
-			int currentProportion = fCurrentStateProportions.get(stateId);
+			int currentProportion = fCurrentStateCount.get(stateId);
 			int maxProportion = fGridSettings.getStatePercentages().get(stateId);
 
-			if (currentProportion >= maxProportion) {
+			if (currentProportion < maxProportion) {
 				return false;
 			}
 		}
@@ -102,8 +110,14 @@ public class GridModel {
 	
 	private int getRandomStateId() 
 	{
-		int randomIndex = fRandomNumberGenerator.nextInt(fStateIds.size());
-		return fStateIds.get(randomIndex);
+		double randomNum = fRandomNumberGenerator.nextDouble();
+		if (randomNum < 0.2) {
+			return 1;
+		} else {
+			return 0;
+		}
+//		int randomIndex = fRandomNumberGenerator.nextInt(fStateIds.size());
+//		return fStateIds.get(randomIndex);
 	}
 	
 	
