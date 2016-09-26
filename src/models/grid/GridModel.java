@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.TreeMap;
 
 import models.rules.Rule;
 import models.rules.RuleFactory;
@@ -63,7 +64,7 @@ public class GridModel {
 		for (int row=0; row<myGrid.length; ++row) {
 			for (int col=0; col<myGrid[row].length; ++col) {
 				int stateIndex = selectStateIndex();
-				Map<String, Double> stateProperties = fCellSettings.getProperties(stateIndex);
+				Map<String, Double> stateProperties = new TreeMap(fCellSettings.getProperties(stateIndex));
 				Cell cell = new Cell(row, col, stateIndex, stateProperties);
 				myGrid[row][col] = cell;
 			}

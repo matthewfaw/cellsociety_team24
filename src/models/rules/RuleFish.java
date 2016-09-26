@@ -41,23 +41,18 @@ public class RuleFish extends Rule {
 		myShape = gridShape;
 		empty = 0;
 		moved = 0;
-		double prevChron = myGrid[0][0].getState("Chronon");
-		System.out.println(prevChron);
+		int prevChron = (int) myGrid[0][0].getState("Chronon");
 		
 		for (int i = 0; i < grid.length; i++){
-			System.out.print("[");
 			for (int j = 0; j < grid[0].length; j++){
 				Cell c = myGrid[i][j];
-				System.out.printf("(%d, %d), ", c.getStateID(), (int) c.getState("Chronon"));
 				
 				//0.5 to correct for double percision errors
-				if (c.getNextState("Chronon") <= prevChron + 0.5){
+				if ((int) c.getNextState("Chronon") <= prevChron + 0.5){
 					move(c);
 				}
 			}
-			System.out.print("]\n");
 		}
-		System.out.printf("Empty: %d\tMoved: %d\n", empty, moved);
 	}
 	
 	/**
@@ -83,6 +78,7 @@ public class RuleFish extends Rule {
 				if (c.getNextState("Energy") <= 0){
 					c.setNextState(newEmpty(c.getNextState("Chronon") + 1));
 				} else {
+					c.decrement("Energy");
 					Point nextMove = pickSharkMove(c);
 					
 					if (nextMove != null)
@@ -107,7 +103,7 @@ public class RuleFish extends Rule {
 		fish.increment("Age");
 		
 		if (fish.getStateAttrib("Age") < myFishReproTime)
-			c.setNextState(newEmpty(fish.getStateAttrib("Age")));
+			c.setNextState(newEmpty(fish.getStateAttrib("Chronon")));
 		else {
 			c.setNextState(newFish(fish.getStateAttrib("Chronon")));
 			fish.setStateAtttrib(0, "Age");
@@ -127,7 +123,7 @@ public class RuleFish extends Rule {
 		shark.increment("Age");
 		
 		if (shark.getStateAttrib("Age") < mySharkReproTime)
-			c.setNextState(newEmpty(shark.getStateAttrib("Age")));
+			c.setNextState(newEmpty(shark.getStateAttrib("Chronon")));
 		else {
 			c.setNextState(newShark(shark.getStateAttrib("Chronon"), shark.getStateAttrib("Energy")));
 			shark.setStateAtttrib(0, "Age");

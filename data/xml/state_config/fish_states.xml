@@ -20,7 +20,7 @@
 		<viewInfo><color>#40E0D0</color><name>FISH</name></viewInfo>
 		<modelInfo><properties>
 	<Chronon>0</Chronon>
-	<Age>1</Age>
+	<Age>0</Age>
 	<Energy>0</Energy></properties></modelInfo></state>
 			<state id="2">
 		

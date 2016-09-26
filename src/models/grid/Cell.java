@@ -80,6 +80,12 @@ public class Cell {
 			return myNextState.getStateID();
 		return myCurrState.getStateID();
 	}
+
+	public void decrement(String key) {
+		if (myNextState == null)
+			myNextState = myCurrState.clone();
+		myNextState.decrement(key);
+	}
 	
 }
 	
