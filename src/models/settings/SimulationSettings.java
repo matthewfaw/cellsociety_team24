@@ -25,4 +25,14 @@ public class SimulationSettings {
 		fAuthor = aAuthor;
 		fSimulationSpeed = aSimulationSpeed;
 	}
+	
+	public String getTitle()
+	{
+		return fTitle;
+	}
+	
+	public double getSimulationSpeed()
+	{
+		return fSimulationSpeed;
+	}
 }

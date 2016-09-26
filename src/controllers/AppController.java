@@ -29,6 +29,9 @@ public class AppController {
 	private Stage fStage;
 	private GridModel fGridModel;
 	private SimulationController fSimulationController;
+	
+	private String fCurrentXmlDirectoryPath; 
+	private String fCurrentFileName;
 
 	public void init(Stage aStage)
 	{
@@ -67,10 +70,11 @@ public class AppController {
 		fSimulationController.start();
 	}
 	public void onPauseButtonPressed() {
-		
+		fSimulationController.pause();
 	}
 	public void onResetButtonPressed() {
-	
+		fSimulationController.pause();
+		initializeGrid(fCurrentXmlDirectoryPath,fCurrentFileName);
 	}
 	public void onStepButtonPressed() {
 		step(1);
@@ -81,8 +85,9 @@ public class AppController {
 		File file =filexmlChooser.showOpenDialog(fStage);
 		if (file!=null){
 			fAppScene.Display();
-			String xmlDirectoryPath = file.getParent() + "/";
-			initializeGrid(xmlDirectoryPath, file.getName()); // a private method inside AppController
+			fCurrentXmlDirectoryPath = file.getParent() + "/";
+			fCurrentFileName = file.getName();
+			initializeGrid(fCurrentXmlDirectoryPath , fCurrentFileName); // a private method inside AppController
 		}
 	}
 	private void initializeGrid(String aDirectoryPath, String aFileName)
@@ -105,12 +110,14 @@ public class AppController {
 		fGridModel = new GridModel(gridSettings, cellSettings);
 		// add the grid to the display
 		fAppScene.intializeGrid(fGridModel.getAllCells(), cellStyleGuide, gridSettings.getDimensions());
+		fAppScene.setSpeedScrollBarValue(simulationSettings.getSimulationSpeed());
+		fSimulationController.changeSpeed(simulationSettings.getSimulationSpeed());
 	}
 	
 	public void onParameterDrag() {
 		
 	}
-	public void onSpeedDrag() {
-
+	public void onSpeedDrag(double aScrollbarValue) {
+		fSimulationController.changeSpeed(aScrollbarValue);
 	}
 }

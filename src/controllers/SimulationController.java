@@ -21,10 +21,16 @@ public class SimulationController {
 	}
 	public void pause()
 	{
-		
+		if (fSimulationTimeline.getStatus() == Status.RUNNING) {
+			fSimulationTimeline.pause();
+		}
 	}
 	public void reset()
 	{
 		// return game state to initial state
+	}
+	public void changeSpeed(double aSpeed)
+	{
+		fSimulationTimeline.setRate(/*fSimulationTimeline.getRate() + */ aSpeed/100.0);
 	}
 }
