@@ -3,6 +3,7 @@ package views.grid;
 import java.awt.Dimension;
 import java.util.Collection;
 
+import controllers.AppController;
 import javafx.scene.Group;
 import javafx.scene.shape.Rectangle;
 import models.grid.Cell;
@@ -22,7 +23,8 @@ public class GridViewUpdateSquare extends GridViewUpdate {
 		int cellx=currcell.getLocation().getX();
 		int celly=currcell.getLocation().getY();
 		Rectangle cellrect = new Rectangle(width*(AppResources.OFFSET)+(cellwidth*cellx),height*(AppResources.OFFSET)+(cellheight*celly),cellwidth,cellheight);
-		ColorCell(currcell,cellrect,csg);
+		cellMap.put(currcell, cellrect);
+		colorCell(currcell,csg);
         root.getChildren().add(cellrect);
         myShapeCollection.add(cellrect); 
 	}

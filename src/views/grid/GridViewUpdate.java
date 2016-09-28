@@ -3,7 +3,9 @@ package views.grid;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
@@ -21,6 +23,7 @@ public abstract class GridViewUpdate {
 	protected CellStyleGuide myGuide;
 	protected Collection<Cell> myCells;
 	protected ArrayList<Shape> myShapeCollection=new ArrayList<Shape>();
+	protected Map<Cell,Shape> cellMap=new HashMap<Cell,Shape>();
 	
 	public GridViewUpdate(int width,int height,Dimension size,Group root,CellStyleGuide csg,Collection<Cell> cells){
 		myWidth=width;
@@ -45,17 +48,25 @@ public abstract class GridViewUpdate {
 		for(Cell c: cells){
 			Shape myShape=shapeIterator.next();
 			myRoot.getChildren().remove(myShape);
-			ColorCell(c,myShape,myGuide);
+			colorCell(c,myGuide);
 			myRoot.getChildren().add(myShape);
 		}
 			
 	}
-	protected void ColorCell(Cell cell, Shape shape,CellStyleGuide csg) {
-		int currcellstate =cell.getStateID();
-		shape.setFill(Color.web(csg.getColor(currcellstate)));
+	public void colorCell(Cell c,CellStyleGuide csg) {
+		Shape s= getShape(c);
+		int currcellstate =c.getStateID();
+		s.setFill(Color.web(csg.getColor(currcellstate)));
 	}
-
-
+	
+	public Iterator<Shape> getShapeIterator(){
+		Iterator<Shape> shapeIterator= myShapeCollection.iterator();
+		return shapeIterator;
+	}
+	
+	public Shape getShape(Cell c){
+		return cellMap.get(c);
+	}
 
 	public abstract void AddCell(int width, int height, Dimension size, Cell currcell,Group root,CellStyleGuide csg); 
 	
