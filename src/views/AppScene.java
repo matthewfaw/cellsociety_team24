@@ -10,6 +10,8 @@ import controllers.AppController;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
@@ -34,7 +36,9 @@ public class AppScene {
 	private ResourceBundle mytext=ResourceBundle.getBundle("Resources/textfiles");
 	private GridViewUpdateSquare myGrid;
 	private ScrollBar fSpeedScrollBar;
-	
+	private LineChart<Number,Number>  myDataChart= new LineChart<Number,Number>(null, null); 
+	private XYChart.Series mySeriesone= new XYChart.Series();
+	private XYChart.Series mySeriestwo= new XYChart.Series();
 	public AppScene(int aHeight, int aWidth, AppController aAppController)
 	{
 		fAppRoot = new Group();
@@ -182,5 +186,15 @@ public class AppScene {
 		Shape s= myGrid.getShape(c);
 		myGrid.colorCell(c, fCellStyleGuide);
 	}
-
+	
+	public void updateGraph(int stepnumber,double datapointone, double datapointtwo){
+		if(fAppRoot.getChildren().contains(myDataChart)){
+			fAppRoot.getChildren().remove(myDataChart);
+		}
+		mySeriesone.getData().add(new XYChart.Data(stepnumber,datapointone));
+		mySeriestwo.getData().add(new XYChart.Data(stepnumber,datapointtwo));
+		myDataChart.getData().addAll(mySeriesone,mySeriestwo);
+		fAppRoot.getChildren().add(myDataChart);
+		
+	}
 }

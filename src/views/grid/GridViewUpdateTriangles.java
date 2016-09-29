@@ -4,7 +4,8 @@ import java.awt.Dimension;
 import java.util.Collection;
 
 import javafx.scene.Group;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Shape;
 import models.grid.Cell;
 import resources.AppResources;
 import views.styles.CellStyleGuide;
@@ -21,10 +22,26 @@ public class GridViewUpdateTriangles extends GridViewUpdate {
 		double cellheight=(height*0.5)/(dimensions.getHeight());
 		int cellx=currcell.getLocation().getX();
 		int celly=currcell.getLocation().getY();
-		Rectangle cellrect = new Rectangle(width*(AppResources.OFFSET)+(cellwidth*cellx),height*(AppResources.OFFSET)+(cellheight*celly),cellwidth,cellheight);
-		ColorCell(currcell,cellrect,csg);
-        root.getChildren().add(cellrect);
-        myShapeCollection.add(cellrect); 
+		Polygon celltriangle=new Polygon();
+		if(((cellx+celly)%2)==0){
+			celltriangle.getPoints().addAll(new Double[]{
+				width*(AppResources.OFFSET)+(cellx*cellwidth*AppResources.HALF), height*(AppResources.OFFSET)+(cellheight*celly)+cellheight*AppResources.HALF,
+				width*(AppResources.OFFSET)+(cellx*cellwidth*AppResources.HALF)-cellwidth*AppResources.HALF, height*(AppResources.OFFSET)+(cellheight*celly)-cellheight*AppResources.HALF,
+				width*(AppResources.OFFSET)+(cellx*cellwidth*AppResources.HALF)+cellwidth*AppResources.HALF, height*(AppResources.OFFSET)+(cellheight*celly)-cellheight*AppResources.HALF	
+			});
+		}
+		else{
+			celltriangle.getPoints().addAll(new Double[]{
+				width*(AppResources.OFFSET)+(cellx*cellwidth*AppResources.HALF), height*(AppResources.OFFSET)+(cellheight*celly)+cellheight*AppResources.HALF,
+				width*(AppResources.OFFSET)+(cellx*cellwidth*AppResources.HALF)-cellwidth*AppResources.HALF, height*(AppResources.OFFSET)+(cellheight*celly)-cellheight*AppResources.HALF,
+				width*(AppResources.OFFSET)+(cellx*cellwidth*AppResources.HALF)+cellwidth*AppResources.HALF, height*(AppResources.OFFSET)+(cellheight*celly)-cellheight*AppResources.HALF	
+			});
+
+		}
+		cellMap.put(currcell, celltriangle);
+		colorCell(currcell,csg);
+		root.getChildren().add(celltriangle);
+        myShapeCollection.add(celltriangle); 
 	}
 
 }
