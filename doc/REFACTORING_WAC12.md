@@ -1,6 +1,6 @@
-#CellSociety Code Review Refactoring
+# CellSociety Code Review Refactoring
 
-###Weston Carvalho
+### Weston Carvalho
 
 |Commits|Changes|
 |-------|-------|
