@@ -1,50 +1,49 @@
 package models.rules;
 
-import models.Point;
 import models.grid.Cell;
 import models.grid.CellState;
+import models.grid.GridModel;
 
 public class RuleLife extends Rule {
+	private static final int liveID = 1;
+	private static final int deadID = 0;
+	
 
 	@Override
-	public void calculateAndSetNextStates(Cell[][] grid, int gridShape) {
+	public void calculateAndSetNextStates(GridModel grid) {
 		
-		for (int i = 0; i < grid.length; i++){
-			for (int j = 0; j < grid[0].length; j++){
-				Cell c = grid[i][j];
+		for (Cell c: grid){
 				
-				Point[] neighbors = getNeighbors(c.getLocation(), gridShape);
-				int livingNeighbors = 0;
-				
-				for (Point p: neighbors){
-					Cell neighbor = getCell(p, grid);
-					if (neighbor != null)
-						livingNeighbors += neighbor.getStateID();
-				}
-				
-				if (c.getStateID() == 1){
-					if (livingNeighbors == 2 || livingNeighbors == 3){
-						c.setNextState(c.getState());
-					} else {
-						c.setNextState(newDead());
-					}
+			Cell[] neighbors = grid.getNeighbors(c);
+			int livingNeighbors = 0;
+			
+			for (Cell neighbor: neighbors){
+				if (neighbor != null)
+					livingNeighbors += neighbor.getStateID();
+			}
+			
+			if (c.getStateID() == liveID){
+				if (livingNeighbors == 2 || livingNeighbors == 3){
+					c.setNextState(c.getState());
 				} else {
-					if (livingNeighbors == 3){
-						c.setNextState(newLive());
-					} else {
-						c.setNextState(c.getState());
-					}
+					c.setNextState(newDead());
+				}
+			} else {
+				if (livingNeighbors == 3){
+					c.setNextState(newLive());
+				} else {
+					c.setNextState(c.getState());
 				}
 			}
 		}
 	}
 	
 	private CellState newLive(){
-		return new CellState(1, null);
+		return new CellState(liveID, null);
 	}
 	
 	private CellState newDead(){
-		return new CellState(0, null);
+		return new CellState(deadID, null);
 	}
 
 }

@@ -3,10 +3,18 @@ package models.grid;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Random;
+import java.util.TreeMap;
 
+import models.Point;
 import models.rules.Rule;
 
-public class GridModel {
+public class GridModel implements Iterable<Cell>{
+	private static final Random fRandomNumberGenerator = new Random();
+	
 	private Cell[][] myGrid;
 	private Rule myRules;
 	private int myCellSides;
@@ -51,7 +59,7 @@ public class GridModel {
 	 * Calculate a next state for each cell using the given rules
 	 */
 	private void calculateAllNextStates() {
-		myRules.calculateAndSetNextStates(myGrid, myCellSides);
+		myRules.calculateAndSetNextStates(this);
 	}
 	
     public Collection<Cell> getAllCells(){
@@ -68,4 +76,209 @@ public class GridModel {
 	public int getCellSides(){
 		return myCellSides;
 	}
+
+	private class GridIterator implements Iterator<Cell>{
+		Cell[][] myGrid;
+		
+		int currX;
+		int currY;
+		
+		int maxX;
+		int maxY;
+		
+		public GridIterator(Cell[][] grid){
+			myGrid = grid;
+			
+			maxX = grid.length;
+			maxY = grid[0].length;
+			
+			currX = 0;
+			currY = 0;
+		}
+		
+		private void updateCurrent(){
+			currX++;
+			
+			if (currX >= maxX){
+				currX = 0;
+				currY++;
+			}
+		}
+
+		@Override
+		public boolean hasNext() {
+			return (currX < maxX && currY < maxY);
+		}
+
+		@Override
+		public Cell next() {
+			if (hasNext()){
+				int x = currX;
+				int y = currY;
+				
+				updateCurrent();
+				
+				return myGrid[x][y];
+			}
+			return null;
+
+		}
+		
+	}
+	
+	@Override
+	public Iterator<Cell> iterator() {
+		return new GridIterator(myGrid);
+	}
+	
+	
+	public Cell[] getNeighbors(Cell c){
+		switch (myCellSides){
+			case 3:
+				return triangleNeighbors(c);
+			case 4:
+				return squareNeighbors(c);
+			case 6:
+				return hexagonalNeighbors(c);
+			default:
+				return squareNeighbors(c);
+		}
+	}
+	
+	public Cell[] getAdjAndDiagNeighbors(Cell c){
+		switch (myCellSides){
+			case 3:
+				return triangleAllNeighbors(c);
+			case 4:
+				return squareAllNeighbors(c);
+			case 6:
+				return hexagonalNeighbors(c);
+			default:
+				return squareAllNeighbors(c);
+		}
+	}
+	
+	private Cell[] hexagonalNeighbors(Cell c) {
+		Point p = c.getLocation();
+		int x = p.getX();
+		int y = p.getY();
+
+		return new Cell[] {
+				myGrid[x + 2][y],
+				myGrid[x + 1][y],
+				myGrid[x - 1][y],
+				myGrid[x - 2][y],
+				myGrid[x - 1][y - 1],
+				myGrid[x + 1][y - 1],
+			
+		};
+	}
+
+
+	private Cell[] squareNeighbors(Cell c) {
+		Point p = c.getLocation();
+		int x = p.getX();
+		int y = p.getY();
+
+		return new Cell[] {
+				myGrid[x][y + 1],
+				myGrid[x + 1][y],
+				myGrid[x][y - 1],
+				myGrid[x - 1][y],
+		};
+	}
+
+
+	private Cell[] triangleNeighbors(Cell c) {
+		Point p = c.getLocation();
+		int x = p.getX();
+		int y = p.getY();
+
+		if (x % 2 == 0){
+			//Triangle pointing up
+			return new Cell[] {
+					myGrid[x][y + 1],
+					myGrid[x][y - 1],
+					myGrid[x + 1][y + 1]
+			};
+		} else {
+			//Triangle pointing down
+			return new Cell[] {
+					myGrid[x ][y + 1],
+					myGrid[x + 1][y - 1],
+					myGrid[x ][y - 1]
+			};
+		}
+	}
+	
+	private Cell[] squareAllNeighbors(Cell c) {
+		Point p = c.getLocation();
+		int x = p.getX();
+		int y = p.getY();
+
+		return new Cell[] {
+				myGrid[x][y + 1],
+				myGrid[x + 1][y + 1],
+				myGrid[x + 1][y],
+				myGrid[x + 1][y -1],
+				myGrid[x][y - 1],
+				myGrid[x - 1][y - 1],
+				myGrid[x - 1][y],
+				myGrid[x - 1][y + 1],
+		};
+	}
+	
+	private Cell[] triangleAllNeighbors(Cell c) {
+		Point p = c.getLocation();
+		int x = p.getX();
+		int y = p.getY();
+
+		if (x % 2 == 0){
+			//Triangle pointing up
+			return new Cell[] {
+					myGrid[x][y + 3],
+					myGrid[x][y + 1],
+					myGrid[x + 1][y],
+					myGrid[x][y - 1],
+					myGrid[x - 1][y],
+					myGrid[x - 1][y + 1],
+
+			};
+		} else {
+			//Triangle pointing down
+			return new Cell[] {
+					myGrid[x][y + 1],
+					myGrid[x + 1][y + 1],
+					myGrid[x + 1][y - 1],
+					myGrid[x][y - 3],
+					myGrid[x - 1][y - 1],
+					myGrid[x - 1][y],
+			};
+		}
+	}
+	
+	public boolean inGrid(Point p){
+		return (
+				p.getX() >= 0 &&
+				p.getY() >= 0 &&
+				p.getX() < myGrid.length &&
+				p.getY() < myGrid[0].length
+				);			
+	}
+	public Cell getCell(Point p){
+		if (inGrid(p)){
+			return myGrid[p.getX()][p.getY()];
+		} else {
+			return null;
+		}
+	}
+	
+	public Point getDimensions(){
+		return new Point(myGrid.length, myGrid[0].length);
+	}
+	
+	public Cell getCell(int x, int y){
+		return getCell(new Point(x, y));
+	}
+
 }

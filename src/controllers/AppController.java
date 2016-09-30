@@ -5,9 +5,13 @@ import java.io.File;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import models.grid.Cell;
 import models.grid.GridFactory;
 import models.grid.GridModel;
 import models.settings.CellSettings;
@@ -120,4 +124,11 @@ public class AppController {
 	public void onSpeedDrag(double aScrollbarValue) {
 		fSimulationController.changeSpeed(aScrollbarValue);
 	}
+
+//	public Object cellColorChange(Cell c) {
+	public void cellColorChange(Cell c) {
+		// formula to change stateid
+		fAppScene.changeCellColor(c);
+	}
+	
 }

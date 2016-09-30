@@ -16,6 +16,7 @@ import javafx.scene.control.ScrollBar;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import models.grid.Cell;
 import resources.AppResources;
 import views.styles.CellStyleGuide;
@@ -80,7 +81,6 @@ public class AppScene {
 		Button setSimulationButton= makeButton("SetSimulationCommand",AppResources.OFFSET,AppResources.SEVEN_EIGHTHS, width,false);
 		setSimulationButton.setOnAction(e->
 		fAppController.onSetSimulationButtonPressed());
-		//fAppRoot.getChildren().add(setSimulationButton);
 	}
 	
 	private Button makeButton(String name, double xlayout, double ylayout,int width,Boolean disable) {
@@ -164,6 +164,23 @@ public class AppScene {
 	public void updateGrid(Collection<Cell> cells)
 	{
 		myGrid.StepGrid(cells);
+	}
+	//public void mouseClickGrid(){
+	//	fAppScene.setOnMouseClicked(e -> GridViewUpdateSquare.handleMouseClick(e.getX(), e.getY()));
+	//}
+
+	public void buildCellListeners(Collection<Cell> cells) {
+		Iterator<Shape> shapeIterator= myGrid.getShapeIterator();
+		for(Cell c:cells){
+			Shape s= shapeIterator.next();
+			s.setOnMouseClicked(e->fAppController.cellColorChange(c));
+		}
+	}
+
+	public void changeCellColor(Cell c) {
+		fAppRoot.getChildren().remove(myGrid.getShape(c));
+		Shape s= myGrid.getShape(c);
+		myGrid.colorCell(c, fCellStyleGuide);
 	}
 
 }

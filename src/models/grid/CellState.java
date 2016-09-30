@@ -42,5 +42,12 @@ public class CellState {
 	public CellState clone() {
 		return new CellState(myState, new TreeMap<String, Double>(myAttribs));
 	}
+
+	public void decrement(String key) {
+		if (myAttribs.containsKey(key)){
+			myAttribs.put(key, myAttribs.get(key) - 1);
+		} else
+			throw new IllegalArgumentException("No such key in attribute map.");
+	}
 	
 }
