@@ -3,39 +3,33 @@ package models.grid;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
-import java.util.Random;
-import java.util.TreeMap;
 
 import models.Point;
 import models.rules.Rule;
 
-public class GridModel implements Iterable<Cell>{
-	private static final Random fRandomNumberGenerator = new Random();
-	
+public class GridModel implements Iterable<Cell>{	
 	private Cell[][] myGrid;
 	private Rule myRules;
 	private int myCellSides;
 	
 	//NOTE: there is no public/private/protected qualifier in front of this constructor, because
-	// this constructor should only constructed from GridFactory
-	GridModel(Collection<Cell> aCellCollection, Dimension aGridDimensions, Rule aRule, int aNumberOfCellSides)
+	// this constructor should only be called from GridFactory
+	GridModel(Collection<Cell> cells, Dimension dimension, Rule rule, int cellSides)
 	{
-		myGrid = constructGrid(aCellCollection, aGridDimensions);
-		myRules = aRule;
-		myCellSides = aNumberOfCellSides;
+		myGrid = constructGrid(cells, dimension);
+		myRules = rule;
+		myCellSides = cellSides;
 	}
 	
-	private Cell[][] constructGrid(Iterable<Cell> aCellCollection, Dimension aGridDimensions)
+	private Cell[][] constructGrid(Iterable<Cell> cells, Dimension dimension)
 	{
-		myGrid = new Cell[(int) aGridDimensions.getWidth()][(int) aGridDimensions.getHeight()];
+		myGrid = new Cell[(int) dimension.getWidth()][(int) dimension.getHeight()];
 		
-		for (Cell cell: aCellCollection) {
-			int row = cell.getLocation().getX();
-			int col = cell.getLocation().getY();
-			myGrid[row][col] = cell;
+		for (Cell c: cells) {
+			int row = c.getLocation().getX();
+			int col = c.getLocation().getY();
+			myGrid[row][col] = c;
 		}
 		
 		return myGrid;
