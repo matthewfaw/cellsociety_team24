@@ -5,6 +5,9 @@ import models.grid.CellState;
 import models.grid.GridModel;
 
 public class RuleLife extends Rule {
+	private static final int liveID = 1;
+	private static final int deadID = 0;
+	
 
 	@Override
 	public void calculateAndSetNextStates(GridModel grid) {
@@ -19,7 +22,7 @@ public class RuleLife extends Rule {
 					livingNeighbors += neighbor.getStateID();
 			}
 			
-			if (c.getStateID() == 1){
+			if (c.getStateID() == liveID){
 				if (livingNeighbors == 2 || livingNeighbors == 3){
 					c.setNextState(c.getState());
 				} else {
@@ -36,11 +39,11 @@ public class RuleLife extends Rule {
 	}
 	
 	private CellState newLive(){
-		return new CellState(1, null);
+		return new CellState(liveID, null);
 	}
 	
 	private CellState newDead(){
-		return new CellState(0, null);
+		return new CellState(deadID, null);
 	}
 
 }

@@ -7,6 +7,8 @@ import models.grid.Cell;
 import models.grid.GridModel;
 
 public class RuleSegregation extends Rule {
+	private static final int emptyID = 0;
+	
 	ArrayList<Cell> myDissenters;
 	ArrayList<Cell> myEmpties;
 	int myGridShape;
@@ -37,7 +39,7 @@ public class RuleSegregation extends Rule {
 	}
 	
 	private boolean empty(Cell c){
-		return c.getStateID() == 0;
+		return c.getStateID() == emptyID;
 	}
 	
 	private double likeNeighborsPercent(Cell c){		

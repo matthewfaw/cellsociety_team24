@@ -7,9 +7,13 @@ import models.grid.CellState;
 import models.grid.GridModel;
 
 public class RuleFire extends Rule {
-	Random myRandom;
-	double myProbCatch;
-	GridModel myGrid;
+	private static final int fireID = 2;
+	private static final int treeID = 1;
+	private static final int emptyID = 0;
+	
+	private Random myRandom;
+	private double myProbCatch;
+	private GridModel myGrid;
 
 	public RuleFire(double probCatch) {
 		myProbCatch = probCatch;
@@ -30,12 +34,12 @@ public class RuleFire extends Rule {
 		int burningNeighbors = 0;
 		
 		for (Cell neighbor: neighbors){
-			if (neighbor != null && neighbor.getStateID() == 2)
+			if (neighbor != null && neighbor.getStateID() == fireID)
 				burningNeighbors++;
 		}
 		
 
-		if (cellToUpdate.getStateID() == 1){
+		if (cellToUpdate.getStateID() == treeID){
 			if(burningNeighbors > 0 && myRandom.nextDouble() < myProbCatch)
 				return newBurning();
 			else
@@ -46,15 +50,15 @@ public class RuleFire extends Rule {
 	}
 	
 	private CellState newBurning(){
-		return new CellState(2, null);
+		return new CellState(fireID, null);
 	}
 	
 	private CellState newTree(){
-		return new CellState(1, null);
+		return new CellState(treeID, null);
 	}
 	
 	private CellState newEmpty(){
-		return new CellState(0, null);
+		return new CellState(emptyID, null);
 	}
 
 }
