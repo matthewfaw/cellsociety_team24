@@ -164,12 +164,12 @@ public class GridModel implements Iterable<Cell>{
 		int y = p.getY();
 
 		return new Cell[] {
-				myGrid[x + 2][y],
-				myGrid[x + 1][y],
-				myGrid[x - 1][y],
-				myGrid[x - 2][y],
-				myGrid[x - 1][y - 1],
-				myGrid[x + 1][y - 1],
+				getCell(x + 2, y),
+				getCell(x + 1, y),
+				getCell(x - 1, y),
+				getCell(x - 2, y),
+				getCell(x - 1, y - 1),
+				getCell(x + 1, y - 1),
 			
 		};
 	}
@@ -181,10 +181,10 @@ public class GridModel implements Iterable<Cell>{
 		int y = p.getY();
 
 		return new Cell[] {
-				myGrid[x][y + 1],
-				myGrid[x + 1][y],
-				myGrid[x][y - 1],
-				myGrid[x - 1][y],
+				getCell(x, y + 1),
+				getCell(x + 1, y),
+				getCell(x, y - 1),
+				getCell(x - 1, y),
 		};
 	}
 
@@ -197,16 +197,16 @@ public class GridModel implements Iterable<Cell>{
 		if (x % 2 == 0){
 			//Triangle pointing up
 			return new Cell[] {
-					myGrid[x][y + 1],
-					myGrid[x][y - 1],
-					myGrid[x + 1][y + 1]
+					getCell(x, y + 1),
+					getCell(x, y - 1),
+					getCell(x + 1, y + 1),
 			};
 		} else {
 			//Triangle pointing down
 			return new Cell[] {
-					myGrid[x ][y + 1],
-					myGrid[x + 1][y - 1],
-					myGrid[x ][y - 1]
+					getCell(x , y + 1),
+					getCell(x + 1, y - 1),
+					getCell(x , y - 1),
 			};
 		}
 	}
@@ -217,14 +217,14 @@ public class GridModel implements Iterable<Cell>{
 		int y = p.getY();
 
 		return new Cell[] {
-				myGrid[x][y + 1],
-				myGrid[x + 1][y + 1],
-				myGrid[x + 1][y],
-				myGrid[x + 1][y -1],
-				myGrid[x][y - 1],
-				myGrid[x - 1][y - 1],
-				myGrid[x - 1][y],
-				myGrid[x - 1][y + 1],
+				getCell(x, y + 1),
+				getCell(x + 1, y + 1),
+				getCell(x + 1, y),
+				getCell(x + 1, y -1),
+				getCell(x, y - 1),
+				getCell(x - 1, y - 1),
+				getCell(x - 1, y),
+				getCell(x - 1, y + 1),
 		};
 	}
 	
@@ -236,23 +236,23 @@ public class GridModel implements Iterable<Cell>{
 		if (x % 2 == 0){
 			//Triangle pointing up
 			return new Cell[] {
-					myGrid[x][y + 3],
-					myGrid[x][y + 1],
-					myGrid[x + 1][y],
-					myGrid[x][y - 1],
-					myGrid[x - 1][y],
-					myGrid[x - 1][y + 1],
+					getCell(x, y + 3),
+					getCell(x, y + 1),
+					getCell(x + 1, y),
+					getCell(x, y - 1),
+					getCell(x - 1, y),
+					getCell(x - 1, y + 1),
 
 			};
 		} else {
 			//Triangle pointing down
 			return new Cell[] {
-					myGrid[x][y + 1],
-					myGrid[x + 1][y + 1],
-					myGrid[x + 1][y - 1],
-					myGrid[x][y - 3],
-					myGrid[x - 1][y - 1],
-					myGrid[x - 1][y],
+					getCell(x, y + 1),
+					getCell(x + 1, y + 1),
+					getCell(x + 1, y - 1),
+					getCell(x, y - 3),
+					getCell(x - 1, y - 1),
+					getCell(x - 1, y),
 			};
 		}
 	}
