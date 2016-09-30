@@ -13,6 +13,7 @@ public class RuleFactory {
 		fSimulationPropertiesRB = ResourceBundle.getBundle(RESOURCE_PATH);
 	}
 	
+	//XXX: Check if this type of switch statement occurs in other places, and if it does, refactor
 	public Rule createRule(RuleType aRuleType, Map<String, Double> aPropertyMap)
 	{
 		Rule rule;

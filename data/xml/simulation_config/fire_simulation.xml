@@ -3,5 +3,5 @@
 	<name>Fire</name>
 	<title>Fire Simulation</title>
 	<author>FireAuthor</author>
-	<speed>50</speed>
+	<speed>90</speed>
 </SimulationConfig>

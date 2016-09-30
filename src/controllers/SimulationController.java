@@ -1,9 +1,7 @@
 package controllers;
 
-import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.Animation.Status;
-import javafx.util.Duration;
 
 public class SimulationController {
 	private Timeline fSimulationTimeline;
