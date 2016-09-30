@@ -2,14 +2,14 @@ package models.rules;
 
 import java.util.Random;
 
-import models.Point;
 import models.grid.Cell;
 import models.grid.CellState;
+import models.grid.GridModel;
 
 public class RuleFire extends Rule {
 	Random myRandom;
 	double myProbCatch;
-	Cell[][] myGrid;
+	GridModel myGrid;
 
 	public RuleFire(double probCatch) {
 		myProbCatch = probCatch;
@@ -17,28 +17,25 @@ public class RuleFire extends Rule {
 	}
 
 	@Override
-	public void calculateAndSetNextStates(Cell[][] grid, int gridShape) {
+	public void calculateAndSetNextStates(GridModel grid) {
 		myGrid = grid;
 		
-		for (int i = 0; i < myGrid.length; i++){
-			for (int j = 0; j < myGrid[0].length; j++){
-				grid[i][j].setNextState(nextState(myGrid[i][j], gridShape));
-			}
+		for (Cell c: grid){
+			c.setNextState(nextState(c));
 		}
 	}
 
-	private CellState nextState(Cell cell, int gridShape) {
-		Point[] neighbors = getNeighbors(cell.getLocation(), gridShape);
+	private CellState nextState(Cell cellToUpdate) {
+		Cell[] neighbors = myGrid.getNeighbors(cellToUpdate);
 		int burningNeighbors = 0;
 		
-		for (Point p: neighbors){
-			Cell neighbor = getCell(p, myGrid);
+		for (Cell neighbor: neighbors){
 			if (neighbor != null && neighbor.getStateID() == 2)
 				burningNeighbors++;
 		}
 		
 
-		if (cell.getStateID() == 1){
+		if (cellToUpdate.getStateID() == 1){
 			if(burningNeighbors > 0 && myRandom.nextDouble() < myProbCatch)
 				return newBurning();
 			else

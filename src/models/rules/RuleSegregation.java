@@ -3,14 +3,14 @@ package models.rules;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import models.Point;
 import models.grid.Cell;
+import models.grid.GridModel;
 
 public class RuleSegregation extends Rule {
 	ArrayList<Cell> myDissenters;
 	ArrayList<Cell> myEmpties;
 	int myGridShape;
-	Cell[][] myGrid;
+	GridModel myGrid;
 	double satisfiedPercent;
 	
 	/**
@@ -22,22 +22,18 @@ public class RuleSegregation extends Rule {
 	}
 
 	@Override
-	public void calculateAndSetNextStates(Cell[][] grid, int gridShape) {
+	public void calculateAndSetNextStates(GridModel grid) {
 		myGrid = grid;
-		myGridShape = gridShape;
 		myEmpties = new ArrayList<Cell>();
 		myDissenters = new ArrayList<Cell>();
 		
-		for (int i = 0; i < myGrid.length; i++){
-			for (int j = 0; j < myGrid[i].length; j++){
-				if (myGrid[i][j].getNextStateID() != 0 && likeNeighborsPercent(myGrid[i][j]) < satisfiedPercent)
-					myDissenters.add(myGrid[i][j]);
-				if (empty(myGrid[i][j]))
-					myEmpties.add(myGrid[i][j]);
-			}
+		for (Cell c: myGrid){
+			if (c.getNextStateID() != 0 && likeNeighborsPercent(c) < satisfiedPercent)
+				myDissenters.add(c);
+			else if (empty(c))
+				myEmpties.add(c);
 		}
 		relocateDissenters();
-
 	}
 	
 	private boolean empty(Cell c){
@@ -45,16 +41,14 @@ public class RuleSegregation extends Rule {
 	}
 	
 	private double likeNeighborsPercent(Cell c){		
-		Point[] neighbors = getAdjAndDiagNeighbors(c.getLocation(), myGridShape);
+		Cell[] neighbors = myGrid.getAdjAndDiagNeighbors(c);
 		
 		int cType = c.getStateID();
 		
 		double neighborCount = 0;
 		double sameNeighbors = 0;
 		
-		for (Point p: neighbors){
-			Cell neighbor = getCell(p, myGrid);
-			
+		for (Cell neighbor: neighbors){
 			if (neighbor != null){
 				neighborCount++;
 				if (neighbor.getStateID() == cType)
