@@ -8,13 +8,15 @@ import java.util.ResourceBundle;
 
 import controllers.AppController;
 import javafx.scene.Group;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+//import javafx.scene.Parent;
+//import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import models.grid.Cell;
@@ -22,6 +24,11 @@ import resources.AppResources;
 import views.styles.CellStyleGuide;
 import views.grid.GridViewUpdateSquare;
 
+/**
+ * A class used to set up and manage the UI
+ * @author Guhan Muruganandam
+ *
+ */
 public class AppScene {
 
 	private CellStyleGuide fCellStyleGuide;
@@ -34,7 +41,11 @@ public class AppScene {
 	private ResourceBundle mytext=ResourceBundle.getBundle("Resources/textfiles");
 	private GridViewUpdateSquare myGrid;
 	private ScrollBar fSpeedScrollBar;
-	
+	private final NumberAxis xAxis=new NumberAxis();
+	private final NumberAxis yAxis=new NumberAxis();
+	private LineChart<Number,Number>  myDataChart= new LineChart<Number,Number>(xAxis, yAxis); 
+	private XYChart.Series<Number,Number> mySeriesone= new XYChart.Series<Number,Number>();
+	private XYChart.Series<Number,Number> mySeriestwo= new XYChart.Series<Number,Number>();
 	public AppScene(int aHeight, int aWidth, AppController aAppController)
 	{
 		fAppRoot = new Group();
@@ -68,16 +79,12 @@ public class AppScene {
 	{
 		Button startButton= makeButton("StartCommand",AppResources.OFFSET,AppResources.THIRTEEN_SIXTEENTHS,width,true);
 		startButton.setOnAction(e->fAppController.onStartButtonPressed());
-		//fAppRoot.getChildren().add(startButton); ////NOT SURE IF THIS IS NEEDED HER OR I CAN PUT IN THE METHOD
 		Button pauseButton= makeButton("PauseCommand",AppResources.OFFSET,AppResources.THREE_QUARTERS, width,true);
 		pauseButton.setOnAction(e->fAppController.onPauseButtonPressed());
-		//fAppRoot.getChildren().add(pauseButton);
 		Button resetButton= makeButton("ResetCommand",AppResources.OFFSET,AppResources.FIVE_EIGHTHS, width,true);
 		resetButton.setOnAction(e->fAppController.onResetButtonPressed());
-		//fAppRoot.getChildren().add(resetButton);
 		Button stepButton= makeButton("StepCommand",AppResources.OFFSET,AppResources.ELEVEN_SIXTEENTHS, width,true);
 		stepButton.setOnAction(e->fAppController.onStepButtonPressed());
-		//fAppRoot.getChildren().add(stepButton);
 		Button setSimulationButton= makeButton("SetSimulationCommand",AppResources.OFFSET,AppResources.SEVEN_EIGHTHS, width,false);
 		setSimulationButton.setOnAction(e->
 		fAppController.onSetSimulationButtonPressed());
@@ -158,7 +165,7 @@ public class AppScene {
 	
 	public void intializeGrid(Collection<Cell> cells,CellStyleGuide csg, Dimension dimensions){
 		myGrid= new GridViewUpdateSquare(fWidth,fHeight,dimensions,fAppRoot,csg,cells);
-		myGrid.makeGrid(fAppRoot,fWidth,fHeight,cells,csg,dimensions);
+		myGrid.makeGrid();
 	}
 	
 	public void updateGrid(Collection<Cell> cells)
@@ -179,8 +186,19 @@ public class AppScene {
 
 	public void changeCellColor(Cell c) {
 		fAppRoot.getChildren().remove(myGrid.getShape(c));
-		Shape s= myGrid.getShape(c);
-		myGrid.colorCell(c, fCellStyleGuide);
+		myGrid.colorCell(c);
 	}
-
+	
+	public void updateGraph(int stepnumber,double datapointone, double datapointtwo){
+		if(fAppRoot.getChildren().contains(myDataChart)){
+			fAppRoot.getChildren().remove(myDataChart);
+		}
+		mySeriesone.getData().add(new XYChart.Data<Number,Number>(stepnumber,datapointone));
+		mySeriestwo.getData().add(new XYChart.Data<Number,Number>(stepnumber,datapointtwo));
+		myDataChart.getData().addAll(mySeriesone,mySeriestwo);
+		myDataChart.setLayoutX(fWidth*AppResources.FIVE_EIGHTHS);
+		myDataChart.setLayoutY(fHeight*AppResources.QUARTER);
+		fAppRoot.getChildren().add(myDataChart);
+		
+	}
 }
