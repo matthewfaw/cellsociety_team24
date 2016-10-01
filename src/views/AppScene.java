@@ -164,8 +164,8 @@ public class AppScene {
 		
 	}
 	
-	public void intializeGrid(Collection<Cell> cells,CellStyleGuide csg, Dimension dimensions){
-		myGrid=GridViewUpdateFactory.BuildGridView();
+	public void intializeGrid(Collection<Cell> cells,CellStyleGuide csg, Dimension dimensions/*String gridtype*/){
+		//myGrid=GridViewUpdateFactory.BuildGridView(gridtype);
 		myGrid= new GridViewUpdateSquare(fWidth,fHeight,dimensions,fAppRoot,csg,cells);
 		//myGrid= new GridViewUpdateTriangles(fWidth,fHeight,dimensions,fAppRoot,csg,cells);
 		//myGrid= new GridViewUpdateHexagon(fWidth,fHeight,dimensions,fAppRoot,csg,cells);

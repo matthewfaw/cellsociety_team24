@@ -1,8 +1,9 @@
-package views.grid;
+/*package views.grid;
 
 public class GridViewUpdateFactory {
 	
 	private String mygridType;
+	
 	public GridViewUpdateFactory(String gridType){
 		mygridType= new String(gridType);
 	}
@@ -27,3 +28,4 @@ public class GridViewUpdateFactory {
 	}
 
 }
+*/
