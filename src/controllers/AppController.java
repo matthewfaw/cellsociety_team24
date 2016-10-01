@@ -60,14 +60,6 @@ public class AppController {
 		}
 	}
 	
-	public void onPlayButtonPressed()
-	{
-		// display all buttons as active
-		//ie fAppScene.displayButtonsAsActive();
-		
-		// play the simulation
-		// fSimulationController.play();
-	}
 	public void onStartButtonPressed() {
 		fSimulationController.start();
 	}
@@ -126,9 +118,10 @@ public class AppController {
 		fSimulationController.changeSpeed(aScrollbarValue);
 	}
 
-	public void cellColorChange(Cell c) {
+	public void updateCellState(Cell oldCell) {
 		// formula to change stateid
-		fAppScene.changeCellColor(c);
+//		fGridModel.updateCellState(oldCell);
+//		fAppScene.changeCell(oldCell, newCell);
 	}
 	
 }

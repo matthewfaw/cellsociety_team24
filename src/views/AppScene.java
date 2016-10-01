@@ -180,7 +180,7 @@ public class AppScene {
 		Iterator<Shape> shapeIterator= myGrid.getShapeIterator();
 		for(Cell c:cells){
 			Shape s= shapeIterator.next();
-			s.setOnMouseClicked(e->fAppController.cellColorChange(c));
+			s.setOnMouseClicked(e->fAppController.updateCellState(c));
 		}
 	}
 

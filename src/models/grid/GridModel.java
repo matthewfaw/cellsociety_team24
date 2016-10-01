@@ -274,5 +274,5 @@ public class GridModel implements Iterable<Cell>{
 	public Cell getCell(int x, int y){
 		return getCell(new Point(x, y));
 	}
-
+	
 }
