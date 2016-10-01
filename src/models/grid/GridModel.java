@@ -3,138 +3,38 @@ package models.grid;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.Iterator;
 
+import models.Point;
 import models.rules.Rule;
-import models.rules.RuleFactory;
-import models.settings.CellSettings;
-import models.settings.GridSettings;
 
-public class GridModel {
-	private static final Random fRandomNumberGenerator = new Random();
-	
+public class GridModel implements Iterable<Cell>{	
 	private Cell[][] myGrid;
 	private Rule myRules;
 	private int myCellSides;
 	
-	private GridSettings fGridSettings;
-	private CellSettings fCellSettings;
-	private HashMap<Integer, Integer> fCurrentStateCount;
-	private ArrayList<Integer> fStateIds;
-	private RuleFactory fRuleFactory;
-	
-//	public GridModel(int cellSides, Rule rules, Cell[][] grid){
-//		myGrid = grid;
-//		myRules = rules;
-//		myCellSides = cellSides;
-//	}
-	
-	//TODO: Bring the RuleFactory outside of the GridModel
-	public GridModel(GridSettings aGridSettings, CellSettings aCellSettings)
+	//NOTE: there is no public/private/protected qualifier in front of this constructor, because
+	// this constructor should only be called from GridFactory
+	GridModel(Collection<Cell> cells, Dimension dimension, Rule rule, int cellSides)
 	{
-		fGridSettings = aGridSettings;
-		fCellSettings = aCellSettings;
-		fStateIds = new ArrayList<Integer>(fGridSettings.getStatePercentages().keySet());
-		fCurrentStateCount = new HashMap<Integer, Integer>();
-		fRuleFactory = new RuleFactory();
-
-		myCellSides = fGridSettings.getNumberOfCellSides();
-		myRules = fRuleFactory.createRule(fGridSettings.getRuleType(), fGridSettings.getSimulationProperties());
-
-		initializeGridStateProportions();
-		buildGrid();
+		myGrid = constructGrid(cells, dimension);
+		myRules = rule;
+		myCellSides = cellSides;
 	}
 	
-	private void initializeGridStateProportions()
+	private Cell[][] constructGrid(Iterable<Cell> cells, Dimension dimension)
 	{
-		for (int stateId: fStateIds) {
-			fCurrentStateCount.put(stateId, 0);
-		}
-	}
-	
-	private void buildGrid()
-	{
-		Dimension gridDimensions = fGridSettings.getDimensions();
-		myGrid = new Cell[(int)gridDimensions.getWidth()][(int)gridDimensions.getHeight()];
-		for (int row=0; row<myGrid.length; ++row) {
-			for (int col=0; col<myGrid[row].length; ++col) {
-				int stateIndex = selectStateIndex();
-				Map<String, Double> stateProperties = new TreeMap(fCellSettings.getProperties(stateIndex));
-				Cell cell = new Cell(row, col, stateIndex, stateProperties);
-				myGrid[row][col] = cell;
-			}
-		}
-	}
-	
-	private int selectStateIndex()
-	{
+		myGrid = new Cell[(int) dimension.getWidth()][(int) dimension.getHeight()];
 		
-		int randomStateId = getRandomStateId();
-		return randomStateId;
-//		
-//		int currentCount = fCurrentStateCount.get(randomStateId);
-//		double currentProportion = currentCount * fGridSettings.getTotalNumberOfCells() / 100.0;
-//		int maxProportion = fGridSettings.getStatePercentages().get(randomStateId);
-//		
-//		if (allProportionsAreAtMaximum()) {
-//			System.out.println("ERROR: No states can be created!");
-//			return -1;
-//		} else if (currentProportion < maxProportion) {
-//			fCurrentStateCount.remove(randomStateId);
-//			fCurrentStateCount.put(randomStateId, ++currentCount);
-//			return randomStateId;
-//		} else { // try again
-//			System.out.println(currentCount); 
-//			System.out.println(currentProportion); 
-//			System.out.println(maxProportion);
-//			return selectStateIndex();
-//		}
-	}
-	
-//	private boolean allProportionsAreAtMaximum()
-//	{
-//		for (int stateId: fStateIds) {
-//			int currentProportion = fCurrentStateCount.get(stateId);
-//			int maxProportion = fGridSettings.getStatePercentages().get(stateId);
-//
-//			if (currentProportion < maxProportion) {
-//				return false;
-//			}
-//		}
-//		return true;
-//	}
-	
-	private int getRandomStateId() 
-	{
-		double randomPercentage = fRandomNumberGenerator.nextDouble() * 100.0;
-		double previousProportion = 0;
-		for (int stateId: fStateIds) {
-			double newProportion = fGridSettings.getStatePercentages().get(stateId) + previousProportion;
-			
-			if (newProportion >= randomPercentage) {
-				return stateId;
-			}
-			
-			previousProportion = newProportion;
+		for (Cell c: cells) {
+			int row = c.getLocation().getX();
+			int col = c.getLocation().getY();
+			myGrid[row][col] = c;
 		}
-		return fStateIds.get(fStateIds.size() - 1);
-//		if (randomNum < 0.2) {
-//			return 1;
-//		} else if (randomNum <0.9){
-//			return 0;
-//		} else {
-//			return 2;
-//		}
-//		int randomIndex = fRandomNumberGenerator.nextInt(fStateIds.size());
-//		return fStateIds.get(randomIndex);
+		
+		return myGrid;
 	}
-	
-	
+
 	/**
 	 * Calculate the next state of each cell in the grid, then update all their states.
 	 * @return 
@@ -148,13 +48,12 @@ public class GridModel {
 			}
 		}
 	}
-	
 
 	/**
 	 * Calculate a next state for each cell using the given rules
 	 */
 	private void calculateAllNextStates() {
-		myRules.calculateAndSetNextStates(myGrid, myCellSides);
+		myRules.calculateAndSetNextStates(this);
 	}
 	
     public Collection<Cell> getAllCells(){
@@ -171,4 +70,209 @@ public class GridModel {
 	public int getCellSides(){
 		return myCellSides;
 	}
+
+	private class GridIterator implements Iterator<Cell>{
+		Cell[][] myGrid;
+		
+		int currX;
+		int currY;
+		
+		int maxX;
+		int maxY;
+		
+		public GridIterator(Cell[][] grid){
+			myGrid = grid;
+			
+			maxX = grid.length;
+			maxY = grid[0].length;
+			
+			currX = 0;
+			currY = 0;
+		}
+		
+		private void updateCurrent(){
+			currX++;
+			
+			if (currX >= maxX){
+				currX = 0;
+				currY++;
+			}
+		}
+
+		@Override
+		public boolean hasNext() {
+			return (currX < maxX && currY < maxY);
+		}
+
+		@Override
+		public Cell next() {
+			if (hasNext()){
+				int x = currX;
+				int y = currY;
+				
+				updateCurrent();
+				
+				return myGrid[x][y];
+			}
+			return null;
+
+		}
+		
+	}
+	
+	@Override
+	public Iterator<Cell> iterator() {
+		return new GridIterator(myGrid);
+	}
+	
+	
+	public Cell[] getNeighbors(Cell c){
+		switch (myCellSides){
+			case 3:
+				return triangleNeighbors(c);
+			case 4:
+				return squareNeighbors(c);
+			case 6:
+				return hexagonalNeighbors(c);
+			default:
+				return squareNeighbors(c);
+		}
+	}
+	
+	public Cell[] getAdjAndDiagNeighbors(Cell c){
+		switch (myCellSides){
+			case 3:
+				return triangleAllNeighbors(c);
+			case 4:
+				return squareAllNeighbors(c);
+			case 6:
+				return hexagonalNeighbors(c);
+			default:
+				return squareAllNeighbors(c);
+		}
+	}
+	
+	private Cell[] hexagonalNeighbors(Cell c) {
+		Point p = c.getLocation();
+		int x = p.getX();
+		int y = p.getY();
+
+		return new Cell[] {
+				getCell(x + 2, y),
+				getCell(x + 1, y),
+				getCell(x - 1, y),
+				getCell(x - 2, y),
+				getCell(x - 1, y - 1),
+				getCell(x + 1, y - 1),
+			
+		};
+	}
+
+
+	private Cell[] squareNeighbors(Cell c) {
+		Point p = c.getLocation();
+		int x = p.getX();
+		int y = p.getY();
+
+		return new Cell[] {
+				getCell(x, y + 1),
+				getCell(x + 1, y),
+				getCell(x, y - 1),
+				getCell(x - 1, y),
+		};
+	}
+
+
+	private Cell[] triangleNeighbors(Cell c) {
+		Point p = c.getLocation();
+		int x = p.getX();
+		int y = p.getY();
+
+		if (x % 2 == 0){
+			//Triangle pointing up
+			return new Cell[] {
+					getCell(x, y + 1),
+					getCell(x, y - 1),
+					getCell(x + 1, y + 1),
+			};
+		} else {
+			//Triangle pointing down
+			return new Cell[] {
+					getCell(x , y + 1),
+					getCell(x + 1, y - 1),
+					getCell(x , y - 1),
+			};
+		}
+	}
+	
+	private Cell[] squareAllNeighbors(Cell c) {
+		Point p = c.getLocation();
+		int x = p.getX();
+		int y = p.getY();
+
+		return new Cell[] {
+				getCell(x, y + 1),
+				getCell(x + 1, y + 1),
+				getCell(x + 1, y),
+				getCell(x + 1, y -1),
+				getCell(x, y - 1),
+				getCell(x - 1, y - 1),
+				getCell(x - 1, y),
+				getCell(x - 1, y + 1),
+		};
+	}
+	
+	private Cell[] triangleAllNeighbors(Cell c) {
+		Point p = c.getLocation();
+		int x = p.getX();
+		int y = p.getY();
+
+		if (x % 2 == 0){
+			//Triangle pointing up
+			return new Cell[] {
+					getCell(x, y + 3),
+					getCell(x, y + 1),
+					getCell(x + 1, y),
+					getCell(x, y - 1),
+					getCell(x - 1, y),
+					getCell(x - 1, y + 1),
+
+			};
+		} else {
+			//Triangle pointing down
+			return new Cell[] {
+					getCell(x, y + 1),
+					getCell(x + 1, y + 1),
+					getCell(x + 1, y - 1),
+					getCell(x, y - 3),
+					getCell(x - 1, y - 1),
+					getCell(x - 1, y),
+			};
+		}
+	}
+	
+	public boolean inGrid(Point p){
+		return (
+				p.getX() >= 0 &&
+				p.getY() >= 0 &&
+				p.getX() < myGrid.length &&
+				p.getY() < myGrid[0].length
+				);			
+	}
+	public Cell getCell(Point p){
+		if (inGrid(p)){
+			return myGrid[p.getX()][p.getY()];
+		} else {
+			return null;
+		}
+	}
+	
+	public Point getDimensions(){
+		return new Point(myGrid.length, myGrid[0].length);
+	}
+	
+	public Cell getCell(int x, int y){
+		return getCell(new Point(x, y));
+	}
+
 }

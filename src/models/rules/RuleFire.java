@@ -2,14 +2,18 @@ package models.rules;
 
 import java.util.Random;
 
-import models.Point;
 import models.grid.Cell;
 import models.grid.CellState;
+import models.grid.GridModel;
 
 public class RuleFire extends Rule {
-	Random myRandom;
-	double myProbCatch;
-	Cell[][] myGrid;
+	private static final int fireID = 2;
+	private static final int treeID = 1;
+	private static final int emptyID = 0;
+	
+	private Random myRandom;
+	private double myProbCatch;
+	private GridModel myGrid;
 
 	public RuleFire(double probCatch) {
 		myProbCatch = probCatch;
@@ -17,28 +21,25 @@ public class RuleFire extends Rule {
 	}
 
 	@Override
-	public void calculateAndSetNextStates(Cell[][] grid, int gridShape) {
+	public void calculateAndSetNextStates(GridModel grid) {
 		myGrid = grid;
 		
-		for (int i = 0; i < myGrid.length; i++){
-			for (int j = 0; j < myGrid[0].length; j++){
-				grid[i][j].setNextState(nextState(myGrid[i][j], gridShape));
-			}
+		for (Cell c: grid){
+			c.setNextState(nextState(c));
 		}
 	}
 
-	private CellState nextState(Cell cell, int gridShape) {
-		Point[] neighbors = getNeighbors(cell.getLocation(), gridShape);
+	private CellState nextState(Cell cellToUpdate) {
+		Cell[] neighbors = myGrid.getNeighbors(cellToUpdate);
 		int burningNeighbors = 0;
 		
-		for (Point p: neighbors){
-			Cell neighbor = getCell(p, myGrid);
-			if (neighbor != null && neighbor.getStateID() == 2)
+		for (Cell neighbor: neighbors){
+			if (neighbor != null && neighbor.getStateID() == fireID)
 				burningNeighbors++;
 		}
 		
 
-		if (cell.getStateID() == 1){
+		if (cellToUpdate.getStateID() == treeID){
 			if(burningNeighbors > 0 && myRandom.nextDouble() < myProbCatch)
 				return newBurning();
 			else
@@ -49,15 +50,15 @@ public class RuleFire extends Rule {
 	}
 	
 	private CellState newBurning(){
-		return new CellState(2, null);
+		return new CellState(fireID, null);
 	}
 	
 	private CellState newTree(){
-		return new CellState(1, null);
+		return new CellState(treeID, null);
 	}
 	
 	private CellState newEmpty(){
-		return new CellState(0, null);
+		return new CellState(emptyID, null);
 	}
 
 }

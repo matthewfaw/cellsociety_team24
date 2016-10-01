@@ -6,9 +6,9 @@
 	</gridSize>
 	<type>square</type>
 	<stateProportions>
-		<percent id="0" value="50"></percent>
-		<percent id="1" value="30"></percent>
-		<percent id="2" value="20"></percent>
+		<percent id="0" value="10"></percent>
+		<percent id="1" value="10"></percent>
+		<percent id="2" value="80"></percent>
 	</stateProportions>
 	<gridRules>fire</gridRules>
 	<stateProperties>

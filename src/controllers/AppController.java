@@ -9,11 +9,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.stage.FileChooser;
-import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import javafx.util.Duration;
 import models.grid.Cell;
+import models.grid.GridFactory;
 import models.grid.GridModel;
 import models.settings.CellSettings;
 import models.settings.GridSettings;
@@ -110,7 +109,9 @@ public class AppController {
 		SimulationSettings simulationSettings = simulationSettingsFactory.createSimulationSettings();
 
 		// build the grid model
-		fGridModel = new GridModel(gridSettings, cellSettings);
+		GridFactory gridFactory = new GridFactory(gridSettings, cellSettings);
+		fGridModel = gridFactory.createGridModel();
+		
 		// add the grid to the display
 		fAppScene.intializeGrid(fGridModel.getAllCells(), cellStyleGuide, gridSettings.getDimensions());
 		fAppScene.setSpeedScrollBarValue(simulationSettings.getSimulationSpeed());
