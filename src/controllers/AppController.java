@@ -82,6 +82,7 @@ public class AppController {
 		step(1);
 	}
 	public void onSetSimulationButtonPressed() {
+		fSimulationController.pause();
 		FileChooser filexmlChooser=new FileChooser();
 		//filexmlChooser.setTitle(value);
 		File file =filexmlChooser.showOpenDialog(fStage);
