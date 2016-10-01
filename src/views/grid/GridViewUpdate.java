@@ -11,36 +11,47 @@ import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 import models.grid.Cell;
+import resources.AppResources;
 import views.styles.CellStyleGuide;
 
+/**
+ * A super class used to build the Grid View
+ * @author Guhan Muruganandam
+ *
+ */
 public abstract class GridViewUpdate {
 	
-	protected double myWidth;
-	protected double myHeight;
-	protected Dimension mySize;
-	protected Group myRoot;
-	protected int offset=50;
-	protected CellStyleGuide myGuide;
-	protected Collection<Cell> myCells;
-	protected ArrayList<Shape> myShapeCollection=new ArrayList<Shape>();
-	protected Map<Cell,Shape> cellMap=new HashMap<Cell,Shape>();
+	double myWidth;
+	double myHeight;
+	double myCellWidth;
+	double myCellHeight;
+	double xOffset;
+	double yOffset;
+	int myCellx;
+	int myCelly;
+	Dimension myDimensions;
+	Group myRoot;
+	CellStyleGuide myGuide;
+	Collection<Cell> myCells;
+	ArrayList<Shape> myShapeCollection=new ArrayList<Shape>();
+	Map<Cell,Shape> cellMap=new HashMap<Cell,Shape>();
 	
-	public GridViewUpdate(int width,int height,Dimension size,Group root,CellStyleGuide csg,Collection<Cell> cells){
+	public GridViewUpdate(int width,int height,Dimension dimensions,Group root,CellStyleGuide csg,Collection<Cell> cells){
 		myWidth=width;
 		myHeight=height;
-		mySize=size;
+		myDimensions=dimensions;
 		myRoot=root;
 		myGuide=csg;
 		myCells=cells;
+		myCellWidth=(myWidth*AppResources.HALF)/(myDimensions.getWidth());
+		myCellHeight=(myHeight*AppResources.HALF)/(myDimensions.getHeight());
+		xOffset=myWidth*(AppResources.OFFSET);
+		yOffset=myHeight*(AppResources.OFFSET);
 	}
 
-	
-	
-	public void makeGrid(Group root,int width,int height,Collection<Cell> cells,CellStyleGuide csg, Dimension dimensions){
-		myGuide = csg;
-		myRoot = root;
-		for(Cell c: cells){
-			AddCell(width,height,dimensions,c,myRoot,myGuide);
+	public void makeGrid(){
+		for(Cell c: myCells){
+			AddCell(c);
 		}
 	}
 	public void StepGrid(Collection<Cell> cells){
@@ -48,15 +59,21 @@ public abstract class GridViewUpdate {
 		for(Cell c: cells){
 			Shape myShape=shapeIterator.next();
 			myRoot.getChildren().remove(myShape);
-			colorCell(c,myGuide);
+			colorCell(c);
 			myRoot.getChildren().add(myShape);
 		}
 			
 	}
-	public void colorCell(Cell c,CellStyleGuide csg) {
+	public void cellSetup(Cell currcell,Shape shape){
+		cellMap.put(currcell, shape);
+		colorCell(currcell);
+		myRoot.getChildren().add(shape);
+		myShapeCollection.add(shape); 
+	}
+	public void colorCell(Cell c) {
 		Shape s= getShape(c);
 		int currcellstate =c.getStateID();
-		s.setFill(Color.web(csg.getColor(currcellstate)));
+		s.setFill(Color.web(myGuide.getColor(currcellstate)));
 	}
 	
 	public Iterator<Shape> getShapeIterator(){
@@ -64,10 +81,15 @@ public abstract class GridViewUpdate {
 		return shapeIterator;
 	}
 	
+	public void setCellLocation(Cell c){
+		myCellx=c.getLocation().getX();
+		myCelly=c.getLocation().getY();
+	}
+	
 	public Shape getShape(Cell c){
 		return cellMap.get(c);
 	}
 
-	public abstract void AddCell(int width, int height, Dimension size, Cell currcell,Group root,CellStyleGuide csg); 
+	public abstract void AddCell(Cell currcell); 
 	
 }

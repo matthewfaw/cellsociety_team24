@@ -3,12 +3,17 @@ package views.grid;
 import java.awt.Dimension;
 import java.util.Collection;
 
-import controllers.AppController;
 import javafx.scene.Group;
 import javafx.scene.shape.Rectangle;
 import models.grid.Cell;
 import resources.AppResources;
 import views.styles.CellStyleGuide;
+
+/**
+ * A class used to build the Grid View with rectangular or square cells
+ * @author Guhan Muruganandam
+ *
+ */
 
 public class GridViewUpdateSquare extends GridViewUpdate {
 
@@ -17,16 +22,10 @@ public class GridViewUpdateSquare extends GridViewUpdate {
 	}
 
 	@Override
-	public void AddCell(int width, int height,Dimension dimensions,Cell currcell,Group root,CellStyleGuide csg) {
-		double cellwidth=(width*0.5)/(dimensions.getWidth());
-		double cellheight=(height*0.5)/(dimensions.getHeight());
-		int cellx=currcell.getLocation().getX();
-		int celly=currcell.getLocation().getY();
-		Rectangle cellrect = new Rectangle(width*(AppResources.OFFSET)+(cellwidth*cellx),height*(AppResources.OFFSET)+(cellheight*celly),cellwidth,cellheight);
-		cellMap.put(currcell, cellrect);
-		colorCell(currcell,csg);
-        root.getChildren().add(cellrect);
-        myShapeCollection.add(cellrect); 
+	public void AddCell(Cell currcell) {
+		setCellLocation(currcell);
+		Rectangle cellrect = new Rectangle(xOffset+(myCellWidth*myCellx),yOffset+(myCellHeight*myCelly),myCellWidth,myCellHeight);
+		cellSetup(currcell,cellrect);
 	}
 
 }

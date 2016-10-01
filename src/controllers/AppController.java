@@ -125,7 +125,6 @@ public class AppController {
 		fSimulationController.changeSpeed(aScrollbarValue);
 	}
 
-//	public Object cellColorChange(Cell c) {
 	public void cellColorChange(Cell c) {
 		// formula to change stateid
 		fAppScene.changeCellColor(c);
