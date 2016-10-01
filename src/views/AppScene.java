@@ -23,6 +23,7 @@ import models.grid.Cell;
 import resources.AppResources;
 import views.styles.CellStyleGuide;
 import views.grid.GridViewUpdateSquare;
+import views.grid.*;
 
 /**
  * A class used to set up and manage the UI
@@ -164,7 +165,10 @@ public class AppScene {
 	}
 	
 	public void intializeGrid(Collection<Cell> cells,CellStyleGuide csg, Dimension dimensions){
+		myGrid=GridViewUpdateFactory.BuildGridView();
 		myGrid= new GridViewUpdateSquare(fWidth,fHeight,dimensions,fAppRoot,csg,cells);
+		//myGrid= new GridViewUpdateTriangles(fWidth,fHeight,dimensions,fAppRoot,csg,cells);
+		//myGrid= new GridViewUpdateHexagon(fWidth,fHeight,dimensions,fAppRoot,csg,cells);
 		myGrid.makeGrid();
 	}
 	
@@ -187,6 +191,7 @@ public class AppScene {
 	public void changeCellColor(Cell c) {
 		fAppRoot.getChildren().remove(myGrid.getShape(c));
 		myGrid.colorCell(c);
+		fAppRoot.getChildren().add(myGrid.getShape(c));
 	}
 	
 	public void updateGraph(int stepnumber,double datapointone, double datapointtwo){
