@@ -54,6 +54,7 @@ public abstract class GridViewUpdate {
 			AddCell(c);
 		}
 	}
+	
 	public void StepGrid(Collection<Cell> cells){
 		Iterator<Shape> shapeIterator= myShapeCollection.iterator();
 		for(Cell c: cells){
