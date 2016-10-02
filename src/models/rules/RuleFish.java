@@ -15,10 +15,9 @@ import models.grid.GridModel;
  */
 
 public class RuleFish extends Rule {
-	private static final int sharkID = 2;
-	private static final int fishID = 1;
-	private static final int emptyID = 0;
-	
+//	private static final int sharkID = 2;
+//	private static final int fishID = 1;
+//	private static final int emptyID = 0;
 	
 	private GridModel myGrid;
 	private int myFishReproTime;
@@ -37,7 +36,9 @@ public class RuleFish extends Rule {
 	 * @param fishEnergy energy sharks gain by eating a fish
 	 * @param attributeNames the names of the fish/shark attributes given in the xml [chrononName, ageName, energyName]
 	 */
-	public RuleFish(int fishReproTime, int sharkReproTime, int fishEnergy, String[] attributeNames) {
+	public RuleFish(int fishReproTime, int sharkReproTime, int fishEnergy, String[] attributeNames, Map<String, Integer> stateIdsMap) {
+		super(stateIdsMap);
+		
 		myFishReproTime = fishReproTime;
 		mySharkReproTime = sharkReproTime;
 		myFishEnergy = fishEnergy;
@@ -57,7 +58,9 @@ public class RuleFish extends Rule {
 	 * @deprecated
 	 */
 	@Deprecated
-	public RuleFish(int fishReproTime, int sharkReproTime, int fishEnergy) {
+	public RuleFish(int fishReproTime, int sharkReproTime, int fishEnergy, Map<String, Integer> aStateIdsMap) {
+		super(aStateIdsMap);
+		
 		myFishReproTime = fishReproTime;
 		mySharkReproTime = sharkReproTime;
 		myFishEnergy = fishEnergy;
@@ -89,7 +92,8 @@ public class RuleFish extends Rule {
 		if (!occupied(c)){
 			c.increment(chrononName);
 		} else {
-			if (c.getNextStateID() == fishID){
+//			if (c.getNextStateID() == fishID){
+			if (c.getNextStateID() == super.getStateId("Fish")){
 				Cell nextMove = pickFishMove(c);
 				if (nextMove != null)
 					moveFish(c, nextMove);
@@ -98,7 +102,8 @@ public class RuleFish extends Rule {
 					c.increment(ageName);
 				}
 				
-			} else if ( c.getNextStateID() == sharkID){
+//			} else if ( c.getNextStateID() == sharkID){
+			} else if ( c.getNextStateID() == super.getStateId("Shark")){
 				if (c.getNextState(energyName) <= 0){
 					c.setNextState(newEmpty(c.getNextState(chrononName) + 1));
 				} else {
@@ -153,7 +158,8 @@ public class RuleFish extends Rule {
 			shark.setStateAtttrib(0, ageName);
 		}
 		
-		if (destination.getNextStateID() == fishID)
+//		if (destination.getNextStateID() == fishID)
+		if (destination.getNextStateID() == super.getStateId("Fish"))
 			shark.setStateAtttrib(shark.getStateAttrib(energyName) + myFishEnergy, energyName);
 		
 		destination.setNextState(shark);
@@ -190,7 +196,7 @@ public class RuleFish extends Rule {
 		Cell[] options = myGrid.getNeighbors(c);
 		
 		for (int i = 0; i < options.length; i++){
-			if (options[i] != null && options[i].getNextStateID() != fishID)
+			if (options[i] != null && !(options[i].getNextStateID() == super.getStateId("Fish")))
 				options[i] = null;
 		}
 		ArrayList<Cell> nonNullOptions = new ArrayList<Cell>(Arrays.asList(options));
@@ -232,7 +238,8 @@ public class RuleFish extends Rule {
 	}
 	
 	private boolean occupied(Cell c){
-		return (c != null && !(c.getNextStateID() == emptyID));
+//		return (c != null && !(c.getNextStateID() == emptyID));
+		return (c != null && !(c.getNextStateID() == super.getStateId("Empty")));
 	}
 
 }

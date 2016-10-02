@@ -10,6 +10,4 @@
 		<percent id="1" value="10"></percent>
 		<percent id="2" value="80"></percent>
 	</stateProportions>
-	<gridRules>fire</gridRules>
-	<stateProperties>
-		<pCatchingFire>1</pCatchingFire></stateProperties></GridConfig>
+	<gridRules>fire</gridRules></GridConfig>

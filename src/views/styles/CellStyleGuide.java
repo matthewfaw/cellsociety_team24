@@ -11,12 +11,12 @@ import java.util.HashMap;
  */
 public class CellStyleGuide {
 	private HashMap<Integer, String> fColors;
-	private HashMap<Integer, String> fNames;
+//	private HashMap<Integer, String> fNames;
 	
 	public CellStyleGuide()
 	{
 		fColors = new HashMap<Integer, String>();
-		fNames = new HashMap<Integer, String>();
+//		fNames = new HashMap<Integer, String>();
 	}
 
 	/**
@@ -45,18 +45,18 @@ public class CellStyleGuide {
 	 * @param aStateIndex
 	 * @return
 	 */
-	public String getName(int aStateIndex)
-	{
-		return fNames.get(aStateIndex);
-	}
+//	public String getName(int aStateIndex)
+//	{
+//		return fNames.get(aStateIndex);
+//	}
 	/**
 	 * sets the name of the specified state
 	 * @param aStateIndex
 	 * @param aName
 	 */
-	public void setName(int aStateIndex, String aName)
-	{
-		fNames.put(aStateIndex, aName);
-	}
+//	public void setName(int aStateIndex, String aName)
+//	{
+//		fNames.put(aStateIndex, aName);
+//	}
 
 }

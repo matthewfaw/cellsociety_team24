@@ -10,8 +10,4 @@
 		<percent id="1" value="5"></percent>
 		<percent id="2" value="90"></percent>
 	</stateProportions>                                                 
-	<gridRules>wator</gridRules>                                         
-	<stateProperties>
-		<fishReproductionTime>2</fishReproductionTime>
-		<sharkReproductionTime>3</sharkReproductionTime>
-		<fishEnergy>4</fishEnergy></stateProperties></GridConfig> 
+	<gridRules>wator</gridRules></GridConfig> 

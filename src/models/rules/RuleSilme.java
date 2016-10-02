@@ -1,5 +1,6 @@
 package models.rules;
 
+import java.util.Map;
 import java.util.Random;
 
 import models.grid.Cell;
@@ -22,7 +23,17 @@ public class RuleSilme extends Rule{
 	private static final Random myRand = new Random(); 
 	
 
-	public RuleSilme(double evapRate, double diffuseRate, int sniffAngle, int wiggleAngle, int sniffThreshold, int wiggleBias, double dropRate, String[] cellAttribs) {
+	public RuleSilme(	double evapRate,
+						double diffuseRate,
+						int sniffAngle,
+						int wiggleAngle,
+						int sniffThreshold,
+						int wiggleBias,
+						double dropRate,
+						String[] cellAttribs,
+						Map<String, Integer> stateIdsMap) {
+		super(stateIdsMap);
+		
 		myDrop = dropRate;
 		myEvap = evapRate;
 		myDiff = diffuseRate;
@@ -78,7 +89,7 @@ public class RuleSilme extends Rule{
 			
 			int newAngle = (int) c.getState(angle);
 			//newAngle += random number in [-myWiggleAngle, myWiggleAngle]
-			newAngle += myRand.nextDouble() * 2 * myWiggleAngle - myWiggleAngle;
+			newAngle += myRand.nextDouble() * 2 * myWiggleAngle + myWiggleBias - myWiggleAngle;
 			newAngle = (newAngle + 360) % 360;
 			
 			//Move the slime to bestMove

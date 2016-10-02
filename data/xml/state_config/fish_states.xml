@@ -1,35 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <StateConfig>
-	<state id="0">
+	<state id="0" name="EMPTY">
 		
 		
 		
 		
 		
-		<viewInfo><color>#FFFFFF</color><name>EMPTY</name></viewInfo>
+		<viewInfo><color>#FFFFFF</color></viewInfo>
 		<modelInfo><properties>
 	<Chronon>0</Chronon>
 	<Age>0</Age>
-	<Energy>0</Energy></properties></modelInfo></state>
-	<state id="1">
-		
-		
-		
-		
-		
-		<viewInfo><color>#40E0D0</color><name>FISH</name></viewInfo>
-		<modelInfo><properties>
-	<Chronon>0</Chronon>
-	<Age>0</Age>
-	<Energy>0</Energy></properties></modelInfo></state>
-			<state id="2">
-		
-		
-		
-		
-		
-		<viewInfo><color>#0000FF</color><name>SHARK</name></viewInfo>
-		<modelInfo><properties>
-	<Chronon>0</Chronon>
-	<Age>0</Age>
-	<Energy>6</Energy></properties></modelInfo></state></StateConfig>
+	<Energy>0</Energy></properties>
+			</modelInfo></state>
+	<state id="1" name="FISH">
+
+
+
+
+
+		<viewInfo>
+			<color>#40E0D0</color>
+		</viewInfo>
+		<modelInfo>
+			<properties>
+				<Chronon>0</Chronon>
+				<Age>0</Age>
+				<Energy>4</Energy>
+				</properties><defaults>
+	<fishReproductionTime>2</fishReproductionTime>
+	<fishEnergy>4</fishEnergy></defaults>
+		</modelInfo>
+	</state>
+	<state id="2" name="SHARK">
+
+
+
+
+
+		<viewInfo>
+			<color>#0000FF</color>
+		</viewInfo>
+		<modelInfo>
+			<properties>
+				<Chronon>0</Chronon>
+				<Age>0</Age>
+				<Energy>6</Energy>
+				
+			</properties>
+			<defaults>
+				<sharkReproductionTime>3</sharkReproductionTime></defaults>
+		</modelInfo>
+	</state></StateConfig>

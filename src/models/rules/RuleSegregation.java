@@ -2,12 +2,13 @@ package models.rules;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Map;
 
 import models.grid.Cell;
 import models.grid.GridModel;
 
 public class RuleSegregation extends Rule {
-	private static final int emptyID = 0;
+//	private static final int emptyID = 0;
 	
 	ArrayList<Cell> myDissenters;
 	ArrayList<Cell> myEmpties;
@@ -19,7 +20,9 @@ public class RuleSegregation extends Rule {
 	 * 
 	 * @param fraction of like neighbors required to be satisfied
 	 */
-	public RuleSegregation(double fraction){
+	public RuleSegregation(double fraction, Map<String, Integer> aStateIdsMap){
+		super(aStateIdsMap);
+		
 		satisfiedPercent = fraction;
 	}
 
@@ -39,7 +42,8 @@ public class RuleSegregation extends Rule {
 	}
 	
 	private boolean empty(Cell c){
-		return c.getStateID() == emptyID;
+//		return c.getStateID() == emptyID;
+		return c.getStateID() == super.getStateId("Empty");
 	}
 	
 	private double likeNeighborsPercent(Cell c){		

@@ -1,35 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <StateConfig>
-	<state id="0">
+	<state id="0" name="EMPTY">
 		
 		
 		
 		
 		
-		<viewInfo><color>#FFFFFF</color><name>EMPTY</name></viewInfo>
+		<viewInfo><color>#FFFFFF</color></viewInfo>
 		<modelInfo><properties>
 	<Chronon>0</Chronon>
 	<Age>0</Age>
 	<Energy>0</Energy></properties></modelInfo></state>
-	<state id="1">
-		
-		
-		
-		
-		
-		<viewInfo><color>#FF0000</color><name>RED</name></viewInfo>
-		<modelInfo><properties>
-	<Chronon>10</Chronon>
-	<Age>1</Age>
-	<Energy>50</Energy></properties></modelInfo></state>
-			<state id="2">
-		
-		
-		
-		
-		
-		<viewInfo><color>#0000FF</color><name>BLUE</name></viewInfo>
-		<modelInfo><properties>
-	<Chronon>10</Chronon>
-	<Age>6</Age>
-	<Energy>100</Energy></properties></modelInfo></state></StateConfig>
+	<state id="1" name="RED">
+
+
+
+
+
+		<viewInfo>
+			<color>#FF0000</color>
+		</viewInfo>
+		<modelInfo>
+			<properties>
+				<Chronon>10</Chronon>
+				<Age>1</Age>
+				<Energy>50</Energy>
+			</properties>
+			<defaults>
+				<percentSimilar>0.3</percentSimilar></defaults></modelInfo>
+	</state>
+	<state id="2" name="BLUE">
+
+
+
+
+
+		<viewInfo>
+			<color>#0000FF</color>
+		</viewInfo>
+		<modelInfo>
+			<properties>
+				<Chronon>10</Chronon>
+				<Age>6</Age>
+				<Energy>100</Energy>
+			</properties>
+		</modelInfo>
+	</state></StateConfig>

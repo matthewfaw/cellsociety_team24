@@ -6,12 +6,9 @@
 	</gridSize>                                                         
 	<type>square</type>                                                 
 	<stateProportions>                                                  
-		<percent id="0" value="0"></percent>                           
+		<percent id="0" value="40"></percent>                           
 		<percent id="1" value="50"></percent>
-		<percent id="2" value="50"></percent>                              
+		<percent id="2" value="10"></percent>                              
 	</stateProportions>                                                 
-	<gridRules>segregation</gridRules>                                         
-	<stateProperties>
-		<percentSimilar>0.3</percentSimilar>
-	</stateProperties>
+	<gridRules>segregation</gridRules>
 </GridConfig> 

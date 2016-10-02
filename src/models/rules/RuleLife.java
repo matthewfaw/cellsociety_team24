@@ -1,13 +1,19 @@
 package models.rules;
 
+import java.util.Map;
+
 import models.grid.Cell;
 import models.grid.CellState;
 import models.grid.GridModel;
 
 public class RuleLife extends Rule {
-	private static final int liveID = 1;
-	private static final int deadID = 0;
+//	private static final int liveID = 1;
+//	private static final int deadID = 0;
 	
+	public RuleLife(Map<String, Integer> aStateIdsMap)
+	{
+		super(aStateIdsMap);
+	}
 
 	@Override
 	public void calculateAndSetNextStates(GridModel grid) {
@@ -22,7 +28,8 @@ public class RuleLife extends Rule {
 					livingNeighbors += neighbor.getStateID();
 			}
 			
-			if (c.getStateID() == liveID){
+//			if (c.getStateID() == liveID){
+			if (c.getStateID() == super.getStateId("Live")){
 				if (livingNeighbors == 2 || livingNeighbors == 3){
 					c.setNextState(c.getState());
 				} else {
@@ -39,11 +46,12 @@ public class RuleLife extends Rule {
 	}
 	
 	private CellState newLive(){
-		return new CellState(liveID, null);
+//		return new CellState(liveID, null);
+		return new CellState(super.getStateId("Live"), null);
 	}
 	
 	private CellState newDead(){
-		return new CellState(deadID, null);
+		return new CellState(super.getStateId("Dead"), null);
 	}
 
 }
