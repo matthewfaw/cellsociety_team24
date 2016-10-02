@@ -6,7 +6,6 @@ import java.util.Collection;
 import javafx.scene.Group;
 import javafx.scene.shape.Rectangle;
 import models.grid.Cell;
-import resources.AppResources;
 import views.styles.CellStyleGuide;
 
 /**
@@ -22,8 +21,8 @@ public class GridViewUpdateSquare extends GridViewUpdate {
 	}
 
 	@Override
-	public void AddCell(Cell currcell) {
-		setCellLocation(currcell);
+	public void addCell(Cell currcell) {
+		getCellLocation(currcell);
 		Rectangle cellrect = new Rectangle(xOffset+(myCellWidth*myCellx),yOffset+(myCellHeight*myCelly),myCellWidth,myCellHeight);
 		cellSetup(currcell,cellrect);
 	}

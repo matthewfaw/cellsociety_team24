@@ -22,21 +22,22 @@ public class GridViewUpdateTriangles extends GridViewUpdate {
 	}
 
 	@Override
-	public void AddCell(Cell currcell) {
-		setCellLocation(currcell);
+	public void addCell(Cell currcell) {
+		double triangleCellWidth=myCellWidth*2;
+		getCellLocation(currcell);
 		Polygon celltriangle=new Polygon();
 		if(((myCellx+myCelly)%2)==0){
 			celltriangle.getPoints().addAll(new Double[]{
-                xOffset+(myCellx*myCellWidth*AppResources.HALF), yOffset+(myCellHeight*myCelly)+myCellHeight*AppResources.HALF,
-                xOffset+(myCellx*myCellWidth*AppResources.HALF)-myCellWidth*AppResources.HALF, yOffset+(myCellHeight*myCelly)-myCellHeight*AppResources.HALF,
-                xOffset+(myCellx*myCellWidth*AppResources.HALF)+myCellWidth*AppResources.HALF, yOffset+(myCellHeight*myCelly)-myCellHeight*AppResources.HALF	
+                xOffset+(myCellx*triangleCellWidth*AppResources.HALF), yOffset+(myCellHeight*myCelly)+myCellHeight*AppResources.HALF,
+                xOffset+(myCellx*triangleCellWidth*AppResources.HALF)-triangleCellWidth*AppResources.HALF, yOffset+(myCellHeight*myCelly)-myCellHeight*AppResources.HALF,
+                xOffset+(myCellx*triangleCellWidth*AppResources.HALF)+triangleCellWidth*AppResources.HALF, yOffset+(myCellHeight*myCelly)-myCellHeight*AppResources.HALF	
 			});
 		}
 		else{
 			celltriangle.getPoints().addAll(new Double[]{
-				xOffset+(myCellx*myCellWidth*AppResources.HALF)-myCellWidth*AppResources.HALF, yOffset+(myCellHeight*myCelly)+myCellHeight*AppResources.HALF,
-				xOffset+(myCellx*myCellWidth*AppResources.HALF)+myCellWidth*AppResources.HALF, yOffset+(myCellHeight*myCelly)+myCellHeight*AppResources.HALF,
-				xOffset+(myCellx*myCellWidth*AppResources.HALF), yOffset+(myCellHeight*myCelly)-myCellHeight*AppResources.HALF	
+				xOffset+(myCellx*triangleCellWidth*AppResources.HALF)-triangleCellWidth*AppResources.HALF, yOffset+(myCellHeight*myCelly)+myCellHeight*AppResources.HALF,
+				xOffset+(myCellx*triangleCellWidth*AppResources.HALF)+triangleCellWidth*AppResources.HALF, yOffset+(myCellHeight*myCelly)+myCellHeight*AppResources.HALF,
+				xOffset+(myCellx*triangleCellWidth*AppResources.HALF), yOffset+(myCellHeight*myCelly)-myCellHeight*AppResources.HALF	
 			});
 
 		}
