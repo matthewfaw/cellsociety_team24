@@ -33,10 +33,7 @@ public class CellState {
 	}
 	
 	public void increment(String key){
-		if (myAttribs.containsKey(key)){
-			myAttribs.put(key, myAttribs.get(key) + 1);
-		} else
-			throw new IllegalArgumentException("No such key in attribute map.");
+		increment(key, 1);
 	}
 
 	public CellState clone() {
@@ -44,8 +41,19 @@ public class CellState {
 	}
 
 	public void decrement(String key) {
+		decrement(key, 1);
+	}
+
+	public void increment(String key, double val){
 		if (myAttribs.containsKey(key)){
-			myAttribs.put(key, myAttribs.get(key) - 1);
+			myAttribs.put(key, myAttribs.get(key) + val);
+		} else
+			throw new IllegalArgumentException("No such key in attribute map.");
+	}
+	
+	public void decrement(String key, double val){
+		if (myAttribs.containsKey(key)){
+			myAttribs.put(key, myAttribs.get(key) - val);
 		} else
 			throw new IllegalArgumentException("No such key in attribute map.");
 	}

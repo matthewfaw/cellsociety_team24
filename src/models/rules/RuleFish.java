@@ -36,8 +36,8 @@ public class RuleFish extends Rule {
 	 * @param fishEnergy energy sharks gain by eating a fish
 	 * @param attributeNames the names of the fish/shark attributes given in the xml [chrononName, ageName, energyName]
 	 */
-	public RuleFish(int fishReproTime, int sharkReproTime, int fishEnergy, String[] attributeNames, Map<String, Integer> aStateIdsMap) {
-		super(aStateIdsMap);
+	public RuleFish(int fishReproTime, int sharkReproTime, int fishEnergy, String[] attributeNames, Map<String, Integer> stateIdsMap) {
+		super(stateIdsMap);
 		
 		myFishReproTime = fishReproTime;
 		mySharkReproTime = sharkReproTime;
@@ -90,7 +90,7 @@ public class RuleFish extends Rule {
 	private void move(Cell c){
 		//TODO: consolidate move statements
 		if (!occupied(c)){
-			c.incrementState(chrononName);
+			c.increment(chrononName);
 		} else {
 //			if (c.getNextStateID() == fishID){
 			if (c.getNextStateID() == super.getStateId("Fish")){
@@ -98,8 +98,8 @@ public class RuleFish extends Rule {
 				if (nextMove != null)
 					moveFish(c, nextMove);
 				else {
-					c.incrementState(chrononName);
-					c.incrementState(ageName);
+					c.increment(chrononName);
+					c.increment(ageName);
 				}
 				
 //			} else if ( c.getNextStateID() == sharkID){
@@ -113,8 +113,8 @@ public class RuleFish extends Rule {
 					if (nextMove != null)
 						moveShark(c, nextMove);
 					else {
-						c.incrementState(chrononName);
-						c.incrementState(ageName);
+						c.increment(chrononName);
+						c.increment(ageName);
 					}
 				}
 			}
@@ -196,7 +196,6 @@ public class RuleFish extends Rule {
 		Cell[] options = myGrid.getNeighbors(c);
 		
 		for (int i = 0; i < options.length; i++){
-//			if (options[i] != null && !(options[i].getNextStateID() == fishID))
 			if (options[i] != null && !(options[i].getNextStateID() == super.getStateId("Fish")))
 				options[i] = null;
 		}
