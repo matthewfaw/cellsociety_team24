@@ -10,6 +10,8 @@ public class RuleSilme extends Rule{
 	private double myDrop;
 	private double myEvap;
 	private double myDiff;
+	private double myChemMax;
+	
 	private int mySniffAngle;
 	private int mySniffThreshold;
 	private int myWiggleAngle;
@@ -30,6 +32,7 @@ public class RuleSilme extends Rule{
 						int sniffThreshold,
 						int wiggleBias,
 						double dropRate,
+						double chemMax,
 						String[] cellAttribs,
 						Map<String, Integer> stateIdsMap) {
 		super(stateIdsMap);
@@ -37,6 +40,7 @@ public class RuleSilme extends Rule{
 		myDrop = dropRate;
 		myEvap = evapRate;
 		myDiff = diffuseRate;
+		myChemMax = chemMax;
 		
 		mySniffAngle = sniffAngle;
 		mySniffThreshold = sniffThreshold;
@@ -110,7 +114,7 @@ public class RuleSilme extends Rule{
 		double maxChem = mySniffThreshold;
 		
 		for (Cell neighbor: neighbors){
-			if (neighbor != null && !hasSlime(neighbor) && neighbor.getNextState(chemAmount) > maxChem){
+			if (neighbor != null && !hasSlime(neighbor) && !nextHasSlime(neighbor) && neighbor.getNextState(chemAmount) > maxChem){
 				maxChem = neighbor.getNextState(chemAmount);
 				bestMove = neighbor;
 			}
@@ -123,13 +127,13 @@ public class RuleSilme extends Rule{
 	}
 	
 	private void dropChemical(Cell c){
-		if (hasSlime(c)){
-			c.increment(chemAmount, myDrop);
+		if (nextHasSlime(c)){
+			c.increment(chemAmount, Math.min(myDrop, myChemMax - c.getNextState(chemAmount)));
 		}
 	}
 
 	private void setID(Cell c){
-		if (hasSlime(c))
+		if (nextHasSlime(c))
 			c.setNextStateAttrib(-1 * (int) c.getNextState(chemAmount));
 		else
 			c.setNextStateAttrib((int) c.getNextState(chemAmount));
@@ -137,5 +141,9 @@ public class RuleSilme extends Rule{
 	
 	private boolean hasSlime(Cell c){
 		return (c.getStateID() < 0);
+	}
+	
+	private boolean nextHasSlime(Cell c){
+		return (c.getNextStateID() < 0);
 	}
 }
