@@ -54,11 +54,13 @@ public class AppController {
 		if (aElapsedTime > 0) {
 			fGridModel.nextTick();
 			fAppScene.updateGrid(fGridModel.getAllCells());
+			fAppScene.updateGraph(0,1,1);
 		}
 	}
 	
 	public void onStartButtonPressed() {
 		fSimulationController.start();
+		
 	}
 	public void onPauseButtonPressed() {
 		fSimulationController.pause();

@@ -51,11 +51,11 @@ public abstract class GridViewUpdate {
 
 	public void makeGrid(){
 		for(Cell c: myCells){
-			AddCell(c);
+			addCell(c);
 		}
 	}
 	
-	public void StepGrid(Collection<Cell> cells){
+	public void stepGrid(Collection<Cell> cells){
 		Iterator<Shape> shapeIterator= myShapeCollection.iterator();
 		for(Cell c: cells){
 			Shape myShape=shapeIterator.next();
@@ -71,10 +71,12 @@ public abstract class GridViewUpdate {
 		myRoot.getChildren().add(shape);
 		myShapeCollection.add(shape); 
 	}
+	
 	public void colorCell(Cell c) {
 		Shape s= getShape(c);
 		int currcellstate =c.getStateID();
 		s.setFill(Color.web(myGuide.getColor(currcellstate)));
+		s.setStroke(Color.BLACK); ////FIX THIS USE RESOURCE FILE
 	}
 	
 	public Iterator<Shape> getShapeIterator(){
@@ -82,7 +84,7 @@ public abstract class GridViewUpdate {
 		return shapeIterator;
 	}
 	
-	public void setCellLocation(Cell c){
+	public void getCellLocation(Cell c){
 		myCellx=c.getLocation().getX();
 		myCelly=c.getLocation().getY();
 	}
@@ -91,6 +93,8 @@ public abstract class GridViewUpdate {
 		return cellMap.get(c);
 	}
 
-	public abstract void AddCell(Cell currcell); 
+	public abstract void addCell(Cell currcell); 
 	
 }
+// Comment all public methods and explain
+// Chnage protected variables to privvate and add getters
