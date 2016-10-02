@@ -14,7 +14,7 @@ public class GridSettings {
 	private String fGridType;
 	private RuleType fGridRule;
 	private HashMap<Integer, Integer> fStatePercentages;
-	private HashMap<String, Double> fSimulationProperties;
+//	private HashMap<String, Double> fSimulationProperties;
 	
 	public GridSettings(Dimension aDimension, String aGridType, String aGridRules)
 	{
@@ -23,7 +23,7 @@ public class GridSettings {
 		fGridRule = setGridRules(aGridRules);
 		
 		fStatePercentages = new HashMap<Integer, Integer>();
-		fSimulationProperties = new HashMap<String, Double>();
+//		fSimulationProperties = new HashMap<String, Double>();
 	}
 	
 	public RuleType getRuleType()
@@ -82,12 +82,12 @@ public class GridSettings {
 		return fStatePercentages;
 	}
 	
-	public void addProperty(String aProperty, double aDefaultValue)
-	{
-		fSimulationProperties.put(aProperty, aDefaultValue);
-	}
-	public HashMap<String, Double> getSimulationProperties()
-	{
-		return fSimulationProperties;
-	}
+//	public void addProperty(String aProperty, double aDefaultValue)
+//	{
+//		fSimulationProperties.put(aProperty, aDefaultValue);
+//	}
+//	public HashMap<String, Double> getSimulationProperties()
+//	{
+//		return fSimulationProperties;
+//	}
 }

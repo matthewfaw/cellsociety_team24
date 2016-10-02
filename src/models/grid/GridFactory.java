@@ -28,7 +28,7 @@ public class GridFactory {
 	public GridModel createGridModel()
 	{
 		RuleFactory ruleFactory = new RuleFactory();
-		Rule rules = ruleFactory.createRule(fGridSettings.getRuleType(), fGridSettings.getSimulationProperties());
+		Rule rules = ruleFactory.createRule(fGridSettings.getRuleType(), fCellSettings.getDefaults(), fCellSettings.getStateNames());
 		ArrayList<Cell> grid = buildGrid();
 		int numberOfSides = fGridSettings.getNumberOfCellSides();
 		Dimension gridDimensions = fGridSettings.getDimensions();
