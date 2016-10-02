@@ -54,12 +54,6 @@ public class Cell {
 		myNextState.setStateAtttrib(val, key);
 	}
 	
-	public void incrementState(String key){
-		if (myNextState == null)
-			myNextState = myCurrState.clone();
-		myNextState.increment(key);
-	}
-	
 	public Point getLocation(){
 		return myLocation;
 	}
@@ -87,5 +81,22 @@ public class Cell {
 		myNextState.decrement(key);
 	}
 	
+	public void increment(String key){
+		if (myNextState == null)
+			myNextState = myCurrState.clone();
+		myNextState.increment(key);
+	}
+	
+	public void decrement(String key, double val) {
+		if (myNextState == null)
+			myNextState = myCurrState.clone();
+		myNextState.decrement(key, val);
+	}
+	
+	public void increment(String key, double val){
+		if (myNextState == null)
+			myNextState = myCurrState.clone();
+		myNextState.increment(key, val);
+	}
 }
 	

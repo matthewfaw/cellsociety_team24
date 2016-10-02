@@ -87,15 +87,15 @@ public class RuleFish extends Rule {
 	private void move(Cell c){
 		//TODO: consolidate move statements
 		if (!occupied(c)){
-			c.incrementState(chrononName);
+			c.increment(chrononName);
 		} else {
 			if (c.getNextStateID() == fishID){
 				Cell nextMove = pickFishMove(c);
 				if (nextMove != null)
 					moveFish(c, nextMove);
 				else {
-					c.incrementState(chrononName);
-					c.incrementState(ageName);
+					c.increment(chrononName);
+					c.increment(ageName);
 				}
 				
 			} else if ( c.getNextStateID() == sharkID){
@@ -108,8 +108,8 @@ public class RuleFish extends Rule {
 					if (nextMove != null)
 						moveShark(c, nextMove);
 					else {
-						c.incrementState(chrononName);
-						c.incrementState(ageName);
+						c.increment(chrononName);
+						c.increment(ageName);
 					}
 				}
 			}
@@ -190,7 +190,7 @@ public class RuleFish extends Rule {
 		Cell[] options = myGrid.getNeighbors(c);
 		
 		for (int i = 0; i < options.length; i++){
-			if (options[i] != null && !(options[i].getNextStateID() == fishID))
+			if (options[i] != null && options[i].getNextStateID() != fishID)
 				options[i] = null;
 		}
 		ArrayList<Cell> nonNullOptions = new ArrayList<Cell>(Arrays.asList(options));

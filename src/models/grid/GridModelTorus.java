@@ -12,6 +12,10 @@ public class GridModelTorus extends GridModel{
 		super(cells, dimension, rule, cellSides);
 	}
 
+	/**
+	 * Finds the cell at Point p, with toroidal wrapping ((-1, -1) = (0, 0))
+	 * @param p
+	 */
 	@Override
 	public Cell getCell(Point p){
 		Point dim = getDimensions();

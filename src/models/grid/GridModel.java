@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import models.Point;
 import models.rules.Rule;
@@ -274,5 +275,99 @@ public class GridModel implements Iterable<Cell>{
 	public Cell getCell(int x, int y){
 		return getCell(new Point(x, y));
 	}
+
+	public Cell getDirectedNeighbor(Cell c, double angle) {
+		switch (myCellSides){
+		case 3:
+			return getDirectedNeighborTriangle(c, angle);
+		case 4:
+			return getDirectedNeighborSquare(c, angle);
+		case 6:
+			return getDirectedNeighborHexagon(c, angle);
+		default:
+			return getDirectedNeighborSquare(c, angle);
+			}
+	}
+	
+	public Cell[] getDirectedNeighbors(Cell c, double angle, double range) {
+		
+		angle = (angle + 360) % 360;
+		range = (range + 360) % 360;
+		
+		double lowerAngle = (angle - range) % 360;
+		double upperAngle = (angle + range) % 360;
+		
+		switch (myCellSides){
+		case 3:
+			return getAllDirectedNeighborsTriangle(c, lowerAngle, upperAngle);
+		case 4:
+			return getAllDirectedNeighborsSquareOrHex(c, lowerAngle, upperAngle);
+		case 6:
+			return getAllDirectedNeighborsSquareOrHex(c, lowerAngle, upperAngle);
+		default:
+			return getAllDirectedNeighborsSquareOrHex(c, lowerAngle, upperAngle);
+			}
+	}
+
+	private Cell getDirectedNeighborTriangle(Cell c, double angle) {
+		angle = (angle + 360) % 360;
+		int angleIndex;
+
+		if (c.getLocation().getX() % 2 == 0){
+			//Triangle pointing up
+			angleIndex = (int) (angle + 45 / 90);
+		} else {
+			//Triangle pointing down
+			angleIndex = (int) Math.round(angle / 90);
+		}
+		return triangleNeighbors(c)[angleIndex];
+	}
+
+	private Cell getDirectedNeighborSquare(Cell c, double angle) {
+		angle = (angle + 360) % 360;
+		int angleIndex = (int) Math.round(angle / 90);
+		
+		return squareNeighbors(c)[angleIndex];
+	}
+	
+	private Cell getDirectedNeighborHexagon(Cell c, double angle) {
+		angle = (angle + 360) % 360;
+		int angleIndex = (int) Math.round(angle / 60);
+		
+		return hexagonalNeighbors(c)[angleIndex];
+	}
+	
+	private Cell[] getAllDirectedNeighborsSquareOrHex(Cell c, double lowerAngle, double upperAngle){
+		ArrayList<Cell> result = new ArrayList<Cell>();
+		
+		double i = 0;
+		for (Cell neighbor: getNeighbors(c)){
+			double neighborAngle = (360 / myCellSides) * i;
+			if ((lowerAngle <= neighborAngle && neighborAngle < upperAngle))
+				result.add(neighbor);
+			i++;
+		}
+		return result.toArray(new Cell[result.size()]);
+	}
+	
+	private Cell[] getAllDirectedNeighborsTriangle(Cell c, double lowerAngle, double upperAngle){	
+		ArrayList<Cell> result = new ArrayList<Cell>();
+		
+		if ((c.getLocation().getX() + 2) % 2 != 0){
+			lowerAngle += 360 / (myCellSides * 2);
+			upperAngle += 360 / (myCellSides * 2);
+		}
+			
+		double i = 0;
+		for (Cell neighbor: getNeighbors(c)){
+			double neighborAngle = (360 / myCellSides) * i;
+			if ((lowerAngle <= neighborAngle && neighborAngle < upperAngle))
+				result.add(neighbor);
+			i++;
+		}
+		return result.toArray(new Cell[result.size()]);
+	}
+	
+	
 	
 }
