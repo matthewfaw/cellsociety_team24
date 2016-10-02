@@ -8,25 +8,26 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import models.settings.GridSettings;
+import resources.ResourceBundleHandler;
 import xml.XMLFactory;
 
 public class GridSettingsFactory extends XMLFactory {
 	private static final String RESOURCE_PATH = "resources/GridSettings";
 	
-	private ResourceBundle fGridSettingsRB;
+	private ResourceBundleHandler fResourceBundleHandler;
 
 	public GridSettingsFactory(String aXmlFileName) {
 		super(aXmlFileName);
 		
-		fGridSettingsRB = ResourceBundle.getBundle(RESOURCE_PATH);
+		fResourceBundleHandler = new ResourceBundleHandler(RESOURCE_PATH);
 	}
 	
 	public GridSettings createGridSettings()
 	{
-		Element gridWidthElement = fXmlReader.findFirstChildElement(getResource("GridWidth"));
-		Element gridHeightElement = fXmlReader.findFirstChildElement(getResource("GridHeight"));
-		Element gridTypeElement = fXmlReader.findFirstChildElement(getResource("GridType"));
-		Element gridRulesElement = fXmlReader.findFirstChildElement(getResource("GridRules"));
+		Element gridWidthElement = super.getXmlReader().findFirstChildElement(fResourceBundleHandler.getResource("GridWidth"));
+		Element gridHeightElement = super.getXmlReader().findFirstChildElement(fResourceBundleHandler.getResource("GridHeight"));
+		Element gridTypeElement = super.getXmlReader().findFirstChildElement(fResourceBundleHandler.getResource("GridType"));
+		Element gridRulesElement = super.getXmlReader().findFirstChildElement(fResourceBundleHandler.getResource("GridRules"));
 
 		int gridWidth = Integer.parseInt(gridWidthElement.getTextContent());
 		int gridHeight = Integer.parseInt(gridHeightElement.getTextContent());
@@ -35,13 +36,13 @@ public class GridSettingsFactory extends XMLFactory {
 
 		GridSettings gridSettings = new GridSettings(new Dimension(gridWidth, gridHeight), gridType, gridRules);
 		
-		Element stateProportionsElement = fXmlReader.findFirstChildElement(getResource("StateProportions"));
+		Element stateProportionsElement = super.getXmlReader().findFirstChildElement(fResourceBundleHandler.getResource("StateProportions"));
 		NodeList stateProportions = stateProportionsElement.getChildNodes();
 		for (int i=0; i<stateProportions.getLength(); ++i) {
 			if (stateProportions.item(i).getNodeType() == Node.ELEMENT_NODE) {
 				Element percentage = (Element) stateProportions.item(i);
-				int id = Integer.parseInt(percentage.getAttribute(getResource("StateId")));
-				int value = Integer.parseInt(percentage.getAttribute(getResource("PercentageValue")));
+				int id = Integer.parseInt(percentage.getAttribute(fResourceBundleHandler.getResource("StateId")));
+				int value = Integer.parseInt(percentage.getAttribute(fResourceBundleHandler.getResource("PercentageValue")));
 				
 				gridSettings.addPercentage(id, value);
 			}
@@ -63,10 +64,10 @@ public class GridSettingsFactory extends XMLFactory {
 		return gridSettings;
 	}
 
-	@Override
-	protected String getResource(String aResourceToRetrieve) {
-		return fGridSettingsRB.getString(aResourceToRetrieve);
-	}
+//	@Override
+//	protected String getResource(String aResourceToRetrieve) {
+//		return fGridSettingsRB.getString(aResourceToRetrieve);
+//	}
 //	public static void main(String[] args)
 //	{
 //		GridSettingsFactory f = new GridSettingsFactory("grid_config/test_grid.xml");

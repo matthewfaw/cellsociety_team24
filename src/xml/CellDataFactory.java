@@ -7,7 +7,10 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import models.settings.CellSettings;
+import resources.ResourceBundleHandler;
 import views.styles.CellStyleGuide;
 
 /**
@@ -22,15 +25,16 @@ public class CellDataFactory extends XMLFactory {
 	private CellSettings fCellSettings;
 
 	private NodeList fStateXMLNodes;
-	private ResourceBundle fCellDataRB;
+	private ResourceBundleHandler fResourceBundleHandler;
 	
 	public CellDataFactory(String fXmlFileName)
 	{
 		super(fXmlFileName);
-		fCellDataRB = ResourceBundle.getBundle(RESOURCE_PATH);
+//		fCellDataRB = ResourceBundle.getBundle(RESOURCE_PATH);
+		fResourceBundleHandler = new ResourceBundleHandler(RESOURCE_PATH);
 		
-		fXmlReader = new XMLReader(fXmlFileName);
-		fStateXMLNodes = fXmlReader.findElements(getResource("StateElement"));
+//		fXmlReader = new XMLReader(fXmlFileName);
+		fStateXMLNodes = super.getXmlReader().findElements(fResourceBundleHandler.getResource("StateElement"));
 	}
 	
 	/**
@@ -58,11 +62,11 @@ public class CellDataFactory extends XMLFactory {
 			
 			int stateIndex = addStateIdentification(stateElement);
 			
-			NodeList properties = getModelInfo(stateElement, getResource("CellProperties"));
+			NodeList properties = getModelInfo(stateElement, fResourceBundleHandler.getResource("CellProperties"));
 			HashMap<String, Double> propertiesMap = createInfoMap(stateIndex, properties);
 			fCellSettings.addProperties(stateIndex, propertiesMap);
 			
-			NodeList defaults = getModelInfo(stateElement, getResource("CellDefaults"));
+			NodeList defaults = getModelInfo(stateElement, fResourceBundleHandler.getResource("CellDefaults"));
 			if (defaults != null) {
 				HashMap<String, Double> defaultsMap = createInfoMap(stateIndex, defaults);
 //				fCellSettings.addDefaults(stateIndex, defaultsMap);
@@ -93,8 +97,8 @@ public class CellDataFactory extends XMLFactory {
 	
 	private int addStateIdentification(Element aStateElement)
 	{
-			int stateIndex = Integer.parseInt(aStateElement.getAttribute(getResource("StateId")));
-			String stateName = aStateElement.getAttribute(getResource("StateName"));
+			int stateIndex = Integer.parseInt(aStateElement.getAttribute(fResourceBundleHandler.getResource("StateId")));
+			String stateName = aStateElement.getAttribute(fResourceBundleHandler.getResource("StateName"));
 			
 			fCellSettings.setStateName(stateName,stateIndex);
 			
@@ -103,8 +107,8 @@ public class CellDataFactory extends XMLFactory {
 	
 	private NodeList getModelInfo(Element aStateElement, String aModelInfoListName)
 	{
-			Element modelInfoElement = fXmlReader.findFirstChildElement(aStateElement, getResource("ModelInfoTag"));
-			Element requestedElement = fXmlReader.findFirstChildElement(modelInfoElement, aModelInfoListName);
+			Element modelInfoElement = super.getXmlReader().findFirstChildElement(aStateElement, fResourceBundleHandler.getResource("ModelInfoTag"));
+			Element requestedElement = super.getXmlReader().findFirstChildElement(modelInfoElement, aModelInfoListName);
 			if (requestedElement == null) {
 				return null;
 			}
@@ -118,22 +122,22 @@ public class CellDataFactory extends XMLFactory {
 	
 	private void appendStyleGuideInfo(Element aStateNode)
 	{
-		int stateIndex = Integer.parseInt(aStateNode.getAttribute(getResource("StateId")));
+		int stateIndex = Integer.parseInt(aStateNode.getAttribute(fResourceBundleHandler.getResource("StateId")));
 
-		Element viewElement = fXmlReader.findFirstChildElement(aStateNode, getResource("ViewInfoTag"));
+		Element viewElement = super.getXmlReader().findFirstChildElement(aStateNode, fResourceBundleHandler.getResource("ViewInfoTag"));
 		//XXX: Change this so that we iterate over all children of viewElement?
-		String color = fXmlReader.getTextValue(viewElement, getResource("ColorTag"));
+		String color = super.getXmlReader().getTextValue(viewElement, fResourceBundleHandler.getResource("ColorTag"));
 //		String name = fXmlReader.getTextValue(viewElement, getResource("NameTag"));
 
 		fCellStyleGuide.setColor(stateIndex, color);
 //		fCellStyleGuide.setName(stateIndex, name);
 	}
 	
-	@Override
-	protected String getResource(String aResourceToRetrieve)
-	{
-		return fCellDataRB.getString(aResourceToRetrieve);
-	}
+//	@Override
+//	protected String getResource(String aResourceToRetrieve)
+//	{
+//		return fCellDataRB.getString(aResourceToRetrieve);
+//	}
 //	public static void main(String[] args)
 //	{
 //		CellDataFactory f = new CellDataFactory("data/xml/state_config/NEW_fish_states.xml");
