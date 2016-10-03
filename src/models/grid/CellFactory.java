@@ -2,7 +2,6 @@ package models.grid;
 
 import java.util.Map;
 
-import models.Point;
 import views.grid.NeighborType;
 
 /**

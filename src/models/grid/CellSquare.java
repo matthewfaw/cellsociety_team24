@@ -11,7 +11,7 @@ import models.Point;
  *
  */
 abstract public class CellSquare extends Cell{
-	private static final int mySides = 4;
+	//private static final int mySides = 4;
 
 
 	public CellSquare(int aX, int aY, int aStateId, Map<String, Double> aPropertyMap) {
