@@ -4,6 +4,11 @@ import java.util.Map;
 
 import models.Point;
 
+/**
+ * A class to contain the simulation information relevant to a single space.
+ * @author Weston
+ *
+ */
 abstract public class Cell {
 	private Point myLocation;
 	private CellState myCurrState;

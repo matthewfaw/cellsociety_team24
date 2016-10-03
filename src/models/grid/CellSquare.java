@@ -30,9 +30,9 @@ abstract public class CellSquare extends Cell{
 	@Override
 	public Point getDirectedNeighbor(double angle) {
 		Point[] neighbors = getNeighbors();
-		
 		angle = (angle + 360) % 360;
-		int angleIndex = (int) Math.round(angle / (360 / neighbors.length));
+
+		int angleIndex = ((int) Math.round(angle / (360 / neighbors.length))) % neighbors.length;
 		
 		return neighbors[angleIndex];
 	}

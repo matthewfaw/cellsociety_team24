@@ -5,7 +5,7 @@ import java.util.Map;
 import models.Point;
 
 /**
- * A square cell that regards all cells charing an edge with it as it's neighbors.
+ * A square cell that regards all cells sharing an edge with it as it's neighbors.
  * @author Weston
  *
  */
