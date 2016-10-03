@@ -28,13 +28,21 @@ public class GridSettingsFactory extends XMLFactory {
 		Element gridHeightElement = super.getXmlReader().findFirstChildElement(fResourceBundleHandler.getResource("GridHeight"));
 		Element gridTypeElement = super.getXmlReader().findFirstChildElement(fResourceBundleHandler.getResource("GridType"));
 		Element gridRulesElement = super.getXmlReader().findFirstChildElement(fResourceBundleHandler.getResource("GridRules"));
+		Element gridNeighborsElement = super.getXmlReader().findFirstChildElement(fResourceBundleHandler.getResource("GridNeighbors"));
 
 		int gridWidth = Integer.parseInt(gridWidthElement.getTextContent());
 		int gridHeight = Integer.parseInt(gridHeightElement.getTextContent());
 		String gridType = gridTypeElement.getTextContent();
 		String gridRules = gridRulesElement.getTextContent();
-
-		GridSettings gridSettings = new GridSettings(new Dimension(gridWidth, gridHeight), gridType, gridRules);
+		String gridNeighbors;
+		if (gridNeighborsElement != null) {
+			gridNeighbors = gridNeighborsElement.getTextContent();
+		} else {
+			//TODO: Change this from being hard coded
+			gridNeighbors = "edges";
+		}
+		
+		GridSettings gridSettings = new GridSettings(new Dimension(gridWidth, gridHeight), gridType, gridRules, gridNeighbors);
 		
 		Element stateProportionsElement = super.getXmlReader().findFirstChildElement(fResourceBundleHandler.getResource("StateProportions"));
 		NodeList stateProportions = stateProportionsElement.getChildNodes();

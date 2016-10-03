@@ -4,10 +4,11 @@
 		<width>10</width>                                                
 		<height>10</height>                                              
 	</gridSize>                                                         
-	<type>hexagonal</type>                                                 
+	<type>triangular</type>                                                 
 	<stateProportions>                                                  
 		<percent id="0" value="40"></percent>                           
 		<percent id="1" value="30"></percent>
 		<percent id="2" value="30"></percent>
 	</stateProportions>                                                 
-	<gridRules>wator</gridRules></GridConfig> 
+	<gridRules>wator</gridRules>
+	<neighbors>duvall</neighbors></GridConfig> 

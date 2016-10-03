@@ -10,4 +10,5 @@
 		<percent id="1" value="30"></percent>
 		<percent id="2" value="40"></percent>
 	</stateProportions>
-	<gridRules>fire</gridRules></GridConfig>
+	<gridRules>fire</gridRules>
+	<neighbors>edges</neighbors></GridConfig>

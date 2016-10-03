@@ -8,6 +8,7 @@ import exceptions.GridTypeException;
 import exceptions.RuleTypeException;
 import models.rules.RuleType;
 import resources.CellShapes;
+import resources.NeighborType;
 import resources.ResourceBundleHandler;
 import views.grid.GridType;
 
@@ -19,6 +20,7 @@ public class GridSettings {
 	private Dimension fDimension;
 	private GridType fGridType;
 	private RuleType fGridRule;
+	private NeighborType fNeighborType;
 	private int fCellSides;
 	private HashMap<Integer, Integer> fStatePercentages;
 //	private HashMap<String, Double> fSimulationProperties;
@@ -26,11 +28,12 @@ public class GridSettings {
 	private ResourceBundleHandler fRuleTypeRBHandler;
 	private ResourceBundleHandler fErrorRBHandler;
 	
-	public GridSettings(Dimension aDimension, String aGridType, String aGridRules)
+	public GridSettings(Dimension aDimension, String aGridType, String aGridRules, String aGridNeighbors)
 	{
 		fDimension = aDimension;
 		configureGridType(aGridType);
 		configureGridRules(aGridRules);
+		configureGridNeighbors(aGridNeighbors);
 		
 		fStatePercentages = new HashMap<Integer, Integer>();
 //		fSimulationProperties = new HashMap<String, Double>();
@@ -47,6 +50,10 @@ public class GridSettings {
 	public RuleType getRuleType()
 	{
 		return fGridRule;
+	}
+	public NeighborType getNeighborType()
+	{
+		return fNeighborType;
 	}
 	
 	//XXX: want to switch on the strings from resource bundle, but this doesn't seem to be possible
@@ -90,6 +97,22 @@ public class GridSettings {
 				break;
 			default:
 				throw new GridTypeException(fErrorRBHandler.getResource("InvalidGridType"), aGridType);
+		}
+	}
+	private void configureGridNeighbors(String aGridNeighbors)
+	{
+		switch(aGridNeighbors) {
+		case "vertices":
+			fNeighborType = NeighborType.Vertices;
+			break;
+		case "edges":
+			fNeighborType = NeighborType.Edges;
+			break;
+		case "duvall":
+			fNeighborType = NeighborType.Duvall;
+			break;
+		default:
+			fGridType = null;
 		}
 	}
 	
