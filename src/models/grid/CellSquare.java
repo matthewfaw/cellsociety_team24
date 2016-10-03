@@ -32,7 +32,7 @@ abstract public class CellSquare extends Cell{
 		Point[] neighbors = getNeighbors();
 		
 		angle = (angle + 360) % 360;
-		int angleIndex = (int) Math.round(angle / (360 / neighbors.length));
+		int angleIndex = (int) Math.floor(angle / (360 / neighbors.length));
 		
 		return neighbors[angleIndex];
 	}
