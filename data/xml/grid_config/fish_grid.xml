@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>                                  
 <GridConfig>                                                            
 	<gridSize>                                                          
-		<width>3</width>                                                
-		<height>3</height>                                              
+		<width>10</width>                                                
+		<height>10</height>                                              
 	</gridSize>                                                         
-	<type>square</type>                                                 
+	<type>hexagonal</type>                                                 
 	<stateProportions>                                                  
-		<percent id="0" value="5"></percent>                           
-		<percent id="1" value="5"></percent>
-		<percent id="2" value="90"></percent>
+		<percent id="0" value="40"></percent>                           
+		<percent id="1" value="30"></percent>
+		<percent id="2" value="30"></percent>
 	</stateProportions>                                                 
 	<gridRules>wator</gridRules></GridConfig> 

@@ -4,5 +4,6 @@ public enum RuleType {
 	Fire,
 	Fish,
 	Life,
-	Segregation
+	Segregation,
+	SlimeMold
 }

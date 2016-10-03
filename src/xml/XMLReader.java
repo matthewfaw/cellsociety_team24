@@ -3,6 +3,9 @@ package xml;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import exceptions.XMLElementNotFoundException;
+import resources.ResourceBundleHandler;
+
 /**
  * A class intended to provide essential access methods
  * for XML documents
@@ -11,11 +14,16 @@ import org.w3c.dom.NodeList;
  */
 public class XMLReader {
 	private Element fDocumentRoot;
+	
+	private static final String ERROR_PATH = "resources/ErrorMessages";
+	private ResourceBundleHandler fErrorRBHandler;
 
 	public XMLReader(String aXmlFilename)
 	{
 		XMLParser parser = new XMLParser();
 		fDocumentRoot = parser.getRootElement(aXmlFilename);
+		
+		fErrorRBHandler = new ResourceBundleHandler(ERROR_PATH);
 	}
 	
 	public Element getRoot()
@@ -52,7 +60,13 @@ public class XMLReader {
 	 */
 	public Element findFirstChildElement(Element aSourceNode, String aTagNameToFind)
 	{
-		return (Element) aSourceNode.getElementsByTagName(aTagNameToFind).item(0);
+		NodeList childElements = aSourceNode.getElementsByTagName(aTagNameToFind);
+		if (childElements == null) {
+			throw new XMLElementNotFoundException(fErrorRBHandler.getResource("TagNameForElementNotFound"), aTagNameToFind);
+		}
+		Element firstChild = (Element) childElements.item(0);
+		
+		return firstChild;
 	}
 	public Element findFirstChildElement(String aTagNameToFind)
 	{

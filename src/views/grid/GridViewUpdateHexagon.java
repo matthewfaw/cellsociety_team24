@@ -17,11 +17,11 @@ import views.styles.CellStyleGuide;
 
 public class GridViewUpdateHexagon extends GridViewUpdate {
 	
-	double myEdge;
-	double xOddShift;
-	double yOddShift;
-	double xPropagate;
-	double yPropagate;
+	private double myEdge;
+	private double xOddShift;
+	private double yOddShift;
+	private double xPropagate;
+	private double yPropagate;
 	
 	public GridViewUpdateHexagon(int width,int height,Dimension dimensions,Group root,CellStyleGuide csg,Collection<Cell> cells) {
 		super(width,height,dimensions,root,csg,cells);
@@ -31,8 +31,8 @@ public class GridViewUpdateHexagon extends GridViewUpdate {
 	}
 
 	@Override
-	public void AddCell(Cell currcell) {
-		setCellLocation(currcell);
+	public void addCell(Cell currcell) {
+		getCellLocation(currcell);
 		xPropagate=myCellx*myCellWidth;
 		yPropagate=myCelly*(myCellHeight+myEdge)*AppResources.HALF;	
 		Polygon cellhexagon=new Polygon();

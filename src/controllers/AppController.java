@@ -54,11 +54,13 @@ public class AppController {
 		if (aElapsedTime > 0) {
 			fGridModel.nextTick();
 			fAppScene.updateGrid(fGridModel.getAllCells());
+//			fAppScene.updateGraph(0,1,1);
 		}
 	}
 	
 	public void onStartButtonPressed() {
 		fSimulationController.start();
+		
 	}
 	public void onPauseButtonPressed() {
 		fSimulationController.pause();
@@ -103,7 +105,7 @@ public class AppController {
 		fGridModel = gridFactory.createGridModel();
 		
 		// add the grid to the display
-		fAppScene.intializeGrid(fGridModel.getAllCells(), cellStyleGuide, gridSettings.getDimensions());
+		fAppScene.intializeGrid(fGridModel.getAllCells(), cellStyleGuide, gridSettings.getDimensions(), gridSettings.getGridType());
 		fAppScene.setSpeedScrollBarValue(simulationSettings.getSimulationSpeed());
 		fSimulationController.changeSpeed(simulationSettings.getSimulationSpeed());
 	}

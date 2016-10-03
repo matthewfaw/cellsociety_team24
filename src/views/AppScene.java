@@ -22,7 +22,6 @@ import javafx.scene.shape.Shape;
 import models.grid.Cell;
 import resources.AppResources;
 import views.styles.CellStyleGuide;
-import views.grid.GridViewUpdateSquare;
 import views.grid.*;
 
 /**
@@ -40,13 +39,15 @@ public class AppScene {
 	private ArrayList<ScrollBar> scrollbarList= new ArrayList<ScrollBar>();
 	private AppController fAppController;
 	private ResourceBundle mytext=ResourceBundle.getBundle("Resources/textfiles");
-	private GridViewUpdateSquare myGrid;
+	private GridViewUpdate myGrid;
 	private ScrollBar fSpeedScrollBar;
+	private Rectangle basicGrid;
 	private final NumberAxis xAxis=new NumberAxis();
 	private final NumberAxis yAxis=new NumberAxis();
 	private LineChart<Number,Number>  myDataChart= new LineChart<Number,Number>(xAxis, yAxis); 
 	private XYChart.Series<Number,Number> mySeriesone= new XYChart.Series<Number,Number>();
 	private XYChart.Series<Number,Number> mySeriestwo= new XYChart.Series<Number,Number>();
+	
 	public AppScene(int aHeight, int aWidth, AppController aAppController)
 	{
 		fAppRoot = new Group();
@@ -157,24 +158,38 @@ public class AppScene {
 	}
 	
 	private void setGrid(int width, int height){
-		Rectangle basicGrid=new Rectangle(width*AppResources.ONE_SIXTEENTH,height*AppResources.ONE_SIXTEENTH,
+		basicGrid=new Rectangle(width*AppResources.ONE_SIXTEENTH,height*AppResources.ONE_SIXTEENTH,
 				width*AppResources.HALF,height*AppResources.HALF);
 		basicGrid.setFill(Color.GRAY);
 		fAppRoot.getChildren().add(basicGrid);
 		
 	}
 	
-	public void intializeGrid(Collection<Cell> cells,CellStyleGuide csg, Dimension dimensions/*String gridtype*/){
+	//XXX: Change the grid construction to a factory
+	public void intializeGrid(Collection<Cell> cells,CellStyleGuide csg, Dimension dimensions, GridType aGridType){
 		//myGrid=GridViewUpdateFactory.BuildGridView(gridtype);
-		myGrid= new GridViewUpdateSquare(fWidth,fHeight,dimensions,fAppRoot,csg,cells);
+		//myGrid= new GridViewUpdateSquare(fWidth,fHeight,dimensions,fAppRoot,csg,cells);
 		//myGrid= new GridViewUpdateTriangles(fWidth,fHeight,dimensions,fAppRoot,csg,cells);
-		//myGrid= new GridViewUpdateHexagon(fWidth,fHeight,dimensions,fAppRoot,csg,cells);
+		switch (aGridType) {
+		case Square:
+			myGrid= new GridViewUpdateSquare(fWidth,fHeight,dimensions,fAppRoot,csg,cells);
+			break;
+		case Hex:
+			myGrid= new GridViewUpdateHexagon(fWidth,fHeight,dimensions,fAppRoot,csg,cells);
+			break;
+		case Triangle:
+			myGrid= new GridViewUpdateTriangles(fWidth,fHeight,dimensions,fAppRoot,csg,cells);
+			break;
+		default:
+//			throw new GridNotFoundException()
+		}
+		fAppRoot.getChildren().remove(basicGrid);
 		myGrid.makeGrid();
 	}
 	
 	public void updateGrid(Collection<Cell> cells)
 	{
-		myGrid.StepGrid(cells);
+		myGrid.stepGrid(cells);
 	}
 	//public void mouseClickGrid(){
 	//	fAppScene.setOnMouseClicked(e -> GridViewUpdateSquare.handleMouseClick(e.getX(), e.getY()));
