@@ -92,6 +92,20 @@ public abstract class GridViewUpdate {
 	public Shape getShape(Cell c){
 		return cellMap.get(c);
 	}
+	
+	public void clearGrid(){
+		for (Shape shape: myShapeCollection) {
+			myRoot.getChildren().remove(shape);
+		}
+		
+//		if(!myShapeCollection.isEmpty()){
+//			Iterator<Shape> gridClearer= getShapeIterator();
+//			while(gridClearer.hasNext()){
+//				Shape s=gridClearer.next();
+//				myRoot.getChildren().remove(s);
+//			}	
+//		}
+	}
 
 	public abstract void addCell(Cell currcell); 
 	

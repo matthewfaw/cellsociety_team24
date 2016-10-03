@@ -28,7 +28,6 @@ public class AppController {
 	private Stage fStage;
 	private GridModel fGridModel;
 	private SimulationController fSimulationController;
-	
 	private String fCurrentXmlDirectoryPath; 
 	private String fCurrentFileName;
 
@@ -54,7 +53,9 @@ public class AppController {
 		if (aElapsedTime > 0) {
 			fGridModel.nextTick();
 			fAppScene.updateGrid(fGridModel.getAllCells());
-//			fAppScene.updateGraph(0,1,1);
+			//fAppScene.updateGraphData(0,1,1);
+			//fAppScene.updateGraphData(1,4,2);
+			//fAppScene.updateGraphData(2,5,3);
 		}
 	}
 	
@@ -64,6 +65,7 @@ public class AppController {
 	}
 	public void onPauseButtonPressed() {
 		fSimulationController.pause();
+		//fAppScene.BuildGraph();
 	}
 	public void onResetButtonPressed() {
 		fSimulationController.pause();

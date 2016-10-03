@@ -170,7 +170,9 @@ public class AppScene {
 		//myGrid=GridViewUpdateFactory.BuildGridView(gridtype);
 		//myGrid= new GridViewUpdateSquare(fWidth,fHeight,dimensions,fAppRoot,csg,cells);
 		//myGrid= new GridViewUpdateTriangles(fWidth,fHeight,dimensions,fAppRoot,csg,cells);
-		switch (aGridType) {
+		//myGrid.clearGrid();
+		myGrid= new GridViewUpdateHexagon(fWidth,fHeight,dimensions,fAppRoot,csg,cells);
+		/*switch (aGridType) {
 		case Square:
 			myGrid= new GridViewUpdateSquare(fWidth,fHeight,dimensions,fAppRoot,csg,cells);
 			break;
@@ -182,7 +184,7 @@ public class AppScene {
 			break;
 		default:
 //			throw new GridNotFoundException()
-		}
+		}*/
 		fAppRoot.getChildren().remove(basicGrid);
 		myGrid.makeGrid();
 	}
@@ -209,12 +211,15 @@ public class AppScene {
 		fAppRoot.getChildren().add(myGrid.getShape(c));
 	}
 	
-	public void updateGraph(int stepnumber,double datapointone, double datapointtwo){
+	public void updateGraphData(int stepnumber,double datapointone, double datapointtwo){
 		if(fAppRoot.getChildren().contains(myDataChart)){
 			fAppRoot.getChildren().remove(myDataChart);
 		}
 		mySeriesone.getData().add(new XYChart.Data<Number,Number>(stepnumber,datapointone));
 		mySeriestwo.getData().add(new XYChart.Data<Number,Number>(stepnumber,datapointtwo));
+	}
+	
+	public void BuildGraph(){
 		myDataChart.getData().addAll(mySeriesone,mySeriestwo);
 		myDataChart.setLayoutX(fWidth*AppResources.FIVE_EIGHTHS);
 		myDataChart.setLayoutY(fHeight*AppResources.QUARTER);
