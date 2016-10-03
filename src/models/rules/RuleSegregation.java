@@ -81,6 +81,15 @@ public class RuleSegregation extends Rule {
 			i++;
 		}
 	}
+
+	@Override
+	public void updateParameter(double aPercentage) {
+	}
+
+	@Override
+	public double getParameter() {
+		return 0;
+	}
 }
 
 

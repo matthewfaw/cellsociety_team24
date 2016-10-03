@@ -57,4 +57,13 @@ public class RuleLife extends Rule {
 		return new CellState(super.getStateId("Dead"), null);
 	}
 
+	@Override
+	public void updateParameter(double aPercentage) {
+	}
+
+	@Override
+	public double getParameter() {
+		return 0;
+	}
+
 }

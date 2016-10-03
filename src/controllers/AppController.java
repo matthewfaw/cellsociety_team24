@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.File;
+import java.util.Map;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -9,6 +10,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import models.grid.Cell;
+import models.grid.CellState;
 import models.grid.GridFactory;
 import models.grid.GridModel;
 import models.settings.CellSettings;
@@ -30,6 +32,8 @@ public class AppController {
 	private SimulationController fSimulationController;
 	private String fCurrentXmlDirectoryPath; 
 	private String fCurrentFileName;
+	
+	private GridSettings fGridSettings;
 
 	public void init(Stage aStage)
 	{
@@ -97,33 +101,37 @@ public class AppController {
 		SimulationSettings simulationSettings = simulationSettingsFactory.createSimulationSettings();
 
 		GridSettingsFactory gridSettingsFactory = new GridSettingsFactory(filePaths.getGridFile());
-		GridSettings gridSettings = gridSettingsFactory.createGridSettings();
+		fGridSettings = gridSettingsFactory.createGridSettings();
 
 		CellDataFactory cellDataFactory = new CellDataFactory(filePaths.getStateFile());
 		CellSettings cellSettings = cellDataFactory.createCellSettings();
-		CellStyleGuide cellStyleGuide = cellDataFactory.createStyleGuide(gridSettings.getRuleType());
+		CellStyleGuide cellStyleGuide = cellDataFactory.createStyleGuide(fGridSettings.getRuleType());
 		
 		// build the grid model
-		GridFactory gridFactory = new GridFactory(gridSettings, cellSettings);
+		GridFactory gridFactory = new GridFactory(fGridSettings, cellSettings);
 		fGridModel = gridFactory.createGridModel();
 		
 		// add the grid to the display
-		fAppScene.intializeGrid(fGridModel.getAllCells(), cellStyleGuide, gridSettings.getDimensions(), gridSettings.getGridType());
+		fAppScene.intializeGrid(fGridModel.getAllCells(), cellStyleGuide, fGridSettings.getDimensions(), fGridSettings.getGridType());
 		fAppScene.setSpeedScrollBarValue(simulationSettings.getSimulationSpeed());
+		fAppScene.setParameterScrollBarValue(fGridModel.getParameter());
 		fSimulationController.changeSpeed(simulationSettings.getSimulationSpeed());
 	}
 	
-	public void onParameterDrag() {
-		
+	public void onParameterDrag(double aScrollbarValue)
+	{
+		fGridModel.updateParameter(aScrollbarValue);
 	}
-	public void onSpeedDrag(double aScrollbarValue) {
-		fSimulationController.changeSpeed(aScrollbarValue);
+	public void onSpeedDrag(double aScrollbarValue) 
+	{
+		fSimulationController.changeSpeed(aScrollbarValue/100);
 	}
 
-	public void updateCellState(Cell oldCell) {
+	public void updateCellState(Cell aCell) {
+		System.out.println("DERP");
 		// formula to change stateid
-//		fGridModel.updateCellState(oldCell);
-//		fAppScene.changeCell(oldCell, newCell);
+		fGridModel.randomlyChangeCellState(aCell);
+		fAppScene.updateCell(aCell);
 	}
 	
 }

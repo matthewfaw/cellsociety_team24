@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.ResourceBundle;
 
 import controllers.AppController;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 //import javafx.scene.Parent;
 //import javafx.scene.Scene;
@@ -16,6 +17,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -41,6 +43,7 @@ public class AppScene {
 	private ResourceBundle mytext=ResourceBundle.getBundle("Resources/textfiles");
 	private GridViewUpdate myGrid;
 	private ScrollBar fSpeedScrollBar;
+	private ScrollBar fParameterScrollBar;
 	private Rectangle basicGrid;
 	private final NumberAxis xAxis=new NumberAxis();
 	private final NumberAxis yAxis=new NumberAxis();
@@ -119,8 +122,8 @@ public class AppScene {
 
 	private void setScrollBars(int width)
 	{
-		ScrollBar parameterScrollBar=makeScrollBar(AppResources.FIVE_EIGHTHS,AppResources.FIVE_EIGHTHS,width,true);
-		parameterScrollBar.setOnDragDone(e->fAppController.onParameterDrag());
+		fParameterScrollBar=makeScrollBar(AppResources.FIVE_EIGHTHS,AppResources.FIVE_EIGHTHS,width,true);
+		fParameterScrollBar.valueProperty().addListener(e->fAppController.onParameterDrag(fParameterScrollBar.getValue()));
 		fSpeedScrollBar=makeScrollBar(AppResources.FIVE_EIGHTHS,AppResources.ELEVEN_SIXTEENTHS,width,true);
 		fSpeedScrollBar.valueProperty().addListener(e -> fAppController.onSpeedDrag(fSpeedScrollBar.getValue()));
 	}
@@ -128,6 +131,10 @@ public class AppScene {
 	public void setSpeedScrollBarValue(double aValue)
 	{
 		fSpeedScrollBar.setValue(aValue);
+	}
+	public void setParameterScrollBarValue(double aValue)
+	{
+		fParameterScrollBar.setValue(aValue);
 	}
 	
 	private ScrollBar makeScrollBar(double xlayout, double ylayout,int width,Boolean disable) {
@@ -203,6 +210,10 @@ public class AppScene {
 	{
 		myGrid.stepGrid(cells);
 	}
+	public void updateCell(Cell aCell)
+	{
+		myGrid.colorCell(aCell);
+	}
 	//public void mouseClickGrid(){
 	//	fAppScene.setOnMouseClicked(e -> GridViewUpdateSquare.handleMouseClick(e.getX(), e.getY()));
 	//}
@@ -211,7 +222,16 @@ public class AppScene {
 		Iterator<Shape> shapeIterator= myGrid.getShapeIterator();
 		for(Cell c:cells){
 			Shape s= shapeIterator.next();
-			s.setOnMouseClicked(e->fAppController.updateCellState(c));
+//			s.setOnMouseClicked(e->fAppController.updateCellState(c));
+			s.setOnMouseReleased(new EventHandler<MouseEvent>()
+			{
+
+				@Override
+				public void handle(MouseEvent event) {
+					fAppController.updateCellState(c);
+				}
+
+			});
 		}
 	}
 

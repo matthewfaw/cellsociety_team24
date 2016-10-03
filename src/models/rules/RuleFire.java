@@ -71,4 +71,14 @@ public class RuleFire extends Rule {
 //		return new CellState(emptyID, null);
 		return new CellState(super.getStateId("Empty"), null);
 	}
+
+	@Override
+	public void updateParameter(double aPercentage) {
+		myProbCatch *= aPercentage;
+	}
+
+	@Override
+	public double getParameter() {
+		return myProbCatch;
+	}
 }

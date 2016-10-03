@@ -35,6 +35,10 @@ abstract public class Cell {
 	public void setNextState(CellState nextState){
 		myNextState = nextState;
 	}
+	public void setCurrentState(CellState aCurrentState)
+	{
+		myCurrState = aCurrentState;
+	}
 	
 	/**
 	 * @return the cell's current state object
