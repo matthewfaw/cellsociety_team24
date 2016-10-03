@@ -157,4 +157,16 @@ public class RuleSlime extends Rule{
 	private boolean nextHasSlime(Cell c){
 		return (c.getNextStateID() < 0);
 	}
+
+
+	@Override
+	public void updateParameter(double aPercentage) {
+		myDrop *= aPercentage;
+	}
+
+
+	@Override
+	public double getParameter() {
+		return myDrop;
+	}
 }

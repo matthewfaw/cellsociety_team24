@@ -47,6 +47,15 @@ public class GridModel implements Iterable<Cell>{
 		aCell.setCurrentState(newState);
 	}
 	
+	public double getParameter()
+	{
+		return myRules.getParameter();
+	}
+	public void updateParameter(double aPercentage)
+	{
+		myRules.updateParameter(aPercentage);
+	}
+	
 	private int getRandomStateId()
 	{
 		Random random = new Random();

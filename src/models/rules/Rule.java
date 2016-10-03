@@ -37,7 +37,12 @@ abstract public class Rule {
 	 * @param c The cell to find the next state for.
 	 * @return The cell's intended next state.
 	 */
-	abstract public void calculateAndSetNextStates(GridModel grid);
+	public abstract void calculateAndSetNextStates(GridModel grid);
+	
+	public abstract void updateParameter(double aPercentage);
+	
+	public abstract double getParameter();
+
 	
 	
 }

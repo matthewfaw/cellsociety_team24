@@ -241,4 +241,14 @@ public class RuleFish extends Rule {
 		return (c != null && !(c.getNextStateID() == super.getStateId("Empty")));
 	}
 
+	@Override
+	public void updateParameter(double aPercentage) {
+		myFishReproTime *= aPercentage;
+	}
+
+	@Override
+	public double getParameter() {
+		return myFishReproTime;
+	}
+
 }
