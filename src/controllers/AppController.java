@@ -90,16 +90,16 @@ public class AppController {
 		SimulationFileSettingsFactory simulationFileSettingsFactory = new SimulationFileSettingsFactory(aDirectoryPath, aFileName);
 		SimulationFileSettings filePaths = simulationFileSettingsFactory.createFileSettings();
 
-		CellDataFactory cellDataFactory = new CellDataFactory(filePaths.getStateFile());
-		CellSettings cellSettings = cellDataFactory.createCellSettings();
-		CellStyleGuide cellStyleGuide = cellDataFactory.createStyleGuide();
-		
-		GridSettingsFactory gridSettingsFactory = new GridSettingsFactory(filePaths.getGridFile());
-		GridSettings gridSettings = gridSettingsFactory.createGridSettings();
-
 		SimulationSettingsFactory simulationSettingsFactory = new SimulationSettingsFactory(filePaths.getSimulationFile());
 		SimulationSettings simulationSettings = simulationSettingsFactory.createSimulationSettings();
 
+		GridSettingsFactory gridSettingsFactory = new GridSettingsFactory(filePaths.getGridFile());
+		GridSettings gridSettings = gridSettingsFactory.createGridSettings();
+
+		CellDataFactory cellDataFactory = new CellDataFactory(filePaths.getStateFile());
+		CellSettings cellSettings = cellDataFactory.createCellSettings();
+		CellStyleGuide cellStyleGuide = cellDataFactory.createStyleGuide(gridSettings.getRuleType());
+		
 		// build the grid model
 		GridFactory gridFactory = new GridFactory(gridSettings, cellSettings);
 		fGridModel = gridFactory.createGridModel();

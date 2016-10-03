@@ -1,6 +1,7 @@
 package views.styles;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The purpose of this class is to encapulate 
@@ -9,7 +10,7 @@ import java.util.HashMap;
  * @author matthewfaw
  *
  */
-public class CellStyleGuide {
+public abstract class CellStyleGuide {
 	private HashMap<Integer, String> fColors;
 //	private HashMap<Integer, String> fNames;
 	
@@ -25,10 +26,7 @@ public class CellStyleGuide {
 	 * @param aStateIndex
 	 * @return
 	 */
-	public String getColor(int aStateIndex)
-	{
-		return fColors.get(aStateIndex);
-	}
+	public abstract String getColor(int aStateIndex);
 	/**
 	 * Adds a color to the color map.  This method is intended
 	 * to be used only by the factory
@@ -38,6 +36,10 @@ public class CellStyleGuide {
 	public void setColor(int aStateIndex, String aHexValue)
 	{
 		fColors.put(aStateIndex, aHexValue);
+	}
+	protected Map<Integer, String> getColors()
+	{
+		return fColors;
 	}
 	
 	/**

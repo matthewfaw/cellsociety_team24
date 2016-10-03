@@ -9,9 +9,12 @@ import org.w3c.dom.NodeList;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import models.rules.RuleType;
 import models.settings.CellSettings;
 import resources.ResourceBundleHandler;
 import views.styles.CellStyleGuide;
+import views.styles.FixedColorStyleGuide;
+import views.styles.GradientColorStyleGuide;
 
 /**
  * A factory to pull cell styling info from XML
@@ -30,10 +33,8 @@ public class CellDataFactory extends XMLFactory {
 	public CellDataFactory(String fXmlFileName)
 	{
 		super(fXmlFileName);
-//		fCellDataRB = ResourceBundle.getBundle(RESOURCE_PATH);
 		fResourceBundleHandler = new ResourceBundleHandler(RESOURCE_PATH);
 		
-//		fXmlReader = new XMLReader(fXmlFileName);
 		fStateXMLNodes = super.getXmlReader().findElements(fResourceBundleHandler.getResource("StateElement"));
 	}
 	
@@ -41,9 +42,17 @@ public class CellDataFactory extends XMLFactory {
 	 * Obtains the cell specifications from the requested XML file
 	 * @param aXmlFile
 	 */
-	public CellStyleGuide createStyleGuide()
+	public CellStyleGuide createStyleGuide(RuleType aRuleType)
 	{
-		fCellStyleGuide = new CellStyleGuide();
+		switch (aRuleType) {
+			case SlimeMold:
+				fCellStyleGuide = new GradientColorStyleGuide();
+				break;
+			default:
+				fCellStyleGuide = new FixedColorStyleGuide();
+				break;
+		}
+
 		for (int i=0; i<fStateXMLNodes.getLength(); ++i) {
 			Element stateNode = getStateElement(i);
 			
@@ -127,17 +136,10 @@ public class CellDataFactory extends XMLFactory {
 		Element viewElement = super.getXmlReader().findFirstChildElement(aStateNode, fResourceBundleHandler.getResource("ViewInfoTag"));
 		//XXX: Change this so that we iterate over all children of viewElement?
 		String color = super.getXmlReader().getTextValue(viewElement, fResourceBundleHandler.getResource("ColorTag"));
-//		String name = fXmlReader.getTextValue(viewElement, getResource("NameTag"));
 
 		fCellStyleGuide.setColor(stateIndex, color);
-//		fCellStyleGuide.setName(stateIndex, name);
 	}
 	
-//	@Override
-//	protected String getResource(String aResourceToRetrieve)
-//	{
-//		return fCellDataRB.getString(aResourceToRetrieve);
-//	}
 //	public static void main(String[] args)
 //	{
 //		CellDataFactory f = new CellDataFactory("data/xml/state_config/NEW_fish_states.xml");
