@@ -4,9 +4,9 @@
 		<width>10</width>                                                
 		<height>10</height>                                              
 	</gridSize>                                                         
-	<type>square</type>                                                 
+	<type>rectangular</type>                                                 
 	<stateProportions>                                                  
-		<percent id="0" value="80"></percent>                           
+		<percent id="1" value="80"></percent>                           
 		<percent id="-1" value="20"></percent>
 	</stateProportions>                                                 
 	<gridRules>slime</gridRules></GridConfig> 

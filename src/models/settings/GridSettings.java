@@ -72,7 +72,7 @@ public class GridSettings {
 		case "segregation":
 			fGridRule = RuleType.Segregation;
 			break;
-		case "slimeMold":
+		case "slime":
 			fGridRule = RuleType.SlimeMold;
 			break;
 		default:

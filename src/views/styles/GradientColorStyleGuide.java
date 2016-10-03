@@ -27,7 +27,7 @@ public class GradientColorStyleGuide extends CellStyleGuide {
 	private String appendColors(String aBaseColor, String aMagnitudeColor)
 	{
 		int endIndex = aBaseColor.length() - 1;
-		aBaseColor = aBaseColor.substring(endIndex - 2);
+		aBaseColor = aBaseColor.substring(0, endIndex - 1);
 		return aBaseColor + aMagnitudeColor;
 	}
 //	public static void main(String[] args)

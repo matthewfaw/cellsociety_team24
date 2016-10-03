@@ -2,6 +2,7 @@ package models.rules;
 
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 public class RuleFactory {
 	private static final String RESOURCE_PATH = "resources/State";
@@ -34,6 +35,29 @@ public class RuleFactory {
 		case Segregation:
 			double pSegregation = aDefaultsMap.get(getResource("SegregationPercentage"));
 			rule = new RuleSegregation(pSegregation, aStateIdsMap);
+			break;
+		case SlimeMold:
+			double evapRate = aDefaultsMap.get(getResource("evapRate"));
+			double diffusionRate = aDefaultsMap.get(getResource("diffusionRate"));
+			double sniffAngle = aDefaultsMap.get(getResource("sniffAngle"));
+			double wiggleAngle = aDefaultsMap.get(getResource("wiggleAngle"));
+			double sniffThreshold = aDefaultsMap.get(getResource("sniffThreshold"));
+			double wiggleBias = aDefaultsMap.get(getResource("wiggleBias"));
+			double dropRate = aDefaultsMap.get(getResource("dropRate"));
+			double maxChem = aDefaultsMap.get(getResource("maxChem"));
+			
+//			String[] cellAttribs = aDefaultsMap.keySet().toArray(new String[2]);
+
+			rule = new RuleSlime(evapRate,
+						diffusionRate,
+						sniffAngle,
+						wiggleAngle,
+						sniffThreshold,
+						wiggleBias,
+						dropRate,
+						maxChem,
+//						cellAttribs,
+						aStateIdsMap);
 			break;
 		default:
 			rule = null;

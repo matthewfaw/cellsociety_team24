@@ -2,20 +2,21 @@ package models.rules;
 
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 import models.grid.Cell;
 import models.grid.GridModel;
 
-public class RuleSilme extends Rule{
+public class RuleSlime extends Rule{
 	private double myDrop;
 	private double myEvap;
 	private double myDiff;
 	private double myChemMax;
 	
-	private int mySniffAngle;
-	private int mySniffThreshold;
-	private int myWiggleAngle;
-	private int myWiggleBias;
+	private double mySniffAngle;
+	private double mySniffThreshold;
+	private double myWiggleAngle;
+	private double myWiggleBias;
 	
 	private final String chemAmount;
 	private final String angle;
@@ -25,15 +26,15 @@ public class RuleSilme extends Rule{
 	private static final Random myRand = new Random(); 
 	
 
-	public RuleSilme(	double evapRate,
+	public RuleSlime(	double evapRate,
 						double diffuseRate,
-						int sniffAngle,
-						int wiggleAngle,
-						int sniffThreshold,
-						int wiggleBias,
+						double sniffAngle,
+						double wiggleAngle,
+						double sniffThreshold,
+						double wiggleBias,
 						double dropRate,
 						double chemMax,
-						String[] cellAttribs,
+//						String[] cellAttribs,
 						Map<String, Integer> stateIdsMap) {
 		super(stateIdsMap);
 		
@@ -48,8 +49,10 @@ public class RuleSilme extends Rule{
 		myWiggleAngle = wiggleAngle;
 		myWiggleBias = wiggleBias;
 		
-		chemAmount = cellAttribs[0];
-		angle = cellAttribs[1];
+		chemAmount = "chemAmount";
+		angle = "angle";
+//		chemAmount = cellAttribs[0];
+//		angle = cellAttribs[1];
 	}
 
 
@@ -97,12 +100,13 @@ public class RuleSilme extends Rule{
 			newAngle = (newAngle + 360) % 360;
 			
 			//Move the slime to bestMove
-			bestMove.setNextStateAttrib(-1);
+			int nextStateId = super.getStateId("Slime");
+			bestMove.setNextStateAttrib(nextStateId);
 			bestMove.setNextStateAttrib(newAngle, angle);
 			
 			//Clear the slime off c
-			c.setNextStateAttrib(0);
-			c.setNextStateAttrib(0, angle);
+			c.setNextStateAttrib(super.getStateId("Empty"));
+			c.setNextStateAttrib(super.getStateId("Empty"), angle);
 			
 		}
 	}
