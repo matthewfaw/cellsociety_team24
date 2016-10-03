@@ -170,20 +170,24 @@ public class AppScene {
 		//myGrid=GridViewUpdateFactory.BuildGridView(gridtype);
 		//myGrid= new GridViewUpdateSquare(fWidth,fHeight,dimensions,fAppRoot,csg,cells);
 		//myGrid= new GridViewUpdateTriangles(fWidth,fHeight,dimensions,fAppRoot,csg,cells);
+		GridViewUpdate newGrid;
 		switch (aGridType) {
 		case Square:
-			myGrid= new GridViewUpdateSquare(fWidth,fHeight,dimensions,fAppRoot,csg,cells);
+			newGrid= new GridViewUpdateSquare(fWidth,fHeight,dimensions,fAppRoot,csg,cells);
 			break;
 		case Hex:
-			myGrid= new GridViewUpdateHexagon(fWidth,fHeight,dimensions,fAppRoot,csg,cells);
+			newGrid= new GridViewUpdateHexagon(fWidth,fHeight,dimensions,fAppRoot,csg,cells);
 			break;
 		case Triangle:
-			myGrid= new GridViewUpdateTriangles(fWidth,fHeight,dimensions,fAppRoot,csg,cells);
+			newGrid= new GridViewUpdateTriangles(fWidth,fHeight,dimensions,fAppRoot,csg,cells);
 			break;
 		default:
 //			throw new GridNotFoundException()
 		}
 		fAppRoot.getChildren().remove(basicGrid);
+		myGrid.clearGrid();
+
+		myGrid = newGrid;
 		myGrid.makeGrid();
 	}
 	
