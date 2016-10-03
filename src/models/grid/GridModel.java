@@ -4,7 +4,7 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
+import java.util.Map;
 
 import models.Point;
 import models.rules.Rule;
@@ -13,18 +13,18 @@ public class GridModel implements Iterable<Cell>{
 	private Cell[][] myGrid;
 	private Rule myRules;
 	private int myCellSides;
+	private int myTicks;
 	
 	//NOTE: there is no public/private/protected qualifier in front of this constructor, because
 	// this constructor should only be called from GridFactory
-	GridModel(Collection<Cell> cells, Dimension dimension, Rule rule, int cellSides)
-	{
+	GridModel(Collection<Cell> cells, Dimension dimension, Rule rule, int cellSides){
 		myGrid = constructGrid(cells, dimension);
 		myRules = rule;
 		myCellSides = cellSides;
+		myTicks = 0;
 	}
 	
-	private Cell[][] constructGrid(Iterable<Cell> cells, Dimension dimension)
-	{
+	private Cell[][] constructGrid(Iterable<Cell> cells, Dimension dimension){
 		myGrid = new Cell[(int) dimension.getWidth()][(int) dimension.getHeight()];
 		
 		for (Cell c: cells) {
@@ -48,6 +48,7 @@ public class GridModel implements Iterable<Cell>{
 				myGrid[i][j].tick();
 			}
 		}
+		myTicks++;
 	}
 
 	/**
@@ -70,6 +71,15 @@ public class GridModel implements Iterable<Cell>{
 	
 	public int getCellSides(){
 		return myCellSides;
+	}
+	
+	public int getTick(){
+		return myTicks;
+	}
+	
+	public Map<Integer, Double> percentages(){
+		//TODO: calculate percentages
+		return null;
 	}
 
 	private class GridIterator implements Iterator<Cell>{
@@ -126,7 +136,29 @@ public class GridModel implements Iterable<Cell>{
 		return new GridIterator(myGrid);
 	}
 	
+	private Cell[] pointsToCells(Point[] points){
+		Cell[] result = new Cell[points.length];
+		
+		for (int i = 0; i < points.length; i++){
+			result[i] = getCell(points[i]);
+		}
+		
+		return result;
+	}
 	
+	public Cell[] getNeighbors(Cell c){
+		return pointsToCells(c.getNeighbors());
+	}
+	
+	public Cell[] getDirectedNeighbors(Cell c, double angleStart, double angleRange){
+		return pointsToCells(c.getDirectedNeighbors(angleStart, angleRange));
+	}
+	
+	public Cell getDirectedNeighbor(Cell c, double angle){
+		return getCell(c.getDirectedNeighbor(angle));
+	}
+	
+	/*
 	public Cell[] getNeighbors(Cell c){
 		switch (myCellSides){
 			case 3:
@@ -251,6 +283,7 @@ public class GridModel implements Iterable<Cell>{
 			};
 		}
 	}
+	*/
 	
 	public boolean inGrid(Point p){
 		return (
@@ -275,7 +308,7 @@ public class GridModel implements Iterable<Cell>{
 	public Cell getCell(int x, int y){
 		return getCell(new Point(x, y));
 	}
-
+	/*
 	public Cell getDirectedNeighbor(Cell c, double angle) {
 		switch (myCellSides){
 		case 3:
@@ -367,7 +400,21 @@ public class GridModel implements Iterable<Cell>{
 		}
 		return result.toArray(new Cell[result.size()]);
 	}
+	*/
 	
+	//TODO: Delegate to cells
+		//Tri
+			//edges
+			//duval
+			//vertices
+		//Square
+			//edges
+			//Vertices
+		//Hex
+			//Its just a fucking hex
 	
+	//TODO: File Authors
+		//Comment public methods
+		
 	
 }
