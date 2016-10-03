@@ -6,9 +6,12 @@ import models.grid.Cell;
 import models.grid.CellState;
 import models.grid.GridModel;
 
+/**
+ * The class that defines the rules for the Game of Life simulation
+ * @author Weston
+ *
+ */
 public class RuleLife extends Rule {
-//	private static final int liveID = 1;
-//	private static final int deadID = 0;
 	
 	public RuleLife(Map<String, Integer> aStateIdsMap)
 	{

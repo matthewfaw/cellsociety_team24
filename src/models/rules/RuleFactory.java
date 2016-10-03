@@ -3,6 +3,11 @@ package models.rules;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+/**
+ * 
+ * @author Matthew
+ *
+ */
 public class RuleFactory {
 	private static final String RESOURCE_PATH = "resources/State";
 

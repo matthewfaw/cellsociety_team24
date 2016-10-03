@@ -7,6 +7,11 @@ import java.util.Map;
 import models.grid.Cell;
 import models.grid.GridModel;
 
+/**
+ * The class that defines the rules for the segregation simulation
+ * @author Weston
+ *
+ */
 public class RuleSegregation extends Rule {
 //	private static final int emptyID = 0;
 	
