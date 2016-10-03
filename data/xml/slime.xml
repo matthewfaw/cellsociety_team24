@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Simulation>
+	<grid>slime_grid.xml</grid>
+	<simulation_info>slime_simulation.xml</simulation_info>
+	<state_info>slime_states.xml</state_info></Simulation>
