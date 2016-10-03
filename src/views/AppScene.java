@@ -165,11 +165,24 @@ public class AppScene {
 		
 	}
 	
-	public void intializeGrid(Collection<Cell> cells,CellStyleGuide csg, Dimension dimensions/*String gridtype*/){
+	//XXX: Change the grid construction to a factory
+	public void intializeGrid(Collection<Cell> cells,CellStyleGuide csg, Dimension dimensions, GridType aGridType){
 		//myGrid=GridViewUpdateFactory.BuildGridView(gridtype);
 		//myGrid= new GridViewUpdateSquare(fWidth,fHeight,dimensions,fAppRoot,csg,cells);
 		//myGrid= new GridViewUpdateTriangles(fWidth,fHeight,dimensions,fAppRoot,csg,cells);
-		myGrid= new GridViewUpdateHexagon(fWidth,fHeight,dimensions,fAppRoot,csg,cells);
+		switch (aGridType) {
+		case Square:
+			myGrid= new GridViewUpdateSquare(fWidth,fHeight,dimensions,fAppRoot,csg,cells);
+			break;
+		case Hex:
+			myGrid= new GridViewUpdateHexagon(fWidth,fHeight,dimensions,fAppRoot,csg,cells);
+			break;
+		case Triangle:
+			myGrid= new GridViewUpdateTriangles(fWidth,fHeight,dimensions,fAppRoot,csg,cells);
+			break;
+		default:
+//			throw new GridNotFoundException()
+		}
 		fAppRoot.getChildren().remove(basicGrid);
 		myGrid.makeGrid();
 	}

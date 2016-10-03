@@ -4,7 +4,7 @@
 		<width>8</width>                                                
 		<height>8</height>                                              
 	</gridSize>                                                         
-	<type>square</type>                                                 
+	<type>rectangular</type>                                                 
 	<stateProportions>                                                  
 		<percent id="0" value="40"></percent>                           
 		<percent id="1" value="50"></percent>

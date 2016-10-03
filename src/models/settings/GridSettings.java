@@ -4,47 +4,92 @@ import java.awt.Dimension;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
+import exceptions.GridTypeException;
+import exceptions.RuleTypeException;
 import models.rules.RuleType;
 import resources.CellShapes;
+import resources.ResourceBundleHandler;
+import views.grid.GridType;
 
 public class GridSettings {
-	private static final String RESOURCE_PATH = "resources/CellSides";
+	private static final String CELL_PATH = "resources/CellSides";
+	private static final String RULE_PATH = "resources/Rules";
+	private static final String ERROR_PATH = "resources/ErrorMessages";
 
 	private Dimension fDimension;
-	private String fGridType;
+	private GridType fGridType;
 	private RuleType fGridRule;
+	private int fCellSides;
 	private HashMap<Integer, Integer> fStatePercentages;
 //	private HashMap<String, Double> fSimulationProperties;
+	private ResourceBundleHandler fCellSidesRBHandler;
+	private ResourceBundleHandler fRuleTypeRBHandler;
+	private ResourceBundleHandler fErrorRBHandler;
 	
 	public GridSettings(Dimension aDimension, String aGridType, String aGridRules)
 	{
 		fDimension = aDimension;
-		fGridType = aGridType;
-		fGridRule = setGridRules(aGridRules);
+		configureGridType(aGridType);
+		configureGridRules(aGridRules);
 		
 		fStatePercentages = new HashMap<Integer, Integer>();
 //		fSimulationProperties = new HashMap<String, Double>();
+		
+		fCellSidesRBHandler = new ResourceBundleHandler(CELL_PATH);
+		fRuleTypeRBHandler = new ResourceBundleHandler(RULE_PATH);
+		fErrorRBHandler = new ResourceBundleHandler(ERROR_PATH);
 	}
 	
+	public GridType getGridType()
+	{
+		return fGridType;
+	}
 	public RuleType getRuleType()
 	{
 		return fGridRule;
 	}
 	
-	//TODO: Refactor this
-	private RuleType setGridRules(String aGridRule)
+	//XXX: want to switch on the strings from resource bundle, but this doesn't seem to be possible
+	private void configureGridRules(String aGridRule)
 	{
 		switch(aGridRule) {
 		case "fire":
-			return RuleType.Fire;
+			fGridRule = RuleType.Fire;
+			break;
 		case "wator":
-			return RuleType.Fish;
+			fGridRule = RuleType.Fish;
+			break;
 		case "life":
-			return RuleType.Life;
+			fGridRule = RuleType.Life;
+			break;
 		case "segregation":
-			return RuleType.Segregation;
+			fGridRule = RuleType.Segregation;
+			break;
+		case "slimeMold":
+			fGridRule = RuleType.SlimeMold;
+			break;
 		default:
-			return null;
+			throw new RuleTypeException(fErrorRBHandler.getResource("InvalidRule"), aGridRule);
+		}
+	}
+	//XXX: want to switch on the strings from resource bundle, but this doesn't seem to be possible
+	private void configureGridType(String aGridType)
+	{
+		switch(aGridType) {
+			case "rectangular":
+				fGridType = GridType.Square;
+				fCellSides = CellShapes.RECTANGULAR;
+				break;
+			case "hexagonal":
+				fGridType = GridType.Hex;
+				fCellSides = CellShapes.HEXAGONAL;
+				break;
+			case "triangular":
+				fGridType = GridType.Triangle;
+				fCellSides = CellShapes.TRIANGULAR;
+				break;
+			default:
+				throw new GridTypeException(fErrorRBHandler.getResource("InvalidGridType"), aGridType);
 		}
 	}
 	
@@ -62,16 +107,7 @@ public class GridSettings {
 	// subclasses define
 	public int getNumberOfCellSides()
 	{
-		switch(fGridType) {
-			case "rectangular":
-				return CellShapes.RECTANGULAR;
-			case "hexagonal":
-				return CellShapes.HEXAGONAL;
-			case "triangular":
-				return CellShapes.TRIANGULAR;
-			default:
-				return CellShapes.DEFAULT;
-		}
+		return fCellSides;
 	}
 	public void addPercentage(int aStateId, int aPercentage)
 	{

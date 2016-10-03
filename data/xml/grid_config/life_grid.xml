@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GridConfig>
 	<gridSize>
-		<width>8</width>
-		<height>8</height>
+		<width>10</width>
+		<height>10</height>
 	</gridSize>
-	<type>square</type>
+	<type>hexagonal</type>
 	<stateProportions>
-		<percent id="0" value="90"></percent>
-		<percent id="1" value="10"></percent>
+		<percent id="0" value="50"></percent>
+		<percent id="1" value="50"></percent>
 	</stateProportions>
 	<gridRules>life</gridRules></GridConfig>
