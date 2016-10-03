@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SimulationConfig>
+	<name>SlimeMolds</name>
+	<title>Slime Mold Simulation</title>
+	<author>Mother Nature</author>
+	<speed>90</speed>
+</SimulationConfig>

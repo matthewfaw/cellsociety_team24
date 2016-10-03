@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StateConfig>
+	<state id="-1" name="SLIME">
+		<viewInfo>
+			<color>#FF0000</color>
+		</viewInfo>
+		<modelInfo>
+			<properties>
+				<chemAmount>0</chemAmount>
+				<angle>0</angle>
+			</properties>
+			<defaults>
+				<dropRate>6</dropRate>
+				<sniffAngle>90</<sniffAngle>
+				<sniffThreshold>3</<sniffThreshold>
+				<wiggleAngle>45</<wiggleAngle>
+				<wiggleBias>0</<wiggleBias>
+			</defaults>
+		</modelInfo>
+	</state>
+	<state id="0" name="EMPTY">
+		<viewInfo>
+			<color>#40E0D0</color>
+		</viewInfo>
+		<modelInfo>
+			<properties>
+				<chemAmount>0</chemAmount>
+				<angle>0</angle>
+			</properties>
+			<defaults>
+				<evapRate>1</evapRate>
+				<diffusionRate>1</<diffusionRate>
+				<sniffThreshold>4</<sniffThreshold>
+				<maxChem>20</<maxChem>
+			</defaults>
+		</modelInfo>
+	</state>
+</StateConfig>
