@@ -2,16 +2,17 @@ package models.rules;
 
 import java.util.Map;
 import java.util.Random;
-import java.util.ResourceBundle;
 
 import models.grid.Cell;
 import models.grid.CellState;
 import models.grid.GridModel;
 
+/**
+ * The class that defines the rules for the fire simulation.
+ * @author Weston
+ *
+ */
 public class RuleFire extends Rule {
-//	private static final int fireID = 2;
-//	private static final int treeID = 1;
-//	private static final int emptyID = 0;
 	
 	private Random myRandom;
 	private double myProbCatch;

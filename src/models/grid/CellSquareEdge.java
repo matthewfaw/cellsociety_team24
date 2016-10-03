@@ -4,6 +4,11 @@ import java.util.Map;
 
 import models.Point;
 
+/**
+ * A square cell that regards all cells charing an edge with it as it's neighbors.
+ * @author Weston
+ *
+ */
 public class CellSquareEdge extends CellSquare {
 
 	public CellSquareEdge(int aX, int aY, int aStateId, Map<String, Double> aPropertyMap) {

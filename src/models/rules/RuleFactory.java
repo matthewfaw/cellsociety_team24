@@ -4,6 +4,11 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+/**
+ * 
+ * @author Matthew
+ *
+ */
 public class RuleFactory {
 	private static final String RESOURCE_PATH = "resources/State";
 

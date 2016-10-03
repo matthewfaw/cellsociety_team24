@@ -7,6 +7,11 @@ import java.util.Set;
 import models.grid.Cell;
 import models.grid.GridModel;
 
+/**
+ * The class that defines the rules for the Slime Mold simulation
+ * @author Weston
+ *
+ */
 public class RuleSlime extends Rule{
 	private double myDrop;
 	private double myEvap;

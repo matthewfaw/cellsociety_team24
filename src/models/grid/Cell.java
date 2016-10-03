@@ -31,71 +31,127 @@ abstract public class Cell {
 		myNextState = nextState;
 	}
 	
+	/**
+	 * @return the cell's current state object
+	 */
 	public CellState getState(){
 		return myCurrState;
 	}
 	
+	/**
+	 * @param key
+	 * @return the cell's current value for the attribute key
+	 */
 	public double getState(String key){
 		return myCurrState.getStateAttrib(key);
 	}
+	/**
+	 * 
+	 * @return the cells current state ID
+	 */
 	public int getStateID(){
 		return myCurrState.getStateID();
 	}
 	
+	/**
+	 * Sets the nextState's ID to be val.
+	 * If nextState didn't previously exist, it becomes a copy of the current state first.
+	 * @param val
+	 */
 	public void setNextStateAttrib(int val){
 		if (myNextState == null)
 			myNextState = myCurrState.clone();
 		myNextState.setStateID(val);
 	}
+	/**
+	 * Sets the nextState's attribute key to be val.
+	 * If nextState didn't previously exist, it becomes a copy of the current state first.
+	 * @param val
+	 * @param key
+	 */
 	public void setNextStateAttrib(int val, String key){
 		if (myNextState == null)
 			myNextState = myCurrState.clone();
 		myNextState.setStateAtttrib(val, key);
 	}
 	
-	public Point getLocation(){
-		return myLocation;
-	}
 	
+	/**
+	 * @return the cell's nextState, or current state if no nextState exists.
+	 */
 	public CellState getNextState(){
 		if (myNextState != null)
 			return myNextState;
 		return myCurrState;
 	}
 	
+	/**
+	 * 
+	 * @param key
+	 * @return the value for the attribute key held in the cell's nextState, or in the current state if no nextState exists.
+	 */
 	public double getNextState(String key){
 		if (myNextState != null)
 			return myNextState.getStateAttrib(key);
 		return myCurrState.getStateAttrib(key);
 	}
+	
+	/**
+	 * @return the stateID  held in the cell's nextState, or in the current state if no nextState exists.
+	 */
 	public int getNextStateID(){
 		if (myNextState != null)
 			return myNextState.getStateID();
 		return myCurrState.getStateID();
 	}
 
+	/**
+	 * Decrements the attribute key by 1.
+	 * @param key
+	 */
 	public void decrement(String key) {
 		if (myNextState == null)
 			myNextState = myCurrState.clone();
 		myNextState.decrement(key);
 	}
 	
+	/**
+	 * Increments the attribute key by 1.
+	 * @param key
+	 */
 	public void increment(String key){
 		if (myNextState == null)
 			myNextState = myCurrState.clone();
 		myNextState.increment(key);
 	}
 	
+	/**
+	 * Decrements the attribute key by val.
+	 * @param key
+	 * @param val
+	 */
 	public void decrement(String key, double val) {
 		if (myNextState == null)
 			myNextState = myCurrState.clone();
 		myNextState.decrement(key, val);
 	}
 	
+	/**
+	 * Increments the attribute key by val.
+	 * @param key
+	 * @param val
+	 */
 	public void increment(String key, double val){
 		if (myNextState == null)
 			myNextState = myCurrState.clone();
 		myNextState.increment(key, val);
+	}
+	
+	/**
+	 * @return a Point describing the cell's location.
+	 */
+	public Point getLocation(){
+		return myLocation;
 	}
 	
 	/**

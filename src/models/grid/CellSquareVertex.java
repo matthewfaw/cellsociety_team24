@@ -4,6 +4,11 @@ import java.util.Map;
 
 import models.Point;
 
+/**
+ * A square cell that regards all cells charing a vertex with it as it's neighbors.
+ * @author Weston
+ *
+ */
 public class CellSquareVertex extends CellSquare {
 
 	public CellSquareVertex(int aX, int aY, int aStateId, Map<String, Double> aPropertyMap) {

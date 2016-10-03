@@ -4,6 +4,11 @@ import java.util.Map;
 
 import models.Point;
 
+/**
+ * A triangular cell that regards all cells sharing a vertex with it as it's neighbors.
+ * @author Weston
+ *
+ */
 public class CellTriangleVertex extends CellTriangle {
 
 	public CellTriangleVertex(int aX, int aY, int aStateId, Map<String, Double> aPropertyMap) {

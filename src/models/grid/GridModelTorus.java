@@ -6,6 +6,11 @@ import java.util.Collection;
 import models.Point;
 import models.rules.Rule;
 
+/**
+ * A class that overrides the GridModel's getCell method, making the grid edges connected to the edge opposite.
+ * @author Weston
+ *
+ */
 public class GridModelTorus extends GridModel{
 
 	GridModelTorus(Collection<Cell> cells, Dimension dimension, Rule rule, int cellSides) {
@@ -19,9 +24,18 @@ public class GridModelTorus extends GridModel{
 	@Override
 	public Cell getCell(Point p){
 		Point dim = getDimensions();
-		int xLength = dim.getX();
+		int xLength = dim.getX() ;
 		int yLength = dim.getY();
-		return super.getCell(	(p.getX() 	+ 	xLength) 	% xLength,
-								(p.getY() 	+ 	yLength) 	% yLength);
+		
+		int xAdj = p.getX() % xLength;
+		int yAdj = p.getY() % yLength;
+		
+		if (xAdj < 0)
+			xAdj += xLength;
+		if (yAdj < 0)
+			yAdj += yLength;
+		
+		
+		return super.getCell(xAdj, yAdj);
 	}
 }

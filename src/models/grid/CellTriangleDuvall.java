@@ -4,6 +4,11 @@ import java.util.Map;
 
 import models.Point;
 
+/**
+ * A triangular cell that regards all cells in the weird shape specified in the assignment document as its neighbors.
+ * @author Weston
+ *
+ */
 public class CellTriangleDuvall extends CellTriangle {
 
 	public CellTriangleDuvall(int aX, int aY, int aStateId, Map<String, Double> aPropertyMap) {

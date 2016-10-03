@@ -4,6 +4,11 @@ import java.util.Map;
 
 import models.Point;
 
+/**
+ * A triangular cell that regards all cells sharing an edge with it as it's neighbors.
+ * @author Weston
+ *
+ */
 public class CellTriangleEdge extends CellTriangle {
 
 	public CellTriangleEdge(int aX, int aY, int aStateId, Map<String, Double> aPropertyMap) {

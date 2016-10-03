@@ -5,6 +5,11 @@ import java.util.ResourceBundle;
 
 import models.grid.GridModel;
 
+/**
+ * 
+ * @author Weston and Matthew
+ *
+ */
 abstract public class Rule {
 	private Map<String, Integer> fStateIds;
 
