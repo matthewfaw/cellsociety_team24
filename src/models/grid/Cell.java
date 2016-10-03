@@ -4,15 +4,14 @@ import java.util.Map;
 
 import models.Point;
 
-public class Cell {
+abstract public class Cell {
 	private Point myLocation;
 	private CellState myCurrState;
 	private CellState myNextState;
 	
-	public Cell(int aX, int aY, int aStateId, Map<String, Double> aPropertyMap)
-	{
-		myLocation = new Point(aX, aY);
-		myCurrState = new CellState(aStateId, aPropertyMap);
+	public Cell (int x, int y, int stateId, Map<String, Double> propertyMap){
+		myLocation = new Point(x, y);
+		myCurrState = new CellState(stateId, propertyMap);
 	}
 
 	/**
@@ -98,5 +97,24 @@ public class Cell {
 			myNextState = myCurrState.clone();
 		myNextState.increment(key, val);
 	}
+	
+	/**
+	 * @return An array of points containing locations of neighbors of the cell, in clockwise order, starting at vertical.
+	 */
+	abstract public Point[] getNeighbors();
+	
+	/**
+	 * @param angle
+	 * @return A point containing the location of the neighbor nearest to angle degrees. Vertical is 0 degrees.
+	 */
+	abstract public Point getDirectedNeighbor(double angle);
+	
+	/**
+	 * @param angleStart
+	 * @param angleRange
+	 * @return An array of points that are the locations of neighboring cells that are within angleStart +- angleRange degree arc. Vertical is 0 degrees.
+	 */
+	abstract public Point[] getDirectedNeighbors(double angleStart, double angleRange);
+
 }
 	

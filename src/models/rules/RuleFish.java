@@ -196,7 +196,7 @@ public class RuleFish extends Rule {
 		Cell[] options = myGrid.getNeighbors(c);
 		
 		for (int i = 0; i < options.length; i++){
-			if (options[i] != null && !(options[i].getNextStateID() == super.getStateId("Fish")))
+			if (options[i] != null && options[i].getNextStateID() != super.getStateId("Fish"))
 				options[i] = null;
 		}
 		ArrayList<Cell> nonNullOptions = new ArrayList<Cell>(Arrays.asList(options));

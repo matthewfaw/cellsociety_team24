@@ -47,7 +47,7 @@ public class RuleSegregation extends Rule {
 	}
 	
 	private double likeNeighborsPercent(Cell c){		
-		Cell[] neighbors = myGrid.getAdjAndDiagNeighbors(c);
+		Cell[] neighbors = myGrid.getNeighbors(c);
 		
 		int cType = c.getStateID();
 		

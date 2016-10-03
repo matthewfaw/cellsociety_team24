@@ -46,7 +46,8 @@ public class GridFactory {
 			for (int col=0; col<gridDimensions.getHeight(); ++col) {
 				int stateIndex = getRandomStateId();
 				Map<String, Double> stateProperties = fCellSettings.getProperties(stateIndex);
-				Cell cell = new Cell(row, col, stateIndex, stateProperties);
+				//TODO: Pass additional arguments.
+				Cell cell = CellFactory.newCell(row, col, stateIndex, stateProperties);
 				grid.add(cell);
 			}
 		}
