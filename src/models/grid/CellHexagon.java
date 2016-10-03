@@ -5,6 +5,11 @@ import java.util.Map;
 
 import models.Point;
 
+/**
+ * A Cell shaped like a regular hexagon. Regards all cells sharing an edge with it as its neighbors.
+ * @author Weston
+ *
+ */
 public class CellHexagon extends Cell {
 	private static final int mySides = 6;
 

@@ -5,6 +5,11 @@ import java.util.Map;
 
 import models.Point;
 
+/**
+ * A Cell shaped like a square.
+ * @author Weston
+ *
+ */
 abstract public class CellSquare extends Cell{
 	private static final int mySides = 4;
 

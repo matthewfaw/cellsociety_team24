@@ -5,6 +5,11 @@ import java.util.Map;
 
 import models.Point;
 
+/**
+ * A Cell shaped like a triangle.
+ * @author Weston
+ *
+ */
 abstract public class CellTriangle extends Cell {
 	private static final int mySides = 3;
 

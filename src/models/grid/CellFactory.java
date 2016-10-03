@@ -5,8 +5,23 @@ import java.util.Map;
 import models.Point;
 import views.grid.NeighborType;
 
+/**
+ * A class to hide choosing which class to use when initializing a cell.
+ * @author Weston
+ *
+ */
 public class CellFactory {
 	
+	/**
+	 * Initializes a new cell based on the parameters. CellSides and Neighbors determine the Cell subclass used.
+	 * @param x
+	 * @param y
+	 * @param stateId
+	 * @param propertyMap
+	 * @param cellSides
+	 * @param neighbors
+	 * @return the new cell
+	 */
 	public static Cell newCell(int x, int y, int stateId, Map<String, Double> propertyMap, int cellSides, NeighborType neighbors){
 
 		switch (cellSides){
