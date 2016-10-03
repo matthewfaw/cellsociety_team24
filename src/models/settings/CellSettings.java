@@ -61,6 +61,10 @@ public class CellSettings {
 	{
 		return fProperties.get(aStateIndex);
 	}
+	public Map<Integer, Map<String, Double>> getAllProperties()
+	{
+		return fProperties;
+	}
 	
 	public Map<String, Integer> getStateNames()
 	{

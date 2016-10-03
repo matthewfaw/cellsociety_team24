@@ -33,7 +33,7 @@ public class GridFactory {
 		int numberOfSides = fGridSettings.getNumberOfCellSides();
 		Dimension gridDimensions = fGridSettings.getDimensions();
 		
-		GridModel gridModel = new GridModel(grid, gridDimensions, rules, numberOfSides);
+		GridModel gridModel = new GridModel(grid, gridDimensions, rules, numberOfSides, fCellSettings.getAllProperties());
 		
 		return gridModel;
 	}

@@ -2,6 +2,7 @@ package models.grid;
 
 import java.awt.Dimension;
 import java.util.Collection;
+import java.util.Map;
 
 import models.Point;
 import models.rules.Rule;
@@ -13,8 +14,8 @@ import models.rules.Rule;
  */
 public class GridModelTorus extends GridModel{
 
-	GridModelTorus(Collection<Cell> cells, Dimension dimension, Rule rule, int cellSides) {
-		super(cells, dimension, rule, cellSides);
+	GridModelTorus(Collection<Cell> cells, Dimension dimension, Rule rule, int cellSides, Map<Integer, Map<String, Double>> aStateInfo) {
+		super(cells, dimension, rule, cellSides, aStateInfo);
 	}
 
 	/**

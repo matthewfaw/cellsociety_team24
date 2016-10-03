@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Random;
 
 import models.Point;
 import models.rules.Rule;
@@ -21,14 +22,38 @@ public class GridModel implements Iterable<Cell>{
 	private Rule myRules;
 	private int myCellSides;
 	private int myTicks;
+	private Map<Integer, Map<String, Double>> myStateInfo;
 	
 	//NOTE: there is no public/private/protected qualifier in front of this constructor, because
 	// this constructor should only be called from GridFactory
-	GridModel(Collection<Cell> cells, Dimension dimension, Rule rule, int cellSides){
+	GridModel(Collection<Cell> cells, Dimension dimension, Rule rule, int cellSides, Map<Integer, Map<String, Double>> aStateInfo){
 		myGrid = constructGrid(cells, dimension);
 		myRules = rule;
 		myCellSides = cellSides;
 		myTicks = 0;
+		
+		myStateInfo = aStateInfo;
+	}
+	
+	/**
+	 * A method to randomly change the state of a cell
+	 * @param aCell
+	 */
+	public void randomlyChangeCellState(Cell aCell)
+	{
+		int randomStateId = getRandomStateId();
+		
+		CellState newState = new CellState(randomStateId, myStateInfo.get(randomStateId));
+		aCell.setCurrentState(newState);
+	}
+	
+	private int getRandomStateId()
+	{
+		Random random = new Random();
+		int randomIndex = random.nextInt(myStateInfo.keySet().size());
+		
+		ArrayList<Integer> stateIds = new ArrayList<Integer>(myStateInfo.keySet());
+		return stateIds.get(randomIndex);
 	}
 
 	/**

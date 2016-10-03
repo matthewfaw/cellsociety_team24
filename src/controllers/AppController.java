@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.File;
+import java.util.Map;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -9,6 +10,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import models.grid.Cell;
+import models.grid.CellState;
 import models.grid.GridFactory;
 import models.grid.GridModel;
 import models.settings.CellSettings;
@@ -120,10 +122,11 @@ public class AppController {
 		fSimulationController.changeSpeed(aScrollbarValue);
 	}
 
-	public void updateCellState(Cell oldCell) {
+	public void updateCellState(Cell aCell) {
+		System.out.println("DERP");
 		// formula to change stateid
-//		fGridModel.updateCellState(oldCell);
-//		fAppScene.changeCell(oldCell, newCell);
+		fGridModel.randomlyChangeCellState(aCell);
+		fAppScene.updateCell(aCell);
 	}
 	
 }

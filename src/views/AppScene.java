@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.ResourceBundle;
 
 import controllers.AppController;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 //import javafx.scene.Parent;
 //import javafx.scene.Scene;
@@ -16,6 +17,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -203,6 +205,10 @@ public class AppScene {
 	{
 		myGrid.stepGrid(cells);
 	}
+	public void updateCell(Cell aCell)
+	{
+		myGrid.colorCell(aCell);
+	}
 	//public void mouseClickGrid(){
 	//	fAppScene.setOnMouseClicked(e -> GridViewUpdateSquare.handleMouseClick(e.getX(), e.getY()));
 	//}
@@ -211,7 +217,16 @@ public class AppScene {
 		Iterator<Shape> shapeIterator= myGrid.getShapeIterator();
 		for(Cell c:cells){
 			Shape s= shapeIterator.next();
-			s.setOnMouseClicked(e->fAppController.updateCellState(c));
+//			s.setOnMouseClicked(e->fAppController.updateCellState(c));
+			s.setOnMouseReleased(new EventHandler<MouseEvent>()
+			{
+
+				@Override
+				public void handle(MouseEvent event) {
+					fAppController.updateCellState(c);
+				}
+
+			});
 		}
 	}
 
