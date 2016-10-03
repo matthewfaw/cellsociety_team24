@@ -10,14 +10,13 @@ import models.grid.Cell;
 import models.grid.CellState;
 import models.grid.GridModel;
 
-/*
- * Data for fish is [empty/fish/shark, current chronon, time since creation, health]
- */
 
+/**
+ * The class that defines the rules for the Wa-Tor world simulation
+ * @author Weston
+ *
+ */
 public class RuleFish extends Rule {
-//	private static final int sharkID = 2;
-//	private static final int fishID = 1;
-//	private static final int emptyID = 0;
 	
 	private GridModel myGrid;
 	private int myFishReproTime;

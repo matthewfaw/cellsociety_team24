@@ -90,7 +90,8 @@ public class RuleSlime extends Rule{
 			
 			Cell[] neighbors = myGrid.getNeighbors(c);
 			for (Cell neighbor: neighbors){
-				neighbor.increment(chemAmount, diffAmount / neighbors.length);
+				if (neighbor != null)
+					neighbor.increment(chemAmount, diffAmount / neighbors.length);
 			}
 		}
 	}
@@ -104,15 +105,16 @@ public class RuleSlime extends Rule{
 			newAngle += myRand.nextDouble() * 2 * myWiggleAngle + myWiggleBias - myWiggleAngle;
 			newAngle = (newAngle + 360) % 360;
 			
-			//Move the slime to bestMove
-			int nextStateId = super.getStateId("Slime");
-			bestMove.setNextStateAttrib(nextStateId);
-			bestMove.setNextStateAttrib(newAngle, angle);
-			
-			//Clear the slime off c
-			c.setNextStateAttrib(super.getStateId("Empty"));
-			c.setNextStateAttrib(super.getStateId("Empty"), angle);
-			
+			if (bestMove != null){
+				//Move the slime to bestMove
+				int nextStateId = super.getStateId("Slime");
+				bestMove.setNextStateAttrib(nextStateId);
+				bestMove.setNextStateAttrib(newAngle, angle);
+				
+				//Clear the slime off c
+				c.setNextStateAttrib(super.getStateId("Empty"));
+				c.setNextStateAttrib(super.getStateId("Empty"), angle);
+			}
 		}
 	}
 	
