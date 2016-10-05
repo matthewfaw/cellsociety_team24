@@ -1,7 +1,5 @@
 package models.settings;
 
-import java.awt.Dimension;
-
 /**
  * A class to manage all of the parameters of the 
  * currently running simulation
