@@ -26,6 +26,7 @@
 **Testing the Project**
 1. Click "Set Simulation"
 2. Chooses one of the simulation XML files in the open window. (Ex. fire.xml)
+3. Note: you may choose any of data/xml/fire, fish, life, segregation, and slime.xml.  These are the files that only contain the names of other files.  Those referenced files live in subdirectories of the data/xml/ directory
 
 **Necessary Resorces**
 * Each simulation requires 4 XML files to run.
