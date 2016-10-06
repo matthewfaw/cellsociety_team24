@@ -1,7 +1,5 @@
 package models.settings;
 
-import java.awt.Dimension;
-
 /**
  * The purpose of this class is to encapsulate all of the simulation settings
  * specified in the XML.

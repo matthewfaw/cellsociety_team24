@@ -2,7 +2,6 @@ package models.rules;
 
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.Set;
 
 /**
  * The purpose of this class is to construct a Rule object for the Model layer without

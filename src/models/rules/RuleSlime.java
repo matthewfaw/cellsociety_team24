@@ -2,7 +2,6 @@ package models.rules;
 
 import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 
 import models.grid.Cell;
 import models.grid.GridModel;
