@@ -10,7 +10,7 @@
 * Hours
     * *Weston:* ~30 hours
     * *Matthew:* ~50 hours
-    * *Guhan:* ? hours
+    * *Guhan:* ~30 hours
 
 **Roles**
 * *Weston:* Implement Cell Automata Model
@@ -39,4 +39,4 @@
 * Nothing that we know of.
 
 **Impressions**
-* I think it would be good to specify, from the beginning, exactly the kinds of capabilities that a CA simulator needs to have. We spent a fair amount of time trying to alloe the user to define whatever neighborhoods they wanted before realizing that that wasn't something that any of the simulations needed.. 
+* I think it would be good to specify, from the beginning, exactly the kinds of capabilities that a CA simulator needs to have. We spent a fair amount of time trying to allow the user to define whatever neighborhoods they wanted before realizing that that wasn't something that any of the simulations needed.. 
