@@ -14,7 +14,7 @@
 
 **Roles**
 * *Weston:* Implement Cell Automata Model
-* * *Matthew:* Implement Cell Automata Controller and XML Parsing
+* *Matthew:* Implement Cell Automata Controller and XML Parsing
 * *Guhan:* Implement Cell Automata View and UI
 
 **Resources Used**
