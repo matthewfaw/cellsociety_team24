@@ -9,7 +9,7 @@
 * Started September 15
 * Hours
     * *Weston:* ~30 hours
-    * *Matthew:* ? hours
+    * *Matthew:* ~50 hours
     * *Guhan:* ? hours
 
 **Roles**
