@@ -86,6 +86,7 @@ public class GridSettings {
 	//XXX: want to switch on the strings from resource bundle, but this doesn't seem to be possible
 	/**
 	 * A method used to set the GridRule field based on the input aGridRule string
+	 * Throws ConfigurationException if an invalid rule is provided
 	 * @param aGridRule
 	 */
 	private void configureGridRules(String aGridRule)
@@ -114,6 +115,7 @@ public class GridSettings {
 	/**
 	 * 
 	 * A method used to set the GridType field based on the input aGridType string
+	 * Throws ConfigurationException if an invalid grid type is provided
 	 * @param aGridType
 	 */
 	private void configureGridType(String aGridType)
@@ -136,8 +138,8 @@ public class GridSettings {
 		}
 	}
 	/**
-	 * 
 	 * A method used to set the NeighborType field based on the input aGridNeighbors string
+	 * Throws ConfigurationException if an invalid grid neighbors is provided
 	 * 
 	 * @param aGridNeighbors
 	 */
