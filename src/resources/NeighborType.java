@@ -14,7 +14,7 @@ package resources;
  * 	case Vertices:
  * 		//do vertex stuff
  * 		break;
- * 	case Duvall: // the Triangle access pattern specified by Duvall
+ * 	case StrangeTriangle: // the Triangle access pattern specified by Duvall
  * 		// do stuff
  * 		break;
  *  default:
@@ -28,5 +28,5 @@ package resources;
 public enum NeighborType {
 	Edges,
 	Vertices,
-	Duvall // i.e. the strange access pattern for Triangles... idk what else to call it :P
+	StrangeTriangle// i.e. the strange access pattern for Triangles... idk what else to call it :P
 }

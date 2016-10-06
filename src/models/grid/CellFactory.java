@@ -40,8 +40,8 @@ public class CellFactory {
 		switch (neighbors){
 		case Edges:
 			return new CellTriangleEdge(x, y, stateId, propertyMap);
-		case Duvall:
-			return new CellTriangleDuvall(x, y, stateId, propertyMap);
+		case StrangeTriangle:
+			return new CellTriangleStrange(x, y, stateId, propertyMap);
 		case Vertices:
 			return new CellTriangleVertex(x, y, stateId, propertyMap);
 		default:

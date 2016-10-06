@@ -32,8 +32,6 @@ import views.grid.GridType;
  *
  */
 public class GridSettings {
-	private static final String CELL_PATH = "resources/CellSides";
-	private static final String RULE_PATH = "resources/Rules";
 	private static final String ERROR_PATH = "resources/ErrorMessages";
 
 	private Dimension fDimension;
@@ -42,9 +40,6 @@ public class GridSettings {
 	private NeighborType fNeighborType;
 	private int fCellSides;
 	private HashMap<Integer, Integer> fStatePercentages;
-//	private HashMap<String, Double> fSimulationProperties;
-	private ResourceBundleHandler fCellSidesRBHandler;
-	private ResourceBundleHandler fRuleTypeRBHandler;
 	private ResourceBundleHandler fErrorRBHandler;
 	
 	public GridSettings(Dimension aDimension, String aGridType, String aGridRules, String aGridNeighbors)
@@ -55,10 +50,7 @@ public class GridSettings {
 		configureGridNeighbors(aGridNeighbors);
 		
 		fStatePercentages = new HashMap<Integer, Integer>();
-//		fSimulationProperties = new HashMap<String, Double>();
 		
-		fCellSidesRBHandler = new ResourceBundleHandler(CELL_PATH);
-		fRuleTypeRBHandler = new ResourceBundleHandler(RULE_PATH);
 		fErrorRBHandler = new ResourceBundleHandler(ERROR_PATH);
 	}
 	
@@ -151,8 +143,8 @@ public class GridSettings {
 		case "edges":
 			fNeighborType = NeighborType.Edges;
 			break;
-		case "duvall":
-			fNeighborType = NeighborType.Duvall;
+		case "strange_triangle_neighbors":
+			fNeighborType = NeighborType.StrangeTriangle;
 			break;
 		default:
 			//XXX: Throw error here instead

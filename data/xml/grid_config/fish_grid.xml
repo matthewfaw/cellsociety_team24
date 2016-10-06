@@ -11,4 +11,4 @@
 		<percent id="2" value="30"></percent>
 	</stateProportions>                                                 
 	<gridRules>wator</gridRules>
-	<neighbors>duvall</neighbors></GridConfig> 
+	<neighbors>strange_triangle_neighbors</neighbors></GridConfig> 

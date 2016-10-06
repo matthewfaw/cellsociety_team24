@@ -9,9 +9,9 @@ import models.Point;
  * @author Weston
  *
  */
-public class CellTriangleDuvall extends CellTriangle {
+public class CellTriangleStrange extends CellTriangle {
 
-	public CellTriangleDuvall(int aX, int aY, int aStateId, Map<String, Double> aPropertyMap) {
+	public CellTriangleStrange(int aX, int aY, int aStateId, Map<String, Double> aPropertyMap) {
 		super(aX, aY, aStateId, aPropertyMap);
 	}
 
@@ -20,7 +20,7 @@ public class CellTriangleDuvall extends CellTriangle {
 	 */
 	@Override
 	public Point[] getNeighbors() {
-		return duvallNeighbors();
+		return strangeTriangleNeighbors();
 	}
 
 }

@@ -115,7 +115,7 @@ abstract public class CellTriangle extends Cell {
 	/**
 	 * @return An array of Points that are the locatation's of this cell's neighbors, as defined by the assignment.
 	 */
-	public Point[] duvallNeighbors() {
+	public Point[] strangeTriangleNeighbors() {
 		Point p = getLocation();
 		int x = p.getX();
 		int y = p.getY();
