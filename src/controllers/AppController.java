@@ -25,6 +25,16 @@ import xml.model_factories.GridSettingsFactory;
 import xml.model_factories.SimulationFileSettingsFactory;
 import xml.model_factories.SimulationSettingsFactory;
 
+/**
+ * The purpose of this class is to serve as the main controller of the application.
+ * This class is essentially a mediator. It manages all of the events which occur in the
+ * app, and passes data along to the appropriate objects.
+ * This class manages the models, views, and their interactions. It dispatches the XML parsing,
+ * and passes the results to the correct places.
+ * This class may fail if an invalid XML file is selected.
+ * @author matthewfaw
+ *
+ */
 public class AppController {
 	private AppScene fAppScene;
 	private Stage fStage;
@@ -35,6 +45,10 @@ public class AppController {
 	
 	private GridSettings fGridSettings;
 
+	/**
+	 * This method is the gateway to starting the app.  It should be called once when the app is launched
+	 * @param aStage: a stage to display
+	 */
 	public void init(Stage aStage)
 	{
 		fAppScene = new AppScene(AppResources.SIZE, AppResources.SIZE, this);
@@ -52,6 +66,14 @@ public class AppController {
     	
     	fSimulationController = new SimulationController(simulationTimeline);
 	}
+	/**
+	 * A method to be called at each time step of the timeline. 
+	 * The purpose is to update the grid model and to update the display accordingly.
+	 * 
+	 * This method will fail if the timeline is started before the grid model or app
+	 * scene's grid are created
+	 * @param aElapsedTime
+	 */
 	public void step(double aElapsedTime)
 	{
 		if (aElapsedTime > 0) {
@@ -63,21 +85,40 @@ public class AppController {
 		}
 	}
 	
+	/**
+	 * This method is called when the start button is pressed.
+	 * It tells the simulation controller to "start".
+	 */
 	public void onStartButtonPressed() {
 		fSimulationController.start();
 		
 	}
+	/**
+	 * This method is called when the pause button is pressed.
+	 * It tells the simulation controller to "pause".
+	 */
 	public void onPauseButtonPressed() {
 		fSimulationController.pause();
 		//fAppScene.BuildGraph();
 	}
+	/**
+	 * This method is called when the reset button is pressed.
+	 * It resets the grid to its initial state
+	 */
 	public void onResetButtonPressed() {
 		fSimulationController.pause();
 		initializeGrid(fCurrentXmlDirectoryPath,fCurrentFileName);
 	}
+	/**
+	 * Steps the simulation ahead one time step
+	 */
 	public void onStepButtonPressed() {
 		step(1);
 	}
+	/**
+	 * manages the model and view setup necessary to initialize a simulation.
+	 * this method will fail if an invalid file is selected
+	 */
 	public void onSetSimulationButtonPressed() {
 		fSimulationController.pause();
 		FileChooser filexmlChooser=new FileChooser();
@@ -88,9 +129,17 @@ public class AppController {
 			fAppScene.clearGrid();
 			fCurrentXmlDirectoryPath = file.getParent() + "/";
 			fCurrentFileName = file.getName();
-			initializeGrid(fCurrentXmlDirectoryPath , fCurrentFileName); // a private method inside AppController
+			initializeGrid(fCurrentXmlDirectoryPath , fCurrentFileName);
 		}
 	}
+	/**
+	 * The purpose of this method is to dispatch all of the XML parsing and object creation
+	 * necessary to create the backend and frontend infrastructure necessary to run a simualtion.
+	 * 
+	 * This method will fail if the directory path and file name are invalid
+	 * @param aDirectoryPath: path to XML folder
+	 * @param aFileName: main simulation XML file
+	 */
 	private void initializeGrid(String aDirectoryPath, String aFileName)
 	{
 		// pull data from XML
@@ -118,15 +167,33 @@ public class AppController {
 		fSimulationController.changeSpeed(simulationSettings.getSimulationSpeed());
 	}
 	
+	/**
+	 * A method that is called whenever the parameter scroll bar is moved.
+	 * This method updates a parameter in the simulation
+	 * @param aScrollbarValue
+	 */
 	public void onParameterDrag(double aScrollbarValue)
 	{
 		fGridModel.updateParameter(aScrollbarValue);
 	}
+	/**
+	 * A method called whenever the speed scroll bar is moved.
+	 * This method changes the simulation speed to aScrollbarValue %
+	 * @param aScrollbarValue: The new simulation speed (in percent)
+	 */
 	public void onSpeedDrag(double aScrollbarValue) 
 	{
 		fSimulationController.changeSpeed(aScrollbarValue/100);
 	}
 
+	/**
+	 * A method called whenever a cell is selected on the screen. The purpose
+	 * of this method is to change the cell state of the selected state.
+	 * 
+	 * We did not wire up this method to be successfully called when a cell was selected,
+	 * so this method is never called
+	 * @param aCell
+	 */
 	public void updateCellState(Cell aCell) {
 		System.out.println("DERP");
 		// formula to change stateid

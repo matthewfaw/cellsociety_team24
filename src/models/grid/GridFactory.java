@@ -10,6 +10,30 @@ import models.rules.RuleFactory;
 import models.settings.CellSettings;
 import models.settings.GridSettings;
 
+/**
+ * The purpose of this class is to manage the construction of the Grid used in the Model layer.
+ * 
+ * It assumes it is given a validly populated GridSettings and CellSettings object.
+ * Currently, it also assumes that the grid will be constructed using the state proportions specified
+ * in XML, not by a list of cell coordinates.  This could be easily changed, however, by
+ * changing getRandomStateId() to be called getAStateId(), and make the method abstract.  Then, there could
+ * be subclasses which define how a given cell will be constructed.
+ * 
+ * This class depends heavily upon GridSettings and CellSettings to get the simulation settings specified by XML.
+ * This class also depends on the CellFactory class to construct a valid cell according to the XML specifications.
+ * 
+ * The public API is very straightforward...
+ * Assume you have validly constructed GridSettings aGridSettings object and CellSettings aCellSettings objects.
+ * Then this class may be used as follows:
+ * GridFactory aGridFactory = new GridFactory(aGridSettings, aCellSettings);
+ * GridModel gridModel = aGridFactory.createGridModel;
+ * 
+ * Note that constructing gridModel with a factory allows us to hide from the user which subclass of GridModel was
+ * actually constructed.
+ * 
+ * @author matthewfaw
+ *
+ */
 public class GridFactory {
 	private static final Random fRandomNumberGenerator = new Random();
 	
@@ -25,6 +49,12 @@ public class GridFactory {
 		fStateIds = new ArrayList<Integer>(fGridSettings.getStatePercentages().keySet());
 	}
 
+	/**
+	 * Creates the grid model object.
+	 * 
+	 * This method fails when grid settings or cell settings is not properly constructed
+	 * @return the GridModel object
+	 */
 	public GridModel createGridModel()
 	{
 		RuleFactory ruleFactory = new RuleFactory();
@@ -38,6 +68,10 @@ public class GridFactory {
 		return gridModel;
 	}
 	
+	/**
+	 * This method constructs the list of cells that make up the Grid Model
+	 * @return the list of Cells
+	 */
 	private ArrayList<Cell> buildGrid()
 	{
 		Dimension gridDimensions = fGridSettings.getDimensions();
@@ -54,6 +88,11 @@ public class GridFactory {
 		return grid;
 	}
 
+	/**
+	 * A method that produces a random state ID based on the distribution specified in XML.
+	 * This method assumes that the total state percentages adds up to 100
+	 * @return a randomly generated, valid state ID
+	 */
 	private int getRandomStateId() 
 	{
 		double randomPercentage = fRandomNumberGenerator.nextDouble() * 100.0;

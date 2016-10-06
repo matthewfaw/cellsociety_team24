@@ -11,6 +11,24 @@ import models.settings.GridSettings;
 import resources.ResourceBundleHandler;
 import xml.XMLFactory;
 
+/**
+ * The purpose of this class is to make the proper XML queries to extract the
+ * grid settings information and use this information to construct the GridSettings
+ * object, which encapsulates this information.  This class hides the complexities
+ * of extracting this information.
+ * 
+ * This class will fail if one of the resources requested is not present.
+ * 
+ * This class depends on the XML Reader owned by the superclass
+ * 
+ * To instantiate the class, simply provide the file path to the main XML file:
+ * GridSettingsFactory gsf = new GridSettingsFactory("/path/to/xml/folder/grid_config/simulation_grid.xml");
+ * To obtain the grid settings object:
+ * GridSettings gs = gsf.createGridSettings();
+ * 
+ * @author matthewfaw
+ *
+ */
 public class GridSettingsFactory extends XMLFactory {
 	private static final String RESOURCE_PATH = "resources/GridSettings";
 	
@@ -22,6 +40,11 @@ public class GridSettingsFactory extends XMLFactory {
 		fResourceBundleHandler = new ResourceBundleHandler(RESOURCE_PATH);
 	}
 	
+	/**
+	 * Creates a GridSettings object from the XML elements
+	 * Fails if an XML element is not found  successfully
+	 * @return
+	 */
 	public GridSettings createGridSettings()
 	{
 		Element gridWidthElement = super.getXmlReader().findFirstChildElement(fResourceBundleHandler.getResource("GridWidth"));
@@ -55,31 +78,6 @@ public class GridSettingsFactory extends XMLFactory {
 				gridSettings.addPercentage(id, value);
 			}
 		}
-//		Element simulationPropertiesElement = fXmlReader.findFirstChildElement(getResource("SimulationProperties"));
-//		if (simulationPropertiesElement != null) {
-//			NodeList properties = simulationPropertiesElement.getChildNodes();
-//			for (int i=0; i<properties.getLength(); ++i) {
-//				if (properties.item(i).getNodeType() == Node.ELEMENT_NODE) {
-//					Element propertyElement = (Element) properties.item(i);
-//					String propertyName = propertyElement.getTagName();
-//					double propertyVal = Double.parseDouble(propertyElement.getTextContent());
-//
-//					gridSettings.addProperty(propertyName, propertyVal);
-//				}
-//			}
-//		}
-//		
 		return gridSettings;
 	}
-
-//	@Override
-//	protected String getResource(String aResourceToRetrieve) {
-//		return fGridSettingsRB.getString(aResourceToRetrieve);
-//	}
-//	public static void main(String[] args)
-//	{
-//		GridSettingsFactory f = new GridSettingsFactory("grid_config/test_grid.xml");
-//		f.createGridSettings();
-//	}
-//
 }

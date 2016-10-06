@@ -14,8 +14,14 @@ import org.xml.sax.SAXException;
  * This class is devoted solely to obtaining the root element of a requested
  * XML file in an efficient manner (i.e. by only ever keeping one DocumentBuiler
  * around)
- * Note that this class is only accessible within the utils package, to encourage
+ * Note that this class is only accessible within the xml package, to encourage
  * Encapsulating the XML access methods
+ * 
+ * This class will fail if it cannot create a DocumentBuilder or if it cannot find the root
+ * element of the requested XML file
+ * 
+ * This class depends on the DocumentBuilder class
+ * 
  * @author Rhondu Smithwick
  * @author Robert Duvall
  * @author matthewfaw

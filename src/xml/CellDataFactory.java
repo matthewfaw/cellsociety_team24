@@ -17,7 +17,21 @@ import views.styles.FixedColorStyleGuide;
 import views.styles.GradientColorStyleGuide;
 
 /**
- * A factory to pull cell styling info from XML
+ * A factory to pull cell styling and model info from XML
+ * 
+ * This class will fail if there is no resource file resources/CellData.properties, if
+ * one of the requested properties is missing, and if one of the requested XML Elements is 
+ * not found.
+ * 
+ * This class depends on the ResourceBundleHandler and the XML reader
+ * 
+ * To instantiate this class:
+ * CellDataFactory cdf = new CellDataFactory("/path/to/xml/folder/state_config/simulation_name_states.xml"); 
+ * To create a CellStyleGuide, given a rule type:
+ * CellStyleGuide csg = cdf.createCellStyleGuide(aRuleType);
+ * To create cell settings object:
+ * CellSettings cs = cdf.createCellSettings();
+ * 
  * @author matthewfaw
  *
  */
@@ -62,6 +76,10 @@ public class CellDataFactory extends XMLFactory {
 		return fCellStyleGuide;
 	}
 	
+	/**
+	 * Creates a CellSettings object
+	 * @return
+	 */
 	public CellSettings createCellSettings()
 	{
 		fCellSettings = new CellSettings();

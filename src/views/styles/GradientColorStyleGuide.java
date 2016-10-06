@@ -1,5 +1,21 @@
 package views.styles;
 
+/**
+ * 
+ * The purpose of this class is to enable gradient color display in simulations.
+ * This feature is necessary in some simulations (SlimeMold)
+ * 
+ * This class assumes that the state ids specified in XML are either 1 or -1,
+ * and that the magnitude of the state is an indication of the intensity at which
+ * the colors should be displayed
+ * 
+ * This class is a subclass of CellStyleGuide
+ * 
+ * The class may be used in the same way as FixedColorStyleGuide
+ * 
+ * @author matthewfaw
+ *
+ */
 public class GradientColorStyleGuide extends CellStyleGuide {
 	
 	public GradientColorStyleGuide()

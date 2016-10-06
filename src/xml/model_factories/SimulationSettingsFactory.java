@@ -6,6 +6,16 @@ import xml.XMLFactory;
 
 /**
  * A class to deal with creating simulation settings from XML
+ * 
+ * This class will fail if the resource file does not exist and if an XML element cannot be found.
+ * 
+ * This class depends on the ResourceBundleHandler class, and on the XML reader
+ * 
+ * To instantiate SimulationSettingsFactory:
+ * SimulationSettingsFactory ssf = new SimulationSettingsFactory("/path/to/xml/folder/simulation_config/simulation_name_simulation.xml"); 
+ * To create SimulationSettings object:
+ * SimulationSettings s = ssf.createSimulationSettings();
+ * 
  * @author matthewfaw
  *
  */
@@ -23,6 +33,12 @@ public class SimulationSettingsFactory extends XMLFactory {
 		fResourceBundleHandler = new ResourceBundleHandler(RESOURCE_PATH);
 	}
 	
+	
+	/**
+	 * Creates SimulationSettings object
+	 * Errors if XML element cannot be found
+	 * @return
+	 */
 	public SimulationSettings createSimulationSettings()
 	{
 		String name = super.getXmlReader().getTextValue(fResourceBundleHandler.getResource("SimulationName"));
@@ -34,11 +50,6 @@ public class SimulationSettingsFactory extends XMLFactory {
 		return fSimulationSettings;
 	}
 
-//	@Override
-//	protected String getResource(String aResourceToRetrieve) {
-//		return fSimulationSettingsRB.getString(aResourceToRetrieve);
-//	}
-	
 //	public static void main(String[] args)
 //	{
 //		SimulationSettingsFactory f = new SimulationSettingsFactory("simulation_config/test_simulation.xml");

@@ -5,6 +5,20 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 /**
+ * The purpose of this class is to construct a Rule object for the Model layer without
+ * exposing which subclass of Rule is being constructed.
+ * 
+ * This class will fail if there is no file at resources/State.properties from which to read,
+ * or if one of the requested string resources is missing, or if the defaults map or state id
+ * map has been incorrectly constructed.
+ * 
+ * This class's primary dependencies are on the ResourceBundle class for pulling the proper ids from
+ * the defaults map, and on the RuleType enum, which specifies the possible rules from which to choose.
+ * 
+ * Assuming we have a valid RuleType aRule, a valid DefaultsMap aDefaults, and a valid StateIds map stateIds,
+ * the class may be used as follows:
+ * RuleFactory rf = new RuleFactory();
+ * Rule rule = rf.createRule(aRule, aDefaults, stateIds);
  * 
  * @author Matthew
  *
@@ -19,7 +33,14 @@ public class RuleFactory {
 		fSimulationPropertiesRB = ResourceBundle.getBundle(RESOURCE_PATH);
 	}
 	
-	//XXX: Check if this type of switch statement occurs in other places, and if it does, refactor
+	/**
+	 * A method to create a rule based on the requested rule type and additional configuration information
+	 * The method returns null if the requested rule type is not listed in the switch case
+	 * @param aRuleType
+	 * @param aDefaultsMap
+	 * @param aStateIdsMap
+	 * @return the Rule subclass corresponding to aRuleType
+	 */
 	public Rule createRule(RuleType aRuleType, Map<String, Double> aDefaultsMap, Map<String, Integer> aStateIdsMap)
 	{
 		Rule rule;
@@ -71,6 +92,13 @@ public class RuleFactory {
 		return rule;
 	}
 	
+	/**
+	 * A method to make accessing the resource file slightly easier
+	 * This method fails when the resource does not exist
+	 * @param aResourceToObtain
+	 * @return string associated with aResourceToObtain
+	 */
+	@Deprecated
 	private String getResource(String aResourceToObtain)
 	{
 		return fSimulationPropertiesRB.getString(aResourceToObtain);

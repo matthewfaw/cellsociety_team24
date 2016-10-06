@@ -9,6 +9,15 @@ import resources.ResourceBundleHandler;
 /**
  * A class intended to provide essential access methods
  * for XML documents
+ * 
+ * This class will fail when it is given an invalid filepath or 
+ * asked to find an XML element that does not exist
+ * 
+ * To instantiate the class:
+ * XMLReader reader = new XMLReader("/path/to/xml/file/file.xml");
+ * To find an element by tag name:
+ * reader.findElement("aTagName");
+ * 
  * @author matthewfaw
  *
  */
@@ -26,6 +35,9 @@ public class XMLReader {
 		fErrorRBHandler = new ResourceBundleHandler(ERROR_PATH);
 	}
 	
+	/**
+	 * @return the XML document root
+	 */
 	public Element getRoot()
 	{
 		return fDocumentRoot;
@@ -68,16 +80,32 @@ public class XMLReader {
 		
 		return firstChild;
 	}
+	/**
+	 * Retrieves the first child element matching aTagNameToFind
+	 * @param aTagNameToFind
+	 * @return
+	 */
 	public Element findFirstChildElement(String aTagNameToFind)
 	{
 		return findFirstChildElement(fDocumentRoot, aTagNameToFind);
 	}
 	
+	/**
+	 * Gets the requested XML attribute string
+	 * @param aAttributeName
+	 * @return
+	 */
 	public String getAttribute(String aAttributeName)
 	{
 		return fDocumentRoot.getAttribute(aAttributeName);
 	}
 
+	/**
+	 * Gets the text value associated with aTagName, searching from root aNode
+	 * @param aNode
+	 * @param aTagName
+	 * @return
+	 */
 	public String getTextValue(Element aNode, String aTagName) 
 	{
 		NodeList nodeList = aNode.getElementsByTagName(aTagName);
@@ -88,6 +116,11 @@ public class XMLReader {
 			return "";
 		}
 	}
+	/**
+	 * Gets the text value associated with aTagName, searching from the document root
+	 * @param aTagName
+	 * @return
+	 */
 	public String getTextValue(String aTagName) 
 	{
 		return getTextValue(fDocumentRoot, aTagName);

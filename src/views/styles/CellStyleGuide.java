@@ -5,19 +5,27 @@ import java.util.Map;
 
 /**
  * The purpose of this class is to encapulate 
- * the information relevant to the cells that comes
- * from XML
+ * the information from XML relevant to the cells on the view side
+ * The CellStyleGuideFactory is responsible for building the subclasses
+ * of this object
+ * 
+ * The reason why this class is abstract is to allow subclasses to 
+ * provide different implementations of the getColor method.  This
+ * allows different subclasses to perform different manipulations on the
+ * Hex value stored in the color map
+ * 
+ * An example usage, after the CellStyleGuide has been constructed:
+ * cellStyleGuide.getColor(3); // gets the color associated with a given state id
+ * 
  * @author matthewfaw
  *
  */
 public abstract class CellStyleGuide {
 	private HashMap<Integer, String> fColors;
-//	private HashMap<Integer, String> fNames;
 	
 	public CellStyleGuide()
 	{
 		fColors = new HashMap<Integer, String>();
-//		fNames = new HashMap<Integer, String>();
 	}
 
 	/**
@@ -37,28 +45,13 @@ public abstract class CellStyleGuide {
 	{
 		fColors.put(aStateIndex, aHexValue);
 	}
+	/**
+	 * gets the color map
+	 * @return
+	 */
 	protected Map<Integer, String> getColors()
 	{
 		return fColors;
 	}
 	
-	/**
-	 * returns the name of the requested state
-	 * @param aStateIndex
-	 * @return
-	 */
-//	public String getName(int aStateIndex)
-//	{
-//		return fNames.get(aStateIndex);
-//	}
-	/**
-	 * sets the name of the specified state
-	 * @param aStateIndex
-	 * @param aName
-	 */
-//	public void setName(int aStateIndex, String aName)
-//	{
-//		fNames.put(aStateIndex, aName);
-//	}
-
 }
