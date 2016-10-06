@@ -22,7 +22,7 @@ import exceptions.ResourceBundleException;
  */
 public class ResourceBundleHandler {
 	private static final String ERROR_PATH = "resources/ErrorMessages";
-	private final ResourceBundle fErrorMessageRB = ResourceBundle.getBundle(ERROR_PATH);
+	private ResourceBundle fErrorMessageRB;
 
 	private String fResourcePath;
 	private ResourceBundle fResourceBundle;
@@ -31,6 +31,8 @@ public class ResourceBundleHandler {
 	{
 		fResourcePath = aResourcePath;
 		fResourceBundle = ResourceBundle.getBundle(fResourcePath);
+
+		fErrorMessageRB = ResourceBundle.getBundle(ERROR_PATH);
 	}
 	
 	/**

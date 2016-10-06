@@ -1,11 +1,11 @@
+// This entire file is part of my masterpiece.
+// Matthew Faw
 package models.settings;
 
 import java.awt.Dimension;
 import java.util.HashMap;
-import java.util.ResourceBundle;
 
-import exceptions.GridTypeException;
-import exceptions.RuleTypeException;
+import exceptions.ConfigurationException;
 import models.rules.RuleType;
 import resources.CellShapes;
 import resources.NeighborType;
@@ -14,20 +14,28 @@ import views.grid.GridType;
 
 /**
  * The purpose of this class is to encapsulate the grid settings specified the XML
- * and organize the data in an understandable and easily-accessible way.
+ * and organize the data in an understandable and easily-accessible way. Since it would
+ * be difficult to always remember the strings specified in XML associated with grid type,
+ * grid rules, and grid neighbors, this class provides the conversion of those strings in to
+ * their associated enums so that the ___Types can be more strictly specified when dealing
+ * with then elsewhere in the code 
  * 
- * This class will throw an error if the specified grid rule or grid type is not
- * among the valid list of options. **Currently, if the specified grid neighbors is
- * invalid, it will set the grid neighbors to null. However, I will change this to 
- * throw an error**
+ * This class will throw an error if the specified grid rule, grid type, or grid neighbors is not
+ * among the valid list of options. Thus, when adding a new grid type, the coder will always know where
+ * the error is occurring
  * 
- * This class depends on the ResourceBundleHandler to manage retrieving data from the 
- * resource bundles.  This class also depends on the GridType, RuleType, and NeighborType enums
+ * This class depends on the ResourceBundleHandler to retrieve the proper error messages. This allows
+ * the possibility of this error message's supporting multiple languages.
+ * This class also depends on the GridType, RuleType, and NeighborType enums
  * in order to specify the possible valid grid, rule, and neighbor types
  * 
- * An example:
- * GridSettings gridSettings = new GridSettings(new Dimension(2,3), "hexagonal", "wator", "edges");
- * gridSettings.getGridType() // Returns the enum associated with "hexagonal"!
+ * This class is instantiated using the factory:
+ * GridSettingsFactory gridSettingsFactory = new GridSettingsFactory("/path/to/xml/grid_config/simName_grid.xml");
+ * GridSettings gridSettings = gridSettingsFactory.createGridSettings();
+ * 
+ * To get the grid type specified in the file:
+ * gridSettings.getGridType() // Returns the enum associated with the grid type specified in simName_grid.xml!
+ * 
  * @author matthewfaw
  *
  */
@@ -50,10 +58,9 @@ public class GridSettings {
 		configureGridNeighbors(aGridNeighbors);
 		
 		fStatePercentages = new HashMap<Integer, Integer>();
-		
 		fErrorRBHandler = new ResourceBundleHandler(ERROR_PATH);
 	}
-	
+
 	/**
 	 * @return the GridType that was specified in XML
 	 */
@@ -100,7 +107,7 @@ public class GridSettings {
 			fGridRule = RuleType.SlimeMold;
 			break;
 		default:
-			throw new RuleTypeException(fErrorRBHandler.getResource("InvalidRule"), aGridRule);
+			throw new ConfigurationException(fErrorRBHandler.getResource("InvalidRule"), aGridRule);
 		}
 	}
 	//XXX: want to switch on the strings from resource bundle, but this doesn't seem to be possible
@@ -125,7 +132,7 @@ public class GridSettings {
 				fCellSides = CellShapes.TRIANGULAR;
 				break;
 			default:
-				throw new GridTypeException(fErrorRBHandler.getResource("InvalidGridType"), aGridType);
+				throw new ConfigurationException(fErrorRBHandler.getResource("InvalidGridType"), aGridType);
 		}
 	}
 	/**
@@ -147,8 +154,7 @@ public class GridSettings {
 			fNeighborType = NeighborType.StrangeTriangle;
 			break;
 		default:
-			//XXX: Throw error here instead
-			fGridType = null;
+			throw new ConfigurationException(fErrorRBHandler.getResource("InvalidNeighbors"), aGridNeighbors);
 		}
 	}
 	
