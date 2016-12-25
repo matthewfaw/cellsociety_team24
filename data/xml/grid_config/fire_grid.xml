@@ -4,11 +4,10 @@
 		<width>8</width>
 		<height>8</height>
 	</gridSize>
-	<type>hexagonal</type>
+	<type>triangular</type>
 	<stateProportions>
 		<percent id="0" value="30"></percent>
 		<percent id="1" value="30"></percent>
 		<percent id="2" value="40"></percent>
 	</stateProportions>
-	<gridRules>fire</gridRules>
-	<neighbors>edges</neighbors></GridConfig>
+	<gridRules>fire</gridRules></GridConfig>
